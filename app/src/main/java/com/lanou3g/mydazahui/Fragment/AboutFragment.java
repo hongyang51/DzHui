@@ -18,6 +18,6 @@ public class AboutFragment extends BaseFragment {
 
     @Override
     public void initData() {
-
+//sdasdasdasdasd
     }
 }
