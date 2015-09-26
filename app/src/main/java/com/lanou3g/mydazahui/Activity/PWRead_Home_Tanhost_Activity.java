@@ -86,7 +86,7 @@ public class PWRead_Home_Tanhost_Activity extends MainActivity implements HomeFr
 
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if ((System.currentTimeMillis() - exitTime) > 2000) {
-                Toast.makeText(PWRead_Home_Tanhost_Activity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PWRead_Home_Tanhost_Activity.this, "再按一次退出新闻大杂烩", Toast.LENGTH_SHORT).show();
                 exitTime = System.currentTimeMillis();
             } else {
                 PWRead_Home_Tanhost_Activity.this.finish();
