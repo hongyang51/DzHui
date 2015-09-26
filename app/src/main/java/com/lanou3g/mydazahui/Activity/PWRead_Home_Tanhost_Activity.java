@@ -27,6 +27,7 @@ import java.util.ArrayList;
 public class PWRead_Home_Tanhost_Activity extends MainActivity implements HomeFragment.NewsOnclick {
     private TabHost myTabhost;
     private FragmentManager manager;
+    private long exitTime = 0;// 双击返回间隔时间
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +79,8 @@ public class PWRead_Home_Tanhost_Activity extends MainActivity implements HomeFr
 
     }
 
-    private long exitTime = 0;
 
+// 双击返回的Toast提示
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
