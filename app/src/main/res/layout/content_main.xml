@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".MainActivity"
+    tools:showIn="@layout/activity_main">
+
+    <TextView
+        android:id="@+id/welcome_ch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/welcome_cn"
+        android:textColor="@color/welcome_ch"
+        android:textSize="@dimen/welcome_ch" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/welcome_ch"
+        android:layout_centerHorizontal="true"
+        android:text="@string/welcome_en"
+        android:textColor="@color/welcome_en"
+        android:textSize="@dimen/welcome_en" />
+
+    <View
+        android:id="@+id/center_view"
+        android:layout_width="1dp"
+        android:layout_height="30dp"
+        android:layout_centerInParent="true">
+
+    </View>
+
+    <ImageView
+        android:id="@+id/food_image"
+        android:layout_width="@dimen/welcome_img_w"
+        android:layout_height="@dimen/welcome_img_h"
+        android:layout_above="@id/center_view"
+        android:layout_centerHorizontal="true"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/food" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/food_image"
+        android:layout_alignRight="@id/food_image"
+        android:text="@string/welcome_food" />
+
+    <ImageView
+        android:id="@+id/read_image"
+        android:layout_width="@dimen/welcome_img_w"
+        android:layout_height="@dimen/welcome_img_h"
+        android:layout_below="@id/center_view"
+        android:layout_centerHorizontal="true"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/paopaokanshu" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/read_image"
+        android:layout_alignLeft="@id/read_image"
+        android:text="@string/welcome_read" />
+
+    <TextView
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:singleLine="false"
+        android:text="@string/welcome_Select"
+        android:textColor="@color/colorPrimary" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/welcome_All_rights"
+        android:textSize="@dimen/welcome_All_rights" />
+</RelativeLayout>

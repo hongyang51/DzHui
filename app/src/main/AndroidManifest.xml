@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.lanou3g.mydazahui">
+
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/dzhtubiao"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+
+        <activity android:name=".Activity.PWReadOneActivity">
+        </activity>
+        <activity android:name=".Base.MainActivity">
+        </activity>
+        <activity android:name=".Activity.PatchWork_FirstActivity"></activity>
+        <activity android:name=".Activity.PWRead_Home_Tanhost_Activity"></activity>
+        <activity android:name=".Activity.WebViewActivity"></activity>
+        <activity android:name=".Activity.GroomActivity"
+            android:launchMode="singleTask"
+            ></activity>
+        <activity android:name=".Activity.PatchWorkOneActivity"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+    </application>
+
+</manifest>

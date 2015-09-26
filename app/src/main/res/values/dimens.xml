@@ -1,0 +1,15 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="welcome_ch">25sp</dimen>
+    <dimen name="welcome_en">20sp</dimen>
+    <dimen name="welcome_All_rights">10sp</dimen>
+    <dimen name="welcome_img_w">150sp</dimen>
+    <dimen name="welcome_img_h">100sp</dimen>
+    <dimen name="read_one_TextView">20sp</dimen>
+    <dimen name="view_Pager_height">250dp</dimen>
+    <dimen name="tensevendp">17dp</dimen>
+</resources>

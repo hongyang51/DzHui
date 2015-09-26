@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/home_fragment_viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_Pager_height">
+
+            </android.support.v4.view.ViewPager>
+
+            <LinearLayout
+                android:id="@+id/home_viewpager_LinearL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/day"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:orientation="vertical"
+                    android:padding="1dp">
+
+                    <ImageView
+                        android:id="@+id/day_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="#36000000" />
+
+                    <TextView
+                        android:id="@+id/day_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/movie"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:orientation="vertical"
+                    android:padding="1dp">
+
+                    <ImageView
+                        android:id="@+id/movie_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="#36000000" />
+
+                    <TextView
+                        android:id="@+id/movie_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/Design"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:orientation="vertical"
+                    android:padding="1dp">
+
+                    <ImageView
+                        android:id="@+id/Design_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="#36000000" />
+
+                    <TextView
+                        android:id="@+id/Design_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/money"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:orientation="vertical"
+                    android:padding="1dp">
+
+                    <ImageView
+                        android:id="@+id/money_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="#36000000" />
+
+                    <TextView
+                        android:id="@+id/money_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+
+                        android:layout_centerHorizontal="true" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/game"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:orientation="vertical"
+                    android:padding="1dp">
+
+                    <ImageView
+                        android:id="@+id/game_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="#36000000" />
+
+                    <TextView
+                        android:id="@+id/game_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/Animation"
+                    android:layout_width="match_parent"
+                    android:layout_height="110dp"
+                    android:orientation="vertical"
+                    android:padding="1dp">
+
+                    <ImageView
+                        android:id="@+id/Animation_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="#36000000" />
+
+                    <TextView
+                        android:id="@+id/Animation_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true" />
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/user"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:orientation="vertical"
+                    android:padding="1dp">
+
+                    <ImageView
+                        android:id="@+id/user_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="#36000000" />
+
+                    <TextView
+                        android:id="@+id/user_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/unBored"
+                    android:layout_width="match_parent"
+                    android:layout_height="110dp"
+                    android:orientation="vertical"
+                    android:padding="1dp">
+
+                    <ImageView
+                        android:id="@+id/unBored_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="#36000000" />
+
+                    <TextView
+                        android:id="@+id/unBored_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/Big"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:orientation="vertical"
+                    android:padding="1dp">
+
+                    <ImageView
+                        android:id="@+id/Big_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="#36000000" />
+
+                    <TextView
+                        android:id="@+id/Big_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/intenet"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:orientation="vertical"
+                    android:padding="1dp">
+
+                    <ImageView
+                        android:id="@+id/intenet_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="#36000000" />
+
+                    <TextView
+                        android:id="@+id/intenet_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/music"
+                    android:layout_width="match_parent"
+                    android:layout_height="110dp"
+                    android:orientation="vertical"
+                    android:padding="1dp">
+
+                    <ImageView
+                        android:id="@+id/music_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="#36000000" />
+
+                    <TextView
+                        android:id="@+id/music_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true" />
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/play"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:orientation="vertical"
+                    android:padding="1dp">
+
+                    <ImageView
+                        android:id="@+id/play_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="#36000000" />
+
+                    <TextView
+                        android:id="@+id/play_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true" />
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
