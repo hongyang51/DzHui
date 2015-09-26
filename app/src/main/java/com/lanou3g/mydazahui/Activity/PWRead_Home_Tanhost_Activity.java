@@ -5,7 +5,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.TabHost;
+import android.widget.Toast;
 
 import com.lanou3g.mydazahui.Base.Final_Base;
 import com.lanou3g.mydazahui.Base.MainActivity;
@@ -76,18 +78,34 @@ public class PWRead_Home_Tanhost_Activity extends MainActivity implements HomeFr
 
     }
 
+    private long exitTime = 0;
+
     @Override
-    public void OnNewsOnclick(String s,ArrayList<Theme.OthersEntity> othersEntities) {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                Toast.makeText(PWRead_Home_Tanhost_Activity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                PWRead_Home_Tanhost_Activity.this.finish();
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void OnNewsOnclick(String s, ArrayList<Theme.OthersEntity> othersEntities) {
         if (s != null) {
             myTabhost.setCurrentTab(1);
-         int i =    myTabhost.getCurrentTab();
-            Log.e("sss",i +"");
+            int i = myTabhost.getCurrentTab();
+            Log.e("sss", i + "");
         }
         NewsFragment fragment = (NewsFragment) manager.findFragmentByTag(Final_Base.TABSPC_NEWS_TAG);
         ViewPager viewPager = fragment.getmViewPager();
         for (int i = 0; i < othersEntities.size(); i++) {
             boolean b = s == othersEntities.get(i).getName();
-            if (b){
+            if (b) {
                 viewPager.setCurrentItem(i);
             }
         }
