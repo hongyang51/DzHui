@@ -78,7 +78,6 @@ public class OneNewFragment extends AbsBaseFragment {
         list_adapter = new NewsFragment_List_Adapter(mActivity,storiesEntities);
         allnews_listview.addHeaderView(static_img_view);
         allnews_listview.setAdapter(list_adapter);
-        allnews_listview.setDivider(null);
         allnews_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

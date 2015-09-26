@@ -20,14 +20,12 @@ import java.util.List;
  * Created by dllo on 15/9/23.
  */
 public class NewsFragment_List_Adapter extends BaseAdapter {
-    private Context context;
     private VolleySingleton singleton;
     private ImageLoader imageLoader;
     private List<ThemeNews.StoriesEntity> storiesEntities;
     private LayoutInflater infalter;
 
     public NewsFragment_List_Adapter(Context context, List<ThemeNews.StoriesEntity> storiesEntities) {
-        this.context = context;
         this.infalter = LayoutInflater.from(context);
         this.storiesEntities = storiesEntities;
         singleton = VolleySingleton.getVolleySingleton(context);

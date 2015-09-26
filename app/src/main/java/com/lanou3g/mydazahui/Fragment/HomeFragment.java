@@ -60,8 +60,6 @@ public class HomeFragment extends BaseFragment {
     private HomeFragment_ViewPager_Adapter adapter;
     private HomeFragment_List_Adapter list_adapter;
     private NewsOnclick onclickLisner;
-
-    private boolean isStop;
     private Handler handler = new Handler();
 
     public interface NewsOnclick {
@@ -117,7 +115,6 @@ public class HomeFragment extends BaseFragment {
                 initGuide();// 设置引导小点
                 initListView();
                 listView.addHeaderView(view);
-                listView.setDivider(null);
                 listView.setAdapter(list_adapter);
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
@@ -251,7 +248,6 @@ public class HomeFragment extends BaseFragment {
 
 
     private void stopImageTimerTask() {
-        isStop = true;
         handler.removeCallbacks(runnable);
     }
 
