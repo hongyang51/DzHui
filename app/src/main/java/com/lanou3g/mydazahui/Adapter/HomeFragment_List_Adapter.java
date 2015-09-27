@@ -1,6 +1,7 @@
 package com.lanou3g.mydazahui.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -28,6 +29,20 @@ public class HomeFragment_List_Adapter extends BaseAdapter {
         this.storiesEntities = storiesEntities;
         singleton = VolleySingleton.getVolleySingleton(context);
         imageLoader = singleton.getImageLoader();
+    }
+
+
+    public void Onloading(ArrayList<LatestNews.StoriesEntity> storiesEntities) {
+        this.storiesEntities.addAll(storiesEntities);
+        Log.e("sss", "加载更多");
+        notifyDataSetChanged();
+
+    }
+
+    public void OnRefreshing(ArrayList<LatestNews.StoriesEntity> storiesEntities) {
+        this.storiesEntities.clear();
+        this.storiesEntities.addAll(storiesEntities);
+        notifyDataSetChanged();
     }
 
     @Override

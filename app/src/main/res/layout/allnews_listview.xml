@@ -2,14 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/allnews_listview"
-        android:divider="@null"
-        android:dividerHeight="10dp"
-        >
 
-    </ListView>
+    <com.lanou3g.mydazahui.ListView.SwipeRefreshLoadingLayout
+        android:id="@+id/swipeRefreshLoadingLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/allnews_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@null"
+            android:dividerHeight="10dp">
+
+        </ListView>
+
+    </com.lanou3g.mydazahui.ListView.SwipeRefreshLoadingLayout>
 
 </LinearLayout>

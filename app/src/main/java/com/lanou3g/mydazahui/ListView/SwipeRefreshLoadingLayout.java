@@ -106,7 +106,9 @@ public class SwipeRefreshLoadingLayout extends ViewGroup {
         }
     };
 
-    /**设置下方进度条的完成度百分比*/
+    /**
+     * 设置下方进度条的完成度百分比
+     */
     private Animation mShrinkTriggerBottom = new Animation() {
         @Override
         public void applyTransformation(float interpolatedTime, Transformation t) {
@@ -115,7 +117,9 @@ public class SwipeRefreshLoadingLayout extends ViewGroup {
         }
     };
 
-    /**监听，回复初始位置*/
+    /**
+     * 监听，回复初始位置
+     */
     private final AnimationListener mReturnToStartPositionListener = new BaseAnimationListener() {
         @Override
         public void onAnimationEnd(Animation animation) {
@@ -126,7 +130,9 @@ public class SwipeRefreshLoadingLayout extends ViewGroup {
         }
     };
 
-    /**回复进度条百分比*/
+    /**
+     * 回复进度条百分比
+     */
     private final Animation.AnimationListener mShrinkAnimationListener = new BaseAnimationListener() {
         @Override
         public void onAnimationEnd(Animation animation) {
@@ -134,7 +140,9 @@ public class SwipeRefreshLoadingLayout extends ViewGroup {
         }
     };
 
-    /**回复初始位置*/
+    /**
+     * 回复初始位置
+     */
     private final Runnable mReturnToStartPosition = new Runnable() {
 
         @Override
@@ -146,7 +154,9 @@ public class SwipeRefreshLoadingLayout extends ViewGroup {
 
     };
 
-    /** 取消刷新手势和动画,一切回到初始状态。*/
+    /**
+     * 取消刷新手势和动画,一切回到初始状态。
+     */
     private final Runnable mCancel = new Runnable() {
 
         @Override
@@ -290,6 +300,7 @@ public class SwipeRefreshLoadingLayout extends ViewGroup {
 
     /**
      * 加载的显示状态
+     *
      * @param loading
      */
     public void setLoading(boolean loading) {

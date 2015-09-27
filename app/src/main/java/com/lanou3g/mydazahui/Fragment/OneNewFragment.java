@@ -22,6 +22,7 @@ import com.lanou3g.mydazahui.Base.AbsBaseFragment;
 import com.lanou3g.mydazahui.Base.Final_Base;
 import com.lanou3g.mydazahui.Bean.Theme;
 import com.lanou3g.mydazahui.Bean.ThemeNews;
+import com.lanou3g.mydazahui.ListView.SwipeRefreshLoadingLayout;
 import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.utils.VolleySingleton;
 
@@ -30,7 +31,7 @@ import java.util.ArrayList;
 /**
  * Created by xyb on 15/9/21.
  */
-public class OneNewFragment extends AbsBaseFragment {
+public class OneNewFragment extends AbsBaseFragment implements SwipeRefreshLoadingLayout.OnRefreshListener, SwipeRefreshLoadingLayout.OnLoadListener {
     private ArrayList<ThemeNews.StoriesEntity> storiesEntities;
     private ListView allnews_listview;
     private NewsFragment_List_Adapter list_adapter;
@@ -41,21 +42,24 @@ public class OneNewFragment extends AbsBaseFragment {
     private TextView static_text;
     private ImageLoader imageLoader;
     private ImageLoader.ImageListener listener;
+    private SwipeRefreshLoadingLayout swipeRefreshLoadingLayout;
+    private String urlAdd;
+    private int newsId;
 
 
-    public static OneNewFragment getFragment(int position,ArrayList<Theme.OthersEntity> othersEntities){
+    public static OneNewFragment getFragment(int position, ArrayList<Theme.OthersEntity> othersEntities) {
         OneNewFragment f = new OneNewFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable("others",othersEntities);
-        bundle.putInt("arg",position);
+        bundle.putSerializable("others", othersEntities);
+        bundle.putInt("arg", position);
         f.setArguments(bundle);
         return f;
     }
 
     @Override
     protected View inflaterView(LayoutInflater inflater, ViewGroup container) {
-        static_img_view = inflater.inflate(R.layout.fragment_static_img,null);
-        return inflater.inflate(R.layout.allnews_listview,container,false);
+        static_img_view = inflater.inflate(R.layout.fragment_static_img, null);
+        return inflater.inflate(R.layout.allnews_listview, container, false);
     }
 
     @Override
@@ -63,25 +67,31 @@ public class OneNewFragment extends AbsBaseFragment {
         allnews_listview = (ListView) view.findViewById(R.id.allnews_listview);
         static_img = (ImageView) static_img_view.findViewById(R.id.static_img);
         static_text = (TextView) static_img_view.findViewById(R.id.static_text);
+
+
     }
 
     @Override
     public void initData() {
         singleton = VolleySingleton.getVolleySingleton(mActivity);
         imageLoader = singleton.getImageLoader();
-        listener = ImageLoader.getImageListener(static_img,R.mipmap.lanniao,R.mipmap.lanniao);
+        listener = ImageLoader.getImageListener(static_img, R.mipmap.lanniao, R.mipmap.lanniao);
         int arg = (int) getArguments().get("arg");
         ArrayList<Theme.OthersEntity> others = (ArrayList<Theme.OthersEntity>) getArguments().getSerializable("others");
         // 拼接链接
-        String UrlAdd =Final_Base.THEMES_URL+others.get(arg).getId();
+        newsId = others.get(arg).getId();
+        urlAdd = Final_Base.THEMES_URL + newsId;
         storiesEntities = new ArrayList<>();
-        list_adapter = new NewsFragment_List_Adapter(mActivity,storiesEntities);
+        list_adapter = new NewsFragment_List_Adapter(mActivity, storiesEntities);
         allnews_listview.addHeaderView(static_img_view);
         allnews_listview.setAdapter(list_adapter);
+        swipeRefreshLoadingLayout = (SwipeRefreshLoadingLayout) view.findViewById(R.id.swipeRefreshLoadingLayout);
+        swipeRefreshLoadingLayout.setOnRefreshListener(this);
+        swipeRefreshLoadingLayout.setOnLoadListener(this);
         allnews_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position>0) {
+                if (position > 0) {
                     Log.e("ID", storiesEntities.get(position - 1).getId() + "");
                     int newsId = storiesEntities.get(position - 1).getId();// 因为设置了list头所有position-1
                     Intent intent = new Intent(mActivity, WebViewActivity.class);
@@ -90,13 +100,13 @@ public class OneNewFragment extends AbsBaseFragment {
                 }
             }
         });
-        request = new StringRequest(UrlAdd, new Response.Listener<String>() {
+        request = new StringRequest(urlAdd, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
                 ThemeNews themeNews = JSON.parseObject(response, ThemeNews.class);
                 static_text.setText(themeNews.getDescription());
-                imageLoader.get(themeNews.getBackground(),listener);
+                imageLoader.get(themeNews.getBackground(), listener);
                 storiesEntities = (ArrayList<ThemeNews.StoriesEntity>) themeNews.getStories();
                 list_adapter.addDatas(storiesEntities);
 
@@ -112,5 +122,15 @@ public class OneNewFragment extends AbsBaseFragment {
 
     }
 
+    //     刷新方法
+    @Override
+    public void onRefresh() {
+        list_adapter.OnRefreshing(urlAdd, swipeRefreshLoadingLayout);
+    }
 
+    //   加载方法
+    @Override
+    public void onLoad() {
+        list_adapter.OnLoading(newsId, swipeRefreshLoadingLayout);
+    }
 }

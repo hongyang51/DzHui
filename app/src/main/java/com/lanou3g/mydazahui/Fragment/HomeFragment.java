@@ -25,15 +25,18 @@ import com.lanou3g.mydazahui.Base.BaseFragment;
 import com.lanou3g.mydazahui.Base.Final_Base;
 import com.lanou3g.mydazahui.Bean.LatestNews;
 import com.lanou3g.mydazahui.Bean.Theme;
+import com.lanou3g.mydazahui.ListView.SwipeRefreshLoadingLayout;
 import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.utils.VolleySingleton;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by dllo on 15/9/22.
  */
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLayout.OnLoadListener, SwipeRefreshLoadingLayout.OnRefreshListener {
     private ViewPager viewPager;
     private VolleySingleton singleton;
     private LinearLayout home_viewpager_LinearL;
@@ -61,6 +64,63 @@ public class HomeFragment extends BaseFragment {
     private HomeFragment_List_Adapter list_adapter;
     private NewsOnclick onclickLisner;
     private Handler handler = new Handler();
+    private SwipeRefreshLoadingLayout swipeRefreshLoadingLayout;
+    private int a = 0;
+
+
+    // 上拉加载
+    @Override
+    public void onLoad() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        Calendar calendar = Calendar.getInstance();
+        //日期减一
+        a =a-1;
+        calendar.add(calendar.DATE, a);
+        String s = sdf.format(calendar.getTime());
+        String newUrl = "http://news-at.zhihu.com/api/4/stories/before/" + s;
+        Log.i("TEST", "当前时间" + s);
+        Log.i("TEST", "当前网址" + newUrl);
+        StringRequest stringRequest = new StringRequest(newUrl, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Gson gson = new Gson();
+                LatestNews latestNews = gson.fromJson(response, LatestNews.class);
+                storiesEntities = (ArrayList<LatestNews.StoriesEntity>) latestNews.getStories();
+                list_adapter.Onloading(storiesEntities);
+                swipeRefreshLoadingLayout.setLoading(false);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+       singleton.addQueue(stringRequest,"onLoding");
+    }
+
+    // 下拉刷新
+    @Override
+    public void onRefresh() {
+        StringRequest stringRequest = new StringRequest(Final_Base.LATESTNEWS_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Gson gson = new Gson();
+                LatestNews latestNews = gson.fromJson(response, LatestNews.class);
+                storiesEntities = (ArrayList<LatestNews.StoriesEntity>) latestNews.getStories();
+                list_adapter.OnRefreshing(storiesEntities);
+                swipeRefreshLoadingLayout.setRefreshing(false);
+//                Log.e("sss","正在刷新");
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        singleton.addQueue(stringRequest,"onRefresh");
+    }
 
     public interface NewsOnclick {
         void OnNewsOnclick(String s, ArrayList<Theme.OthersEntity> othersEntities);
@@ -75,9 +135,14 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     public View initViews() {
+
         views = View.inflate(mActivity, R.layout.fragment_tabhost_home_listview, null);
+        swipeRefreshLoadingLayout = (SwipeRefreshLoadingLayout) views.findViewById(R.id.swipeRefreshLoadingLayout);
+        swipeRefreshLoadingLayout.setOnLoadListener(this);
+        swipeRefreshLoadingLayout.setOnRefreshListener(this);
         listView = (ListView) views.findViewById(R.id.Home_list_item);
         view = View.inflate(mActivity, R.layout.fragment_tabhost_home_socll, null);
+
         viewPager = (ViewPager) view.findViewById(R.id.home_fragment_viewPager);
         singleton = VolleySingleton.getVolleySingleton(mActivity);
         imageLoader = singleton.getImageLoader();
@@ -241,7 +306,7 @@ public class HomeFragment extends BaseFragment {
             viewPager.setCurrentItem(++index);
             Log.e("SSSSSSS", "线程");
 
-                handler.postDelayed(runnable, 4000);
+            handler.postDelayed(runnable, 4000);
 
         }
     };

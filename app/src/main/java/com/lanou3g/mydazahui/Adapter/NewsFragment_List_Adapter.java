@@ -1,15 +1,21 @@
 package com.lanou3g.mydazahui.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
+import com.android.volley.toolbox.StringRequest;
 import com.lanou3g.mydazahui.Bean.ThemeNews;
+import com.lanou3g.mydazahui.ListView.SwipeRefreshLoadingLayout;
 import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.utils.VolleySingleton;
 
@@ -23,7 +29,9 @@ public class NewsFragment_List_Adapter extends BaseAdapter {
     private VolleySingleton singleton;
     private ImageLoader imageLoader;
     private List<ThemeNews.StoriesEntity> storiesEntities;
+    private List<ThemeNews.StoriesEntity> storiesEntities2;
     private LayoutInflater infalter;
+
 
     public NewsFragment_List_Adapter(Context context, List<ThemeNews.StoriesEntity> storiesEntities) {
         this.infalter = LayoutInflater.from(context);
@@ -31,6 +39,63 @@ public class NewsFragment_List_Adapter extends BaseAdapter {
         singleton = VolleySingleton.getVolleySingleton(context);
         imageLoader = singleton.getImageLoader();
     }
+
+    public void OnLoading(int newsId, final SwipeRefreshLoadingLayout swipeRefreshLoadingLayout) {
+        storiesEntities2 = new ArrayList<>();
+        int LoadId = storiesEntities.get(storiesEntities.size() - 1).getId();
+        final String s = "http://news-at.zhihu.com/api/4/theme/" + newsId + "/before/" + LoadId;
+        Log.e("sss", "" + s);
+        StringRequest stringRequest = new StringRequest(s, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                ThemeNews themeNews = JSON.parseObject(response, ThemeNews.class);
+                storiesEntities2 = themeNews.getStories();
+                swipeRefreshLoadingLayout.setLoading(false);
+                initOnloading();
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        singleton.addQueue(stringRequest, "Onrefreshing");
+        Log.e("sss", "加载更多");
+    }
+
+    private void initOnloading() {
+        this.storiesEntities.addAll(storiesEntities2);
+        Log.e("ssss", "s111ss");
+        notifyDataSetChanged();
+    }
+
+    public void OnRefreshing(String urlAdd, final SwipeRefreshLoadingLayout swipeRefreshLoadingLayout) {
+        storiesEntities2 = new ArrayList<>();
+        StringRequest stringRequest = new StringRequest(urlAdd, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                ThemeNews themeNews = JSON.parseObject(response, ThemeNews.class);
+                storiesEntities2 = themeNews.getStories();
+                swipeRefreshLoadingLayout.setRefreshing(false);
+                initOnrefreshing();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        singleton.addQueue(stringRequest, "Onrefreshing");
+
+    }
+
+    private void initOnrefreshing() {
+        this.storiesEntities.clear();
+        this.storiesEntities.addAll(storiesEntities2);
+        notifyDataSetChanged();
+    }
+
 
     public void addDatas(List<ThemeNews.StoriesEntity> storiesEntities) {
         if (this.storiesEntities == null) {
@@ -92,5 +157,10 @@ public class NewsFragment_List_Adapter extends BaseAdapter {
     private class ViewHolder {
         private TextView news_list_item_text;
         private NetworkImageView img;
+    }
+
+
+    public interface toFragment {
+
     }
 }

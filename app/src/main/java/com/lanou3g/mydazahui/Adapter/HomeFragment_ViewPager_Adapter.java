@@ -38,6 +38,8 @@ public class HomeFragment_ViewPager_Adapter extends PagerAdapter {
         imageLoader = singleton.getImageLoader();
     }
 
+
+
     @Override
     public int getCount() {
         return Integer.MAX_VALUE;

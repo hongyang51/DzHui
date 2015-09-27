@@ -96,7 +96,7 @@ public class SwipeHorizontalProgressBar {
     /**
      * Stop showing the progress animation.
      */
-    void stop() {
+    public void stop() {
         if (mRunning) {
             mTriggerPercentage = 0;
             mFinishTime = AnimationUtils.currentAnimationTimeMillis();
