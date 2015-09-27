@@ -1,6 +1,8 @@
 package com.lanou3g.mydazahui.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
+import com.lanou3g.mydazahui.Activity.WebViewActivity;
+import com.lanou3g.mydazahui.Base.Final_Base;
 import com.lanou3g.mydazahui.Bean.LatestNews;
 import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.utils.VolleySingleton;
@@ -23,6 +27,8 @@ public class HomeFragment_List_Adapter extends BaseAdapter {
     private VolleySingleton singleton;
     private ImageLoader imageLoader;
     private ArrayList<LatestNews.StoriesEntity> storiesEntities;
+
+
 
     public HomeFragment_List_Adapter(Context context, ArrayList<LatestNews.StoriesEntity> storiesEntities) {
         this.context = context;
@@ -61,13 +67,14 @@ public class HomeFragment_List_Adapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
         if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = View.inflate(context, R.layout.home_listview_item, null);
             viewHolder.news_list_item_text = (TextView) convertView.findViewById(R.id.news_list_item_text);
             viewHolder.news_list_item_img = (ImageView) convertView.findViewById(R.id.news_list_item_img);
+            viewHolder.cardView  = (CardView) convertView.findViewById(R.id.cardView);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -78,7 +85,16 @@ public class HomeFragment_List_Adapter extends BaseAdapter {
             ImageLoader.ImageListener listener = ImageLoader.getImageListener(viewHolder.news_list_item_img,R.mipmap.lanniao,
                     R.mipmap.lanniao);
                 imageLoader.get(storiesEntity.getImages().get(0),listener);
-
+            viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                        Intent intent = new Intent(context, WebViewActivity.class);
+                        int newsId = storiesEntities.get(position).getId();
+                        intent.putExtra(Final_Base.NEWSID, newsId);
+                        context.startActivity(intent);
+                        Log.e("ID", storiesEntities.get(position).getId() + "");
+                }
+            });
         }
         return convertView;
     }
@@ -86,5 +102,6 @@ public class HomeFragment_List_Adapter extends BaseAdapter {
     private class ViewHolder {
         private TextView news_list_item_text;
         private ImageView news_list_item_img;
+        private CardView cardView;
     }
 }

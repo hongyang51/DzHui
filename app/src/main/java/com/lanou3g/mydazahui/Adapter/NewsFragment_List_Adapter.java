@@ -1,6 +1,8 @@
 package com.lanou3g.mydazahui.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.StringRequest;
+import com.lanou3g.mydazahui.Activity.WebViewActivity;
+import com.lanou3g.mydazahui.Base.Final_Base;
 import com.lanou3g.mydazahui.Bean.ThemeNews;
 import com.lanou3g.mydazahui.ListView.SwipeRefreshLoadingLayout;
 import com.lanou3g.mydazahui.R;
@@ -31,9 +35,11 @@ public class NewsFragment_List_Adapter extends BaseAdapter {
     private List<ThemeNews.StoriesEntity> storiesEntities;
     private List<ThemeNews.StoriesEntity> storiesEntities2;
     private LayoutInflater infalter;
+    private Context context;
 
 
     public NewsFragment_List_Adapter(Context context, List<ThemeNews.StoriesEntity> storiesEntities) {
+        this.context = context;
         this.infalter = LayoutInflater.from(context);
         this.storiesEntities = storiesEntities;
         singleton = VolleySingleton.getVolleySingleton(context);
@@ -123,13 +129,14 @@ public class NewsFragment_List_Adapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
         if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = infalter.inflate(R.layout.news_listview_item, null);
             viewHolder.news_list_item_text = (TextView) convertView.findViewById(R.id.news_list_item_text);
             viewHolder.img = (NetworkImageView) convertView.findViewById(R.id.news_list_item_img);
+            viewHolder.cardView = (CardView) convertView.findViewById(R.id.cardView);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -148,7 +155,16 @@ public class NewsFragment_List_Adapter extends BaseAdapter {
             } else {
                 viewHolder.img.setVisibility(View.GONE);
             }
-
+            viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.e("ID", storiesEntities.get(position).getId() + "");
+                    int newsId = storiesEntities.get(position).getId();// 因为设置了list头所有position-1
+                    Intent intent = new Intent(context, WebViewActivity.class);
+                    intent.putExtra(Final_Base.NEWSID, newsId);
+                    context.startActivity(intent);
+                }
+            });
 
         }
         return convertView;
@@ -157,10 +173,11 @@ public class NewsFragment_List_Adapter extends BaseAdapter {
     private class ViewHolder {
         private TextView news_list_item_text;
         private NetworkImageView img;
+        private CardView cardView;
     }
 
 
-    public interface toFragment {
-
-    }
+//    public interface toFragment {
+//
+//    }
 }

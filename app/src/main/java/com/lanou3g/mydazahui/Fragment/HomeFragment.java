@@ -1,24 +1,22 @@
 package com.lanou3g.mydazahui.Fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
-import com.lanou3g.mydazahui.Activity.WebViewActivity;
 import com.lanou3g.mydazahui.Adapter.HomeFragment_List_Adapter;
 import com.lanou3g.mydazahui.Adapter.HomeFragment_ViewPager_Adapter;
 import com.lanou3g.mydazahui.Base.BaseFragment;
@@ -44,6 +42,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
     private ImageView getImageView;
     private View view, views;
     private TextView textView;
+    private LatestNews latestNews;
     private ArrayList<ImageView> imageViews = new ArrayList<>();
     private ArrayList<LatestNews.TopStoriesEntity> topStories;
     private ArrayList<Theme.OthersEntity> othersEntities;
@@ -65,7 +64,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
     private NewsOnclick onclickLisner;
     private Handler handler = new Handler();
     private SwipeRefreshLoadingLayout swipeRefreshLoadingLayout;
-    private int a = 0;
+    private int a = 1;
 
 
     // 上拉加载
@@ -74,28 +73,35 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         Calendar calendar = Calendar.getInstance();
         //日期减一
-        a =a-1;
+        a = a - 1;
         calendar.add(calendar.DATE, a);
-        String s = sdf.format(calendar.getTime());
-        String newUrl = "http://news-at.zhihu.com/api/4/stories/before/" + s;
-        Log.i("TEST", "当前时间" + s);
-        Log.i("TEST", "当前网址" + newUrl);
-        StringRequest stringRequest = new StringRequest(newUrl, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Gson gson = new Gson();
-                LatestNews latestNews = gson.fromJson(response, LatestNews.class);
-                storiesEntities = (ArrayList<LatestNews.StoriesEntity>) latestNews.getStories();
-                list_adapter.Onloading(storiesEntities);
-                swipeRefreshLoadingLayout.setLoading(false);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
+        String newsDate = sdf.format(calendar.getTime());
+        Log.e("sss", latestNews.getDate());
 
-            }
-        });
-       singleton.addQueue(stringRequest,"onLoding");
+        if (latestNews.getDate().equals(newsDate)) {
+                String newUrl = "http://news-at.zhihu.com/api/4/stories/before/" + newsDate;
+                Log.i("TEST", "当前时间" + newsDate);
+                Log.i("TEST", "当前网址" + newUrl);
+                StringRequest stringRequest = new StringRequest(newUrl, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Gson gson = new Gson();
+                        latestNews = gson.fromJson(response, LatestNews.class);
+                        storiesEntities = (ArrayList<LatestNews.StoriesEntity>) latestNews.getStories();
+                        list_adapter.Onloading(storiesEntities);
+                        swipeRefreshLoadingLayout.setLoading(false);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                });
+                singleton.addQueue(stringRequest, "onLoding");
+        } else {
+            Toast.makeText(mActivity, "当前日期为" + latestNews.getDate() + "请您校正", Toast.LENGTH_LONG).show();
+            swipeRefreshLoadingLayout.setLoading(false);
+            return;
+        }
     }
 
     // 下拉刷新
@@ -105,10 +111,11 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
-                LatestNews latestNews = gson.fromJson(response, LatestNews.class);
+                latestNews = gson.fromJson(response, LatestNews.class);
                 storiesEntities = (ArrayList<LatestNews.StoriesEntity>) latestNews.getStories();
                 list_adapter.OnRefreshing(storiesEntities);
                 swipeRefreshLoadingLayout.setRefreshing(false);
+                a = 1;
 //                Log.e("sss","正在刷新");
 
             }
@@ -119,7 +126,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
             }
         });
 
-        singleton.addQueue(stringRequest,"onRefresh");
+        singleton.addQueue(stringRequest, "onRefresh");
     }
 
     public interface NewsOnclick {
@@ -157,7 +164,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
-                LatestNews latestNews = gson.fromJson(response, LatestNews.class);
+                latestNews = gson.fromJson(response, LatestNews.class);
                 storiesEntities = (ArrayList<LatestNews.StoriesEntity>) latestNews.getStories();
                 topStories = (ArrayList<LatestNews.TopStoriesEntity>) latestNews.getTop_stories();
                 adapter = new HomeFragment_ViewPager_Adapter(mActivity, topStories);
@@ -181,16 +188,16 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
                 initListView();
                 listView.addHeaderView(view);
                 listView.setAdapter(list_adapter);
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent = new Intent(mActivity, WebViewActivity.class);
-                        int newsId = storiesEntities.get(position - 1).getId();
-                        intent.putExtra(Final_Base.NEWSID, newsId);
-                        startActivity(intent);
-                        Log.e("ID", storiesEntities.get(position - 1).getId() + "");
-                    }
-                });
+//                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+////                        Intent intent = new Intent(mActivity, WebViewActivity.class);
+////                        int newsId = storiesEntities.get(position - 1).getId();
+////                        intent.putExtra(Final_Base.NEWSID, newsId);
+////                        startActivity(intent);
+////                        Log.e("ID", storiesEntities.get(position - 1).getId() + "");
+//                    }
+//                });
             }
         }, new Response.ErrorListener() {
             @Override
