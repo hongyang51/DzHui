@@ -1,31 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.lanou3g.mydazahui">
+    package="com.lanou3g.mydazahui" >
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/dzhtubiao"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
-
-        <activity android:name=".activity.PWReadOneActivity">
+        android:theme="@style/AppTheme" >
+        <activity android:name=".activity.PWReadOneActivity" >
         </activity>
-        <activity android:name=".base.MainActivity">
+        <activity android:name=".base.MainActivity" >
         </activity>
-        <activity android:name=".activity.PatchWork_FirstActivity"></activity>
-        <activity android:name=".activity.PWRead_Home_Tanhost_Activity"></activity>
-        <activity android:name=".activity.WebViewActivity"></activity>
-        <activity android:name=".activity.GroomActivity"
-            android:launchMode="singleTask"
-            ></activity>
-        <activity android:name=".activity.PatchWorkOneActivity"
-            >
+        <activity android:name=".activity.PatchWork_FirstActivity" />
+        <activity android:name=".activity.PWRead_Home_Tanhost_Activity" />
+        <activity android:name=".activity.WebViewActivity" />
+        <activity
+            android:name=".activity.GroomActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".activity.PatchWorkOneActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
+        </activity>
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>
 
