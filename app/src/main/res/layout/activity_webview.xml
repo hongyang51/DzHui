@@ -74,7 +74,7 @@
             android:text="推荐者"
             android:textColor="@android:color/black" />
 
-        <ImageView
+        <com.lanou3g.mydazahui.utils.CircleImageView
             android:id="@+id/groom_img"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"

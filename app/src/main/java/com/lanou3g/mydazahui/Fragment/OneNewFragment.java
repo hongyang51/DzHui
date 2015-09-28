@@ -1,12 +1,9 @@
 package com.lanou3g.mydazahui.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -16,7 +13,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.StringRequest;
-import com.lanou3g.mydazahui.Activity.WebViewActivity;
 import com.lanou3g.mydazahui.Adapter.NewsFragment_List_Adapter;
 import com.lanou3g.mydazahui.Base.AbsBaseFragment;
 import com.lanou3g.mydazahui.Base.Final_Base;
@@ -88,18 +84,18 @@ public class OneNewFragment extends AbsBaseFragment implements SwipeRefreshLoadi
         swipeRefreshLoadingLayout = (SwipeRefreshLoadingLayout) view.findViewById(R.id.swipeRefreshLoadingLayout);
         swipeRefreshLoadingLayout.setOnRefreshListener(this);
         swipeRefreshLoadingLayout.setOnLoadListener(this);
-        allnews_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position > 0) {
-                    Log.e("ID", storiesEntities.get(position - 1).getId() + "");
-                    int newsId = storiesEntities.get(position - 1).getId();// 因为设置了list头所有position-1
-                    Intent intent = new Intent(mActivity, WebViewActivity.class);
-                    intent.putExtra(Final_Base.NEWSID, newsId);
-                    startActivity(intent);
-                }
-            }
-        });
+//        allnews_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                if (position > 0) {
+//                    Log.e("ID", storiesEntities.get(position - 1).getId() + "");
+//                    int newsId = storiesEntities.get(position - 1).getId();// 因为设置了list头所有position-1
+//                    Intent intent = new Intent(mActivity, WebViewActivity.class);
+//                    intent.putExtra(Final_Base.NEWSID, newsId);
+//                    startActivity(intent);
+//                }
+//            }
+//        });
         request = new StringRequest(urlAdd, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

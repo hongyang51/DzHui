@@ -1,17 +1,16 @@
 package com.lanou3g.mydazahui.Adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.lanou3g.mydazahui.Bean.Groom;
 import com.lanou3g.mydazahui.R;
+import com.lanou3g.mydazahui.utils.CircleImageView;
 import com.lanou3g.mydazahui.utils.VolleySingleton;
 
 import java.util.ArrayList;
@@ -77,7 +76,7 @@ public class GroomAdapter extends BaseAdapter {
         if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(context).inflate(R.layout.groom_list_item, null);
-            viewHolder.avatar = (ImageView) convertView.findViewById(R.id.avatar);
+            viewHolder.avatar = (CircleImageView) convertView.findViewById(R.id.avatar);
             viewHolder.name = (TextView) convertView.findViewById(R.id.name);
             viewHolder.bio = (TextView) convertView.findViewById(R.id.bio);
             convertView.setTag(viewHolder);
@@ -94,7 +93,7 @@ public class GroomAdapter extends BaseAdapter {
             imageLoader.get(url,listener);
             viewHolder.name.setText(recommendersEntity.getName());
             viewHolder.bio.setText(recommendersEntity.getBio());
-            Log.e("sssss", recommendersEntity.getName() + "ssss");
+//            Log.e("sssss", recommendersEntity.getName() + "ssss");
         } else if (editorsEntity != null && editorsEntity.size() > 0) {
             Groom.EditorsEntity EditorsEntity = (Groom.EditorsEntity) getItem(position);
 //        recommendersEntity.getAvatar();
@@ -102,7 +101,7 @@ public class GroomAdapter extends BaseAdapter {
             viewHolder.bio.setText(EditorsEntity.getBio());
             String url = EditorsEntity.getAvatar();
             imageLoader.get(url, listener);
-            Log.e("sssss", EditorsEntity.getName() + "ssss");
+//            Log.e("sssss", EditorsEntity.getName() + "ssss");
         }
 
         return convertView;
@@ -110,7 +109,7 @@ public class GroomAdapter extends BaseAdapter {
 
     private class ViewHolder {
         private TextView name, bio;
-        private ImageView avatar;
+        private CircleImageView avatar;
     }
 
 }

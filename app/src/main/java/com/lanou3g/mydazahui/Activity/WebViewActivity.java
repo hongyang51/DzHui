@@ -2,7 +2,6 @@ package com.lanou3g.mydazahui.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -21,6 +20,7 @@ import com.lanou3g.mydazahui.Base.Final_Base;
 import com.lanou3g.mydazahui.Base.MainActivity;
 import com.lanou3g.mydazahui.Bean.NewsContent;
 import com.lanou3g.mydazahui.R;
+import com.lanou3g.mydazahui.utils.CircleImageView;
 import com.lanou3g.mydazahui.utils.VolleySingleton;
 
 import java.util.ArrayList;
@@ -31,7 +31,8 @@ import java.util.ArrayList;
 public class WebViewActivity extends MainActivity {
     private int newsId;
     private VolleySingleton singleton;
-    private ImageView news_img, groom_img;
+    private ImageView news_img;
+    private CircleImageView groom_img;
     private TextView news_title, news_img_text_from;
     private ImageLoader.ImageListener listener, listener_user;
     private ImageLoader imageLoader;
@@ -61,7 +62,7 @@ public class WebViewActivity extends MainActivity {
         news_img = (ImageView) findViewById(R.id.news_img);
         news_title = (TextView) findViewById(R.id.news_title);
         gonn_fm = (FrameLayout) findViewById(R.id.gonn_fm);
-        groom_img = (ImageView) findViewById(R.id.groom_img);
+        groom_img = (CircleImageView) findViewById(R.id.groom_img);
         news_img_text_from = (TextView) findViewById(R.id.news_img_text_from);
         user_rela = (RelativeLayout) findViewById(R.id.user_rela);
         listener = ImageLoader.getImageListener(news_img, R.mipmap.lanniao, R.mipmap.lanniao);
@@ -91,12 +92,10 @@ public class WebViewActivity extends MainActivity {
 
                 if (recommenderses != null) {
                     String User_img = recommenderses.get(0).getAvatar();
-                    Log.e("SSSS", User_img);
                     imageLoader.get(User_img, listener_user);
                     user_rela.setVisibility(View.VISIBLE);
                 } else if (recommendersses != null) {
                     String User_img = recommendersses.get(0).getAvatar();
-                    Log.e("SSSS", User_img);
                     imageLoader.get(User_img, listener_user);
                     user_rela.setVisibility(View.VISIBLE);
                 } else {
@@ -141,13 +140,6 @@ public class WebViewActivity extends MainActivity {
             webview.loadDataWithBaseURL(null, data, "text/html", "utf-8", null);
             webview.setVisibility(View.VISIBLE);
         } else if (newsContent.getShare_url() != null) {
-
-//            webview.setWebChromeClient(new WebChromeClient() {
-//                @Override
-//                public void onProgressChanged(WebView view, int newProgress) {
-//                    super.onProgressChanged(view, newProgress);
-//                }
-//            });
             webview.setWebViewClient(new WebViewClient() );
             webview.loadUrl(newsContent.getShare_url());
             webview.setVisibility(View.VISIBLE);

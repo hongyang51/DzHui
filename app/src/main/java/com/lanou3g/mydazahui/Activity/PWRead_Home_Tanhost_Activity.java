@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.TabHost;
 import android.widget.Toast;
@@ -54,6 +53,9 @@ public class PWRead_Home_Tanhost_Activity extends MainActivity implements HomeFr
         transaction.commit();//提交事务
     }
 
+    /**
+     * 定义TabHost单元块
+     */
     private void initTabHost() {
         // 定义一个tabspec单元 参数代表的是tabspec的tag名称
         // 定义首页标签
@@ -80,7 +82,9 @@ public class PWRead_Home_Tanhost_Activity extends MainActivity implements HomeFr
     }
 
 
-// 双击返回的Toast提示
+    /**
+     * 双击返回的Toast提示
+     */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
@@ -95,12 +99,13 @@ public class PWRead_Home_Tanhost_Activity extends MainActivity implements HomeFr
         return false;
     }
 
+    /**
+     * 点击伪瀑布流跳转到对应的页面
+     */
     @Override
     public void OnNewsOnclick(String s, ArrayList<Theme.OthersEntity> othersEntities) {
         if (s != null) {
             myTabhost.setCurrentTab(1);
-            int i = myTabhost.getCurrentTab();
-            Log.e("sss", i + "");
         }
         NewsFragment fragment = (NewsFragment) manager.findFragmentByTag(Final_Base.TABSPC_NEWS_TAG);
         ViewPager viewPager = fragment.getmViewPager();
@@ -110,20 +115,5 @@ public class PWRead_Home_Tanhost_Activity extends MainActivity implements HomeFr
                 viewPager.setCurrentItem(i);
             }
         }
-//        两种方法
-
-
-//        switch (s) {
-//            case "开始游戏":
-//                viewPager.setCurrentItem(8);
-//                break;
-//            case "财经日报":
-//                viewPager.setCurrentItem(6);
-//                break;
-//        }
-
-
     }
-
-
 }
