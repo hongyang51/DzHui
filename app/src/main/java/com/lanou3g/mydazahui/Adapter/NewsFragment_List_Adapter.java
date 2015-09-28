@@ -49,7 +49,8 @@ public class NewsFragment_List_Adapter extends BaseAdapter {
     public void OnLoading(int newsId, final SwipeRefreshLoadingLayout swipeRefreshLoadingLayout) {
         storiesEntities2 = new ArrayList<>();
         int LoadId = storiesEntities.get(storiesEntities.size() - 1).getId();
-        final String s = "http://news-at.zhihu.com/api/4/theme/" + newsId + "/before/" + LoadId;
+
+        final String s = Final_Base.THEMES_URL + newsId + "/before/" + LoadId;
         Log.e("sss", "" + s);
         StringRequest stringRequest = new StringRequest(s, new Response.Listener<String>() {
             @Override

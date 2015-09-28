@@ -10,9 +10,10 @@ import com.lanou3g.mydazahui.R;
  */
 public class HappyFragment extends BaseFragment {
 
+
     @Override
     public View initViews() {
-        View view = View.inflate(mActivity, R.layout.fragment_tabhost_home_socll, null);
+        View view = View.inflate(mActivity, R.layout.fragment_happy, null);
         return view;
     }
 

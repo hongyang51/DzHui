@@ -79,8 +79,8 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
         Log.e("sss", latestNews.getDate());
 
         if (latestNews.getDate().equals(newsDate)) {
-                String newUrl = "http://news-at.zhihu.com/api/4/stories/before/" + newsDate;
-                Log.i("TEST", "当前时间" + newsDate);
+                String newUrl = Final_Base.OLD_NEWS_URL + newsDate;
+//                Log.i("TEST", "当前时间" + newsDate);
                 Log.i("TEST", "当前网址" + newUrl);
                 StringRequest stringRequest = new StringRequest(newUrl, new Response.Listener<String>() {
                     @Override
@@ -311,7 +311,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
         public void run() {
             int index = viewPager.getCurrentItem();
             viewPager.setCurrentItem(++index);
-            Log.e("SSSSSSS", "线程");
+//            Log.e("SSSSSSS", "线程");
 
             handler.postDelayed(runnable, 4000);
 

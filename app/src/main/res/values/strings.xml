@@ -9,4 +9,6 @@
     <string name="welcome_All_rights">此应用仅作为交流使用,请勿用于商业用途,后果与作者无关</string>
     <string name="welcome_Select">点击图片选择您需要的内容</string>
     <string name="loding">正在加载中.....</string>
+    <string name="happy_popular">人气</string>
+    <string name="happy_new">最新</string>
 </resources>
