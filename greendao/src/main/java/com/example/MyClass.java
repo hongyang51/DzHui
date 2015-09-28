@@ -7,7 +7,7 @@ import de.greenrobot.daogenerator.Schema;
 public class MyClass {
     public  static void main(String args []){
 
-        Schema  schema = new Schema(1,"com.lanou3g.mydazahui.GreenDao.bean");// 版本  数据库实体类地址
+        Schema  schema = new Schema(1,"com.lanou3g.mydazahui.greendaobean");// 版本  数据库实体类地址
         addData(schema);
         try {
             new DaoGenerator().generateAll(schema,"./app/src/main/java");
