@@ -88,7 +88,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
                         Gson gson = new Gson();
                         latestNews = gson.fromJson(response, LatestNews.class);
                         storiesEntities = (ArrayList<LatestNews.StoriesEntity>) latestNews.getStories();
-                        list_adapter.Onloading(storiesEntities);
+                        list_adapter.OnLoading(storiesEntities);
                         swipeRefreshLoadingLayout.setLoading(false);
                     }
                 }, new Response.ErrorListener() {

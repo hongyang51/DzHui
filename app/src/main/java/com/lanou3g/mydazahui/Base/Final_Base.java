@@ -23,4 +23,5 @@ public class Final_Base {
     public static final String HAPPY_URL_TOP ="http://lengxiaohua.com/lengxiaohuaapi/joke?action=getJokes&interval=weekly&sort=";
     public static final String HAPPY_URL_CENTER = "&type=text%7Cimage&start=";
     public static final String HAPPY_URL_BOTTOM = "&limit=15";
+    public static final String HAPPY_URL = "http://lengxiaohua.com";
 }

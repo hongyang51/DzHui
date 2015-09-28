@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.lanou3g.mydazahui.listview.SwipeRefreshLoadingLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/loadingLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-    <ListView
-        android:layout_width="match_parent"
-        android:id="@+id/happy_listview"
-        android:layout_height="wrap_content">
-    </ListView>
+    android:layout_height="wrap_content">
 
-</LinearLayout>
+    <ListView
+        android:id="@+id/happy_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    </ListView>
+</com.lanou3g.mydazahui.listview.SwipeRefreshLoadingLayout>
+

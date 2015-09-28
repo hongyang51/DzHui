@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@mipmap/joke_opt_unlike_img_select" android:state_selected="true"></item>
+    <item android:drawable="@mipmap/joke_opt_unlike_img"></item>
+</selector>

@@ -34,7 +34,7 @@ public class PatchWork_First_PageAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        imageViews = new ArrayList<ImageView>();
+        imageViews = new ArrayList<>();
         for (int i = 0; i < imgs.length ; i++) {
             ImageView imageView = new ImageView(context);
             imageView.setBackgroundResource(imgs[i]);

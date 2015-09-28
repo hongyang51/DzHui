@@ -38,7 +38,7 @@ public class HomeFragment_List_Adapter extends BaseAdapter {
     }
 
 
-    public void Onloading(ArrayList<LatestNews.StoriesEntity> storiesEntities) {
+    public void OnLoading(ArrayList<LatestNews.StoriesEntity> storiesEntities) {
         this.storiesEntities.addAll(storiesEntities);
         Log.e("sss", "加载更多");
         notifyDataSetChanged();
