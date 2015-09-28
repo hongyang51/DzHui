@@ -1,4 +1,4 @@
-package com.lanou3g.mydazahui.Fragment;
+package com.lanou3g.mydazahui.fragment;
 
 import android.content.Context;
 import android.os.Handler;
@@ -17,13 +17,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
-import com.lanou3g.mydazahui.Adapter.HomeFragment_List_Adapter;
-import com.lanou3g.mydazahui.Adapter.HomeFragment_ViewPager_Adapter;
-import com.lanou3g.mydazahui.Base.BaseFragment;
-import com.lanou3g.mydazahui.Base.Final_Base;
-import com.lanou3g.mydazahui.Bean.LatestNews;
-import com.lanou3g.mydazahui.Bean.Theme;
-import com.lanou3g.mydazahui.ListView.SwipeRefreshLoadingLayout;
+import com.lanou3g.mydazahui.adapter.HomeFragment_List_Adapter;
+import com.lanou3g.mydazahui.adapter.HomeFragment_ViewPager_Adapter;
+import com.lanou3g.mydazahui.base.BaseFragment;
+import com.lanou3g.mydazahui.base.Final_Base;
+import com.lanou3g.mydazahui.bean.LatestNews;
+import com.lanou3g.mydazahui.bean.Theme;
+import com.lanou3g.mydazahui.listview.SwipeRefreshLoadingLayout;
 import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.utils.VolleySingleton;
 

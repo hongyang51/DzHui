@@ -1,4 +1,4 @@
-package com.lanou3g.mydazahui.Adapter;
+package com.lanou3g.mydazahui.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,10 +16,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.StringRequest;
-import com.lanou3g.mydazahui.Activity.WebViewActivity;
-import com.lanou3g.mydazahui.Base.Final_Base;
-import com.lanou3g.mydazahui.Bean.ThemeNews;
-import com.lanou3g.mydazahui.ListView.SwipeRefreshLoadingLayout;
+import com.lanou3g.mydazahui.activity.WebViewActivity;
+import com.lanou3g.mydazahui.base.Final_Base;
+import com.lanou3g.mydazahui.bean.ThemeNews;
+import com.lanou3g.mydazahui.listview.SwipeRefreshLoadingLayout;
 import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.utils.VolleySingleton;
 

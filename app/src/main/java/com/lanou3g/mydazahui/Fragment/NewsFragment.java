@@ -1,4 +1,4 @@
-package com.lanou3g.mydazahui.Fragment;
+package com.lanou3g.mydazahui.fragment;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -8,10 +8,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
-import com.lanou3g.mydazahui.Adapter.News_ViewPager_FragmentAda;
-import com.lanou3g.mydazahui.Base.BaseFragment;
-import com.lanou3g.mydazahui.Base.Final_Base;
-import com.lanou3g.mydazahui.Bean.Theme;
+import com.lanou3g.mydazahui.adapter.News_ViewPager_FragmentAda;
+import com.lanou3g.mydazahui.base.BaseFragment;
+import com.lanou3g.mydazahui.base.Final_Base;
+import com.lanou3g.mydazahui.bean.Theme;
 import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.utils.VolleySingleton;
 

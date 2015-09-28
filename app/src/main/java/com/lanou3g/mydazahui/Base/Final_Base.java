@@ -1,4 +1,4 @@
-package com.lanou3g.mydazahui.Base;
+package com.lanou3g.mydazahui.base;
 
 /**
  * Created by dllo on 15/9/23.

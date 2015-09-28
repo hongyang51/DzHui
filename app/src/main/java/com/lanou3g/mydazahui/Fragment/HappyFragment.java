@@ -1,8 +1,8 @@
-package com.lanou3g.mydazahui.Fragment;
+package com.lanou3g.mydazahui.fragment;
 
 import android.view.View;
 
-import com.lanou3g.mydazahui.Base.BaseFragment;
+import com.lanou3g.mydazahui.base.BaseFragment;
 import com.lanou3g.mydazahui.R;
 
 /**

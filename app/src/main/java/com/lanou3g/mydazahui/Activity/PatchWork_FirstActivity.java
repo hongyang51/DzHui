@@ -1,4 +1,4 @@
-package com.lanou3g.mydazahui.Activity;
+package com.lanou3g.mydazahui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,8 +8,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.lanou3g.mydazahui.Adapter.PatchWork_First_PageAdapter;
-import com.lanou3g.mydazahui.Base.MainActivity;
+import com.lanou3g.mydazahui.adapter.PatchWork_First_PageAdapter;
+import com.lanou3g.mydazahui.base.MainActivity;
 import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.utils.SharedPreferUtil;
 

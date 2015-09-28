@@ -1,4 +1,4 @@
-package com.lanou3g.mydazahui.Adapter;
+package com.lanou3g.mydazahui.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
-import com.lanou3g.mydazahui.Bean.Groom;
+import com.lanou3g.mydazahui.bean.Groom;
 import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.utils.CircleImageView;
 import com.lanou3g.mydazahui.utils.VolleySingleton;

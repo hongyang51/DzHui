@@ -1,11 +1,11 @@
-package com.lanou3g.mydazahui.Activity;
+package com.lanou3g.mydazahui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.lanou3g.mydazahui.Base.MainActivity;
+import com.lanou3g.mydazahui.base.MainActivity;
 import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.utils.SharedPreferUtil;
 

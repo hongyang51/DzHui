@@ -1,11 +1,11 @@
-package com.lanou3g.mydazahui.Adapter;
+package com.lanou3g.mydazahui.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.lanou3g.mydazahui.Bean.Theme;
-import com.lanou3g.mydazahui.Fragment.OneNewFragment;
+import com.lanou3g.mydazahui.bean.Theme;
+import com.lanou3g.mydazahui.fragment.OneNewFragment;
 
 import java.util.ArrayList;
 

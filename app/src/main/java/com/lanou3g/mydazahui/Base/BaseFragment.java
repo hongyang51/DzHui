@@ -1,4 +1,4 @@
-package com.lanou3g.mydazahui.Base;
+package com.lanou3g.mydazahui.base;
 
 import android.app.Activity;
 import android.os.Bundle;

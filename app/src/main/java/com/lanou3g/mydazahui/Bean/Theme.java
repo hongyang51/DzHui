@@ -1,4 +1,4 @@
-package com.lanou3g.mydazahui.Bean;
+package com.lanou3g.mydazahui.bean;
 
 import java.io.Serializable;
 import java.util.List;

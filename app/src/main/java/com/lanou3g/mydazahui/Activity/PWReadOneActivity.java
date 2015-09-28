@@ -1,4 +1,4 @@
-package com.lanou3g.mydazahui.Activity;
+package com.lanou3g.mydazahui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,8 +18,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
-import com.lanou3g.mydazahui.Base.MainActivity;
-import com.lanou3g.mydazahui.Bean.GuidePage;
+import com.lanou3g.mydazahui.base.MainActivity;
+import com.lanou3g.mydazahui.bean.GuidePage;
 import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.utils.SharedPreferUtil;
 import com.lanou3g.mydazahui.utils.VolleySingleton;

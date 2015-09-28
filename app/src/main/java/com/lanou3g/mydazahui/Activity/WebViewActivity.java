@@ -1,4 +1,4 @@
-package com.lanou3g.mydazahui.Activity;
+package com.lanou3g.mydazahui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,9 +16,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
-import com.lanou3g.mydazahui.Base.Final_Base;
-import com.lanou3g.mydazahui.Base.MainActivity;
-import com.lanou3g.mydazahui.Bean.NewsContent;
+import com.lanou3g.mydazahui.base.Final_Base;
+import com.lanou3g.mydazahui.base.MainActivity;
+import com.lanou3g.mydazahui.bean.NewsContent;
 import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.utils.CircleImageView;
 import com.lanou3g.mydazahui.utils.VolleySingleton;

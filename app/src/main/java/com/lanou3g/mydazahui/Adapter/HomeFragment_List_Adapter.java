@@ -1,4 +1,4 @@
-package com.lanou3g.mydazahui.Adapter;
+package com.lanou3g.mydazahui.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,9 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
-import com.lanou3g.mydazahui.Activity.WebViewActivity;
-import com.lanou3g.mydazahui.Base.Final_Base;
-import com.lanou3g.mydazahui.Bean.LatestNews;
+import com.lanou3g.mydazahui.activity.WebViewActivity;
+import com.lanou3g.mydazahui.base.Final_Base;
+import com.lanou3g.mydazahui.bean.LatestNews;
 import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.utils.VolleySingleton;
 

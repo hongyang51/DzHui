@@ -1,4 +1,4 @@
-package com.lanou3g.mydazahui.Activity;
+package com.lanou3g.mydazahui.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -8,13 +8,13 @@ import android.view.KeyEvent;
 import android.widget.TabHost;
 import android.widget.Toast;
 
-import com.lanou3g.mydazahui.Base.Final_Base;
-import com.lanou3g.mydazahui.Base.MainActivity;
-import com.lanou3g.mydazahui.Bean.Theme;
-import com.lanou3g.mydazahui.Fragment.AboutFragment;
-import com.lanou3g.mydazahui.Fragment.HappyFragment;
-import com.lanou3g.mydazahui.Fragment.HomeFragment;
-import com.lanou3g.mydazahui.Fragment.NewsFragment;
+import com.lanou3g.mydazahui.base.Final_Base;
+import com.lanou3g.mydazahui.base.MainActivity;
+import com.lanou3g.mydazahui.bean.Theme;
+import com.lanou3g.mydazahui.fragment.AboutFragment;
+import com.lanou3g.mydazahui.fragment.HappyFragment;
+import com.lanou3g.mydazahui.fragment.HomeFragment;
+import com.lanou3g.mydazahui.fragment.NewsFragment;
 import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.utils.SharedPreferUtil;
 
