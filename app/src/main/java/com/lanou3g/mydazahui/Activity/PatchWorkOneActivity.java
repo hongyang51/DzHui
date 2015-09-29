@@ -44,6 +44,7 @@ public class PatchWorkOneActivity extends MainActivity implements View.OnClickLi
                 if(!userGuid){
                 Intent read_image = new Intent(PatchWorkOneActivity.this,PWReadOneActivity.class);
                 startActivity(read_image);
+
                 }else{
                     Intent read_image = new Intent(PatchWorkOneActivity.this,PWRead_Home_Tanhost_Activity.class);
                     startActivity(read_image);

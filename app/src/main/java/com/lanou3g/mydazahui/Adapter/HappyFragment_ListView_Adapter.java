@@ -1,13 +1,18 @@
 package com.lanou3g.mydazahui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.lanou3g.mydazahui.R;
+import com.lanou3g.mydazahui.activity.HappyComment_Activity;
 import com.lanou3g.mydazahui.base.Final_Base;
 import com.lanou3g.mydazahui.bean.Happy;
 import com.lanou3g.mydazahui.utils.CircleImageView;
@@ -23,6 +28,7 @@ public class HappyFragment_ListView_Adapter extends BaseAdapter {
     private ArrayList<Happy.jokes> jokes;
     private VolleySingleton singleton;
     private ImageLoader imageLoader;
+
 
 
 
@@ -99,16 +105,17 @@ public class HappyFragment_ListView_Adapter extends BaseAdapter {
             holder.time = (TextView) convertView.findViewById(R.id.time);
             holder.unlike_text = (TextView) convertView.findViewById(R.id.unlike_text);
             holder.like_text = (TextView) convertView.findViewById(R.id.like_text);
+            holder.cardView = (CardView) convertView.findViewById(R.id.cardView);
+            holder.default_img = (ImageView) convertView.findViewById(R.id.default_img);
             convertView.setTag(holder);
 
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        Happy.jokes joke = (Happy.jokes) getItem(position);
+        final Happy.jokes joke = (Happy.jokes) getItem(position);
 
         holder.Title.setText(joke.getUser_name() + "");
-        int s = joke.getLike_count();
-        holder.like_text.setText(s + "");
+        holder.like_text.setText(joke.getLike_count() + "");
         holder.unlike_text.setText(joke.getUnlike_count() + "");
         holder.happy_content.setText(joke.getContent() + "");
         holder.time.setText(joke.getCreated() + "");
@@ -116,6 +123,26 @@ public class HappyFragment_ListView_Adapter extends BaseAdapter {
         String User_cover_url = Final_Base.HAPPY_URL + joke.getUser_cover_url_100x100();
         ImageLoader.ImageListener listener = ImageLoader.getImageListener(holder.groom_img, R.mipmap.ic_launcher, R.mipmap.ic_launcher);
         imageLoader.get(User_cover_url, listener);
+        if (!joke.getUri().equals("")) {
+
+            ImageLoader.ImageListener default_img_listener = ImageLoader.getImageListener(holder.default_img, R.mipmap.joke_default_img, R.mipmap.joke_default_img);
+            String default_img_uri = Final_Base.HAPPY_URL + joke.getUri();
+            imageLoader.get(default_img_uri, default_img_listener);
+            holder.default_img.setVisibility(View.VISIBLE);
+        } else {
+            Log.e("网址", joke.getUri() + "网址为空");
+            holder.default_img.setVisibility(View.GONE);
+            Log.e("网址", "得到的网址为空");
+        }
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, HappyComment_Activity.class);
+                intent.putExtra("jokes",joke);
+//                Bundle bundle = new Bundle();
+                context.startActivity(intent);
+            }
+        });
         return convertView;
     }
 
@@ -123,7 +150,8 @@ public class HappyFragment_ListView_Adapter extends BaseAdapter {
     private class ViewHolder {
         private TextView Title, time, happy_content, like_text, unlike_text, comment_text;
         private CircleImageView groom_img;
-
+        private CardView cardView;
+        private ImageView default_img;
 
     }
 }

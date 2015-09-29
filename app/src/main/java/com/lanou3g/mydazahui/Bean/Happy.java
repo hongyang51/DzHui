@@ -1,5 +1,6 @@
 package com.lanou3g.mydazahui.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ public class Happy {
         return this.jokes;
     }
 
-    public static class jokes {
+    public static class jokes implements Serializable {
         private String video_uri;
 
         private String user_cover_url_100x100;

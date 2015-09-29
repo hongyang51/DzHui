@@ -18,9 +18,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
+import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.base.MainActivity;
 import com.lanou3g.mydazahui.bean.GuidePage;
-import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.utils.SharedPreferUtil;
 import com.lanou3g.mydazahui.utils.VolleySingleton;
 
@@ -46,7 +46,7 @@ public class PWReadOneActivity extends MainActivity {
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         widthPixels = metrics.widthPixels;
         heightPixels = metrics.heightPixels;
-        AddUrl = Url + widthPixels + "*" + heightPixels;//拼接网址
+
         initView();
         initDatas();
     }
@@ -62,6 +62,7 @@ public class PWReadOneActivity extends MainActivity {
     }
 
     private void initDatas() {
+        AddUrl = Url + widthPixels + "*" + heightPixels;//拼接网址
         StringRequest stringRequest = new StringRequest(AddUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -78,7 +79,10 @@ public class PWReadOneActivity extends MainActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(PWReadOneActivity.this,"出错了呢.请重启应用😢",Toast.LENGTH_LONG).show();
+                Intent read_image = new Intent(PWReadOneActivity.this,PWRead_Home_Tanhost_Activity.class);
+                startActivity(read_image);
+                finish();
+                Toast.makeText(PWReadOneActivity.this, "弹出此框请与开发者联系😢万分感谢", Toast.LENGTH_LONG).show();
             }
         });
         volleySingleton.addQueue(stringRequest, "one_img");
@@ -91,15 +95,15 @@ public class PWReadOneActivity extends MainActivity {
         RotateAnimation animation = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF,
                 0.5f, Animation.RELATIVE_TO_PARENT, 0.5f);
         animation.setDuration(2000);// 设置动画的时间
-        animation.setFillAfter(true);// 保持动画状态
+        animation.setFillAfter(true);// 保持动画状态f
         // 缩放动画
-        ScaleAnimation scaleAnimation = new ScaleAnimation(0, 1, 0, 1,
+        ScaleAnimation scaleAnimation = new ScaleAnimation(0, 1.3f, 0, 1.3f,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        scaleAnimation.setDuration(2000);// 设置动画的时间
+        scaleAnimation.setDuration(4000);// 设置动画的时间
         scaleAnimation.setFillAfter(true);// 保持动画状态
 
         AlphaAnimation alphaAnimation = new AlphaAnimation(0, 1);//渐变动画
-        alphaAnimation.setDuration(3000);// 设置动画的时间
+        alphaAnimation.setDuration(2000);// 设置动画的时间
         alphaAnimation.setFillAfter(true);// 保持动画状态
         set.addAnimation(scaleAnimation);
         set.addAnimation(animation);

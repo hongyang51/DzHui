@@ -80,7 +80,7 @@ public class PatchWork_FirstActivity extends MainActivity {
                 if (position == 2) {
                     pacthWork_First_Button.setVisibility(View.VISIBLE);
                 } else {
-                    pacthWork_First_Button.setVisibility(View.INVISIBLE);
+                    pacthWork_First_Button.setVisibility(View.GONE);
                 }
             }
 

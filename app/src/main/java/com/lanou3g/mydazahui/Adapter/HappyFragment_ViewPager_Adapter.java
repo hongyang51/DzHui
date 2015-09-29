@@ -27,8 +27,8 @@ import java.util.Map;
  */
 public class HappyFragment_ViewPager_Adapter extends PagerAdapter {
     private Context context;
-//    private ListView listView;
-    private HappyFragment_ListView_Adapter ada,ada1;
+    //    private ListView listView;
+    private HappyFragment_ListView_Adapter ada, ada1;
     private String[] Url = {Final_Base.HAPPY_URL_TOP + "popular" + Final_Base.HAPPY_URL_CENTER
             + 0 + Final_Base.HAPPY_URL_BOTTOM, Final_Base.HAPPY_URL_TOP + "new" + Final_Base.HAPPY_URL_CENTER
             + 0 + Final_Base.HAPPY_URL_BOTTOM};
@@ -38,8 +38,8 @@ public class HappyFragment_ViewPager_Adapter extends PagerAdapter {
     private SwipeRefreshLoadingLayout loadingLayoutTwo;
     //    private Handler handler;
     private LayoutInflater inflater;
-    private int  PId = 0;
-    private int  NId = 0;
+    private int PId = 0;
+    private int NId = 0;
 
     private View view;
     private Map<Integer, View> views;
@@ -87,11 +87,11 @@ public class HappyFragment_ViewPager_Adapter extends PagerAdapter {
                     Happy happy = gson.fromJson(response, Happy.class);
                     ArrayList<Happy.jokes> jokes = (ArrayList<Happy.jokes>) happy.getJokes();
                     Log.e("当前获取URl", "当前网址为" + Url[position]);
-                    HappyFragment_ListView_Adapter  adapter = new HappyFragment_ListView_Adapter(context, jokes);
-                    if (position == 0){
-                    ada = adapter;
+                    HappyFragment_ListView_Adapter adapter = new HappyFragment_ListView_Adapter(context, jokes);
+                    if (position == 0) {
+                        ada = adapter;
 
-                    }else{
+                    } else {
                         ada1 = adapter;
                     }
 
@@ -103,10 +103,10 @@ public class HappyFragment_ViewPager_Adapter extends PagerAdapter {
 
                 }
             });
-            if(position == 0){
+            if (position == 0) {
                 loadingLayoutOne = (SwipeRefreshLoadingLayout) view.findViewById(R.id.loadingLayout);
 
-            }else{
+            } else {
                 loadingLayoutTwo = (SwipeRefreshLoadingLayout) view.findViewById(R.id.loadingLayout);
             }
 
@@ -123,11 +123,12 @@ public class HappyFragment_ViewPager_Adapter extends PagerAdapter {
 
 
         if (position == 0) {
-
+            loadingLayoutOne.setColor(R.color.color_1, R.color.color_2, R.color.color_3, R.color.color_4);
             loadingLayoutOne.setOnLoadListener(new ZooLoadLick());
             loadingLayoutOne.setOnRefreshListener(new ZooClick());
             Log.e("当前点击的是", 0 + "");
         } else {
+            loadingLayoutTwo.setColor(R.color.color_2, R.color.color_1, R.color.color_4, R.color.color_3);
             loadingLayoutTwo.setOnLoadListener(new OneLoadClick());
             loadingLayoutTwo.setOnRefreshListener(new OneClick());
             Log.e("当前点击的是", 1 + "");
@@ -170,10 +171,10 @@ public class HappyFragment_ViewPager_Adapter extends PagerAdapter {
         }
     }
 
-    private void initOnLoad(String Url, final SwipeRefreshLoadingLayout loadingLayout) {
-
-
-    }
+//    private void initOnLoad(String Url, final SwipeRefreshLoadingLayout loadingLayout) {
+//
+//
+//    }
 
 
     private class OneClick implements SwipeRefreshLoadingLayout.OnRefreshListener {

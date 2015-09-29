@@ -24,4 +24,7 @@ public class Final_Base {
     public static final String HAPPY_URL_CENTER = "&type=text%7Cimage&start=";
     public static final String HAPPY_URL_BOTTOM = "&limit=15";
     public static final String HAPPY_URL = "http://lengxiaohua.com";
+    public static final String HAPPY_COMMENT_TOP = "http://lengxiaohua.com/lengxiaohuaapi/comment4app?action=getOneJokeComments&joke_id=";
+    public static final String HAPPY_COMMENT_Back = "&start=0&limit=100";
+
 }

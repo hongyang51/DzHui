@@ -26,6 +26,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.HappyComment_Activity"></activity>
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/title_activity_main"
