@@ -76,7 +76,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
         a = a - 1;
         calendar.add(calendar.DATE, a);
         String newsDate = sdf.format(calendar.getTime());
-        Log.e("sss", latestNews.getDate());
+        Log.e("要获得新闻的日期", latestNews.getDate());
 
         if (latestNews.getDate().equals(newsDate)) {
                 String newUrl = Final_Base.OLD_NEWS_URL + newsDate;

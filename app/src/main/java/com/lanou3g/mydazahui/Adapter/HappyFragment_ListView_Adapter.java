@@ -1,8 +1,6 @@
 package com.lanou3g.mydazahui.adapter;
 
 import android.content.Context;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -12,7 +10,6 @@ import com.android.volley.toolbox.ImageLoader;
 import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.base.Final_Base;
 import com.lanou3g.mydazahui.bean.Happy;
-import com.lanou3g.mydazahui.listview.SwipeRefreshLoadingLayout;
 import com.lanou3g.mydazahui.utils.CircleImageView;
 import com.lanou3g.mydazahui.utils.VolleySingleton;
 
@@ -26,39 +23,27 @@ public class HappyFragment_ListView_Adapter extends BaseAdapter {
     private ArrayList<Happy.jokes> jokes;
     private VolleySingleton singleton;
     private ImageLoader imageLoader;
-    private String Url;
-    private String[] Urls = {Final_Base.HAPPY_URL_TOP + "popular" + Final_Base.HAPPY_URL_CENTER
-            + 0 + Final_Base.HAPPY_URL_BOTTOM, Final_Base.HAPPY_URL_TOP + "new" + Final_Base.HAPPY_URL_CENTER
-            + 0 + Final_Base.HAPPY_URL_BOTTOM};
 
 
 
-    public HappyFragment_ListView_Adapter(Context context, ArrayList<Happy.jokes> jokes, String Url,SwipeRefreshLoadingLayout loadingLayout) {
+    public HappyFragment_ListView_Adapter(Context context, ArrayList<Happy.jokes> jokes) {
         this.context = context;
         this.jokes = jokes;
-        this.Url = Url;
-        Refreshing(loadingLayout);
-        Bundle bundle = new Bundle();
-        bundle.putString("arg",Url);
-//        this.context.getAssets()
-//        Log.e("ssss",Url);
         singleton = VolleySingleton.getVolleySingleton(context);
         imageLoader = singleton.getImageLoader();
     }
 
-    public void Loading(SwipeRefreshLoadingLayout loadingLayout) {
-        if (Url.equals(Urls[0])) {
-
-        }
+    public void Loading(ArrayList<Happy.jokes> jokes) {
         this.jokes.addAll(jokes);
         notifyDataSetChanged();
-
     }
 
 
-    public void Refreshing(SwipeRefreshLoadingLayout loadingLayout) {
-        if (Url.equals(Urls[0])) {
-            Log.e("当前位","当前为人气");
+    public void Refreshing(ArrayList<Happy.jokes> jokes) {
+        this.jokes.clear();
+        this.jokes.addAll(jokes);
+        notifyDataSetChanged();
+
 //            StringRequest request = new StringRequest(Urls[0], new Response.Listener<String>() {
 //                @Override
 //                public void onResponse(String response) {
@@ -78,32 +63,27 @@ public class HappyFragment_ListView_Adapter extends BaseAdapter {
 //                }
 //            });
 //            singleton.addQueue(request, "request");
-        }else if(Url.equals(Urls[1])){
-            Log.e("当前位","当前为最新");
-        }
-
-
     }
 
-    private void refreshData(ArrayList<Happy.jokes> jokes) {
-        this.jokes.clear();
-        this.jokes.addAll(jokes);
-        notifyDataSetChanged();
-    }
+//    private void refreshData(ArrayList<Happy.jokes> jokes) {
+//        this.jokes.clear();
+//        this.jokes.addAll(jokes);
+//        notifyDataSetChanged();
+//    }
 
     @Override
     public int getCount() {
-        return jokes != null && jokes.size() > 0 ? jokes.size() : 0;
+        return jokes != null && jokes.size() > 0 ? jokes.size() : 5;
     }
 
     @Override
     public Object getItem(int position) {
-        return jokes != null && jokes.size() > 0 ? jokes.get(position) : null;
+        return jokes != null && jokes.size() > 0 ? jokes.get(position) : 5;
     }
 
     @Override
     public long getItemId(int position) {
-        return jokes != null && jokes.size() > 0 ? position : 0;
+        return jokes != null && jokes.size() > 0 ? position : 5;
     }
 
     @Override

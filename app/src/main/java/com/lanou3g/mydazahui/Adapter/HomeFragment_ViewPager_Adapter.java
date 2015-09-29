@@ -73,7 +73,7 @@ public class HomeFragment_ViewPager_Adapter extends PagerAdapter {
         });
 
 
-        Log.e("sss", position + "");
+//        Log.e("sss", position + "");
 //        initView();
 
         /**

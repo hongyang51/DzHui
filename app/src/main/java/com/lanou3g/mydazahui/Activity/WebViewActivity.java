@@ -124,7 +124,6 @@ public class WebViewActivity extends MainActivity {
 
     private void webView(NewsContent newsContent) {
         WebSettings webSettings = webview.getSettings();
-        webSettings.setJavaScriptEnabled(true);
         webSettings.setDisplayZoomControls(true);
         webSettings.setDefaultFixedFontSize(20);
         //适应屏幕
