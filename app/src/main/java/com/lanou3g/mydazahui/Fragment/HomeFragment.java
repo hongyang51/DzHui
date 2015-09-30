@@ -17,19 +17,23 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
+import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.adapter.HomeFragment_List_Adapter;
 import com.lanou3g.mydazahui.adapter.HomeFragment_ViewPager_Adapter;
 import com.lanou3g.mydazahui.base.BaseFragment;
+import com.lanou3g.mydazahui.base.DaoSingleton;
 import com.lanou3g.mydazahui.base.Final_Base;
 import com.lanou3g.mydazahui.bean.LatestNews;
 import com.lanou3g.mydazahui.bean.Theme;
+import com.lanou3g.mydazahui.greendaobean.StoriesEntity;
+import com.lanou3g.mydazahui.greendaobean.StoriesEntityDao;
 import com.lanou3g.mydazahui.listview.SwipeRefreshLoadingLayout;
-import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.utils.VolleySingleton;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by dllo on 15/9/22.
@@ -65,6 +69,10 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
     private Handler handler = new Handler();
     private SwipeRefreshLoadingLayout swipeRefreshLoadingLayout;
     private int a = 1;
+    //    private LatestDao latestDao;
+    private StoriesEntityDao storiesEntityDao;
+    private List<StoriesEntity> stories;
+//    private
 
 
     // 上拉加载
@@ -79,24 +87,24 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
         Log.e("要获得新闻的日期", latestNews.getDate());
 
         if (latestNews.getDate().equals(newsDate)) {
-                String newUrl = Final_Base.OLD_NEWS_URL + newsDate;
+            String newUrl = Final_Base.OLD_NEWS_URL + newsDate;
 //                Log.i("TEST", "当前时间" + newsDate);
-                Log.i("TEST", "当前网址" + newUrl);
-                StringRequest stringRequest = new StringRequest(newUrl, new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Gson gson = new Gson();
-                        latestNews = gson.fromJson(response, LatestNews.class);
-                        storiesEntities = (ArrayList<LatestNews.StoriesEntity>) latestNews.getStories();
-                        list_adapter.OnLoading(storiesEntities);
-                        swipeRefreshLoadingLayout.setLoading(false);
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                    }
-                });
-                singleton.addQueue(stringRequest, "onLoding");
+            Log.i("TEST", "当前网址" + newUrl);
+            StringRequest stringRequest = new StringRequest(newUrl, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Gson gson = new Gson();
+                    latestNews = gson.fromJson(response, LatestNews.class);
+                    storiesEntities = (ArrayList<LatestNews.StoriesEntity>) latestNews.getStories();
+                    list_adapter.OnLoading(storiesEntities);
+                    swipeRefreshLoadingLayout.setLoading(false);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                }
+            });
+            singleton.addQueue(stringRequest, "onLoding");
         } else {
             Toast.makeText(mActivity, "当前日期为" + latestNews.getDate() + "请您校正", Toast.LENGTH_LONG).show();
             swipeRefreshLoadingLayout.setLoading(false);
@@ -142,7 +150,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
 
     @Override
     public View initViews() {
-
+        storiesEntityDao = DaoSingleton.getInstance().getStoriesEntityDao();
         views = View.inflate(mActivity, R.layout.fragment_tabhost_home_listview, null);
         swipeRefreshLoadingLayout = (SwipeRefreshLoadingLayout) views.findViewById(R.id.swipeRefreshLoadingLayout);
         swipeRefreshLoadingLayout.setOnLoadListener(this);
@@ -153,7 +161,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
         viewPager = (ViewPager) view.findViewById(R.id.home_fragment_viewPager);
         singleton = VolleySingleton.getVolleySingleton(mActivity);
         imageLoader = singleton.getImageLoader();
-
+//        latestDao = DaoSingleton.getInstance().getLatestDao();
         return views;
     }
 
@@ -167,6 +175,15 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
                 latestNews = gson.fromJson(response, LatestNews.class);
                 storiesEntities = (ArrayList<LatestNews.StoriesEntity>) latestNews.getStories();
                 topStories = (ArrayList<LatestNews.TopStoriesEntity>) latestNews.getTop_stories();
+                com.lanou3g.mydazahui.greendaobean.LatestNews news = gson.fromJson(response, com.lanou3g.mydazahui.greendaobean.LatestNews.class);
+                stories = new ArrayList<>();
+                stories = news.getStories();
+
+//                storiesEntityDao.deleteAll();
+                storiesEntityDao.insertOrReplaceInTx(stories);
+//                storiesEntityDao
+
+
                 adapter = new HomeFragment_ViewPager_Adapter(mActivity, topStories);
                 viewPager.setAdapter(adapter);
                 startImageTimerTask();
@@ -202,7 +219,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("解析失败","网络拉取失败"+"HomeFragment");
+                Log.e("解析失败", "网络拉取失败" + "HomeFragment");
 
             }
         });
