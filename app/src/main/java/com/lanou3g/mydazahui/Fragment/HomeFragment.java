@@ -42,7 +42,7 @@ import java.util.Calendar;
 public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLayout.OnLoadListener, SwipeRefreshLoadingLayout.OnRefreshListener {
     private ViewPager viewPager;
     private VolleySingleton singleton;
-    private LinearLayout home_viewpager_LinearL;
+    private LinearLayout home_viewpager_LinearL,Pinterest;
     private ImageView imageView;
     private ImageView getImageView;
     private View view, views;
@@ -70,11 +70,8 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
     private Handler handler = new Handler();
     private SwipeRefreshLoadingLayout swipeRefreshLoadingLayout;
     private int a = 1;
-    //    private LatestDao latestDao;
     private StoriesEntityDao storiesEntityDao;
     private TopStoriesEntityDao topStoriesEntityDao;
-//    private ArrayList<StoriesEntity> storiesEntityArrayList;
-//    private
 
 
     // 上拉加载
@@ -90,7 +87,6 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
 
         if (latestNews.getDate().equals(newsDate)) {
             String newUrl = Final_Base.OLD_NEWS_URL + newsDate;
-//                Log.i("TEST", "当前时间" + newsDate);
             Log.i("TEST", "当前网址" + newUrl);
             StringRequest stringRequest = new StringRequest(newUrl, new Response.Listener<String>() {
                 @Override
@@ -160,7 +156,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
         swipeRefreshLoadingLayout.setOnRefreshListener(this);
         listView = (ListView) views.findViewById(R.id.Home_list_item);
         view = View.inflate(mActivity, R.layout.fragment_tabhost_home_socll, null);
-
+        Pinterest = (LinearLayout) view.findViewById(R.id.Pinterest);
         viewPager = (ViewPager) view.findViewById(R.id.home_fragment_viewPager);
         singleton = VolleySingleton.getVolleySingleton(mActivity);
         imageLoader = singleton.getImageLoader();
@@ -181,6 +177,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
 //                com.lanou3g.mydazahui.greendaobean.LatestNews news = gson.fromJson(response, com.lanou3g.mydazahui.greendaobean.LatestNews.class);
                 storiesEntityDao.deleteAll();
                 storiesEntityDao.insertOrReplaceInTx(storiesEntities);
+
                 topStoriesEntityDao.deleteAll();
                 topStoriesEntityDao.insertOrReplaceInTx(topStories);
 
@@ -316,6 +313,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
                 Theme theme = gson.fromJson(response, Theme.class);
                 othersEntities = (ArrayList<Theme.OthersEntity>) theme.getOthers();
                 initTheme();
+                Pinterest.setVisibility(View.VISIBLE);
             }
         }, new Response.ErrorListener() {
             @Override
