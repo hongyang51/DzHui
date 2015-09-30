@@ -50,16 +50,6 @@ public class HappyFragment_ViewPager_Adapter extends PagerAdapter {
         singleton = VolleySingleton.getVolleySingleton(context);
         inflater = LayoutInflater.from(context);
         views = new HashMap<>();
-//        handler = new Handler(new Handler.Callback() {
-//            @Override
-//            public boolean handleMessage(Message msg) {
-//                if (msg != null && msg.what == 207) {
-//                    i = (int) msg.obj;
-//                    Log.e("Handler", i + " ");
-//                }
-//                return false;
-//            }
-//        });
 
     }
 
@@ -109,7 +99,7 @@ public class HappyFragment_ViewPager_Adapter extends PagerAdapter {
             } else {
                 loadingLayoutTwo = (SwipeRefreshLoadingLayout) view.findViewById(R.id.loadingLayout);
             }
-
+            request.setShouldCache(false);
             singleton.addQueue(request, "Happy");
             views.put(position, view);
         }
@@ -138,10 +128,11 @@ public class HappyFragment_ViewPager_Adapter extends PagerAdapter {
         return view;
     }
 
-    @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView((View) object);
-    }
+//    @Override
+//    public void destroyItem(ViewGroup container, int position, Object object) {
+//        container.removeView((View) object);
+//    }
+
 
     private class OneLoadClick implements SwipeRefreshLoadingLayout.OnLoadListener {
         @Override

@@ -1,6 +1,7 @@
 package com.lanou3g.mydazahui.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -110,10 +111,10 @@ public class OneNewFragment extends AbsBaseFragment implements SwipeRefreshLoadi
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Log.e("解析失败", "网络拉取失败"+"OneNewFragment");
             }
         });
-
+        request.setShouldCache(false);
         singleton.addQueue(request, Final_Base.THEMES_URL_REQUEUE_TAG);
 
     }

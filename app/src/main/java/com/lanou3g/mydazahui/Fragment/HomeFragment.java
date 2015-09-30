@@ -202,9 +202,11 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Log.e("解析失败","网络拉取失败"+"HomeFragment");
 
             }
         });
+        stringRequest.setShouldCache(false);
         singleton.addQueue(stringRequest, Final_Base.LATESTNEWS_REQUEUE_TAG);
     }
 
@@ -270,6 +272,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
             public void onErrorResponse(VolleyError error) {
             }
         });
+        stringRequest.setShouldCache(false);
         singleton.addQueue(stringRequest, Final_Base.THEME_URL_REQUEUE_TAG);
     }
 

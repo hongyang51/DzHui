@@ -85,6 +85,7 @@ public class PWReadOneActivity extends MainActivity {
                 Toast.makeText(PWReadOneActivity.this, "弹出此框请与开发者联系😢万分感谢", Toast.LENGTH_LONG).show();
             }
         });
+        stringRequest.setShouldCache(false);
         volleySingleton.addQueue(stringRequest, "one_img");
     }
 

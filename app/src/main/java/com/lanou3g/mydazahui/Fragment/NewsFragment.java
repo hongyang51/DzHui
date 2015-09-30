@@ -2,6 +2,7 @@ package com.lanou3g.mydazahui.fragment;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 
 import com.android.volley.Response;
@@ -62,10 +63,10 @@ public class NewsFragment extends BaseFragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Log.e("解析失败", "网络拉取失败"+"NewsFragment");
             }
         });
-
+        request.setShouldCache(false);
         singleton.addQueue(request,Final_Base.THEME_URL_REQUEUE_TAG);
 
 
