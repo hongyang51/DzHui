@@ -28,15 +28,14 @@ public class MyClass {
         Latestentity.addStringProperty("ga_prefix");
         Latestentity.addStringProperty("multipic");
         Latestentity.addStringProperty("type");
-        Latestentity.addStringProperty("id");
-        Latestentity.addStringProperty("images");
+        Latestentity.addIntProperty("id");
 
         Entity TopStoriesEntity = schema.addEntity("TopStoriesEntity");
         TopStoriesEntity.addStringProperty("title");// 标签
         TopStoriesEntity.addStringProperty("ga_prefix");
         TopStoriesEntity.addStringProperty("image");
         TopStoriesEntity.addStringProperty("type");
-        TopStoriesEntity.addStringProperty("id");
+        TopStoriesEntity.addIntProperty("id");
 
         Entity images = schema.addEntity("images");
         images.addStringProperty("images");

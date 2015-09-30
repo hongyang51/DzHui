@@ -13,13 +13,13 @@ public class StoriesEntity {
     private String ga_prefix;
     private String multipic;
     private String type;
-    private String id;
+    private Integer id;
     private List<String> images;
 
     public StoriesEntity() {
     }
 
-    public StoriesEntity(String title, String ga_prefix, String multipic, String type, String id) {
+    public StoriesEntity(String title, String ga_prefix, String multipic, String type, Integer id) {
         this.title = title;
         this.ga_prefix = ga_prefix;
         this.multipic = multipic;
@@ -67,11 +67,11 @@ public class StoriesEntity {
         this.type = type;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

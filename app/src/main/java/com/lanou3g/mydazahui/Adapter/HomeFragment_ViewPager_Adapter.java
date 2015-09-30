@@ -10,10 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
+import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.activity.WebViewActivity;
 import com.lanou3g.mydazahui.base.Final_Base;
-import com.lanou3g.mydazahui.bean.LatestNews;
-import com.lanou3g.mydazahui.R;
+import com.lanou3g.mydazahui.greendaobean.TopStoriesEntity;
 import com.lanou3g.mydazahui.utils.VolleySingleton;
 
 import java.util.ArrayList;
@@ -28,10 +28,10 @@ public class HomeFragment_ViewPager_Adapter extends PagerAdapter {
     private View view;
     private VolleySingleton singleton;
     private ImageLoader imageLoader;
-    private ArrayList<LatestNews.TopStoriesEntity> topStories;
+    private ArrayList<TopStoriesEntity> topStories;
 //    private int itemId;
 
-    public HomeFragment_ViewPager_Adapter(Context context, ArrayList<LatestNews.TopStoriesEntity> topStories) {
+    public HomeFragment_ViewPager_Adapter(Context context, ArrayList<TopStoriesEntity> topStories) {
         this.context = context;
         this.topStories = topStories;
         singleton = VolleySingleton.getVolleySingleton(context);

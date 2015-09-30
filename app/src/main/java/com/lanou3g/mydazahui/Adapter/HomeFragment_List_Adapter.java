@@ -11,10 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
+import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.activity.WebViewActivity;
 import com.lanou3g.mydazahui.base.Final_Base;
-import com.lanou3g.mydazahui.bean.LatestNews;
-import com.lanou3g.mydazahui.R;
+import com.lanou3g.mydazahui.greendaobean.StoriesEntity;
 import com.lanou3g.mydazahui.utils.VolleySingleton;
 
 import java.util.ArrayList;
@@ -26,11 +26,11 @@ public class HomeFragment_List_Adapter extends BaseAdapter {
     private Context context;
     private VolleySingleton singleton;
     private ImageLoader imageLoader;
-    private ArrayList<LatestNews.StoriesEntity> storiesEntities;
+    private ArrayList<StoriesEntity> storiesEntities;
 
 
 
-    public HomeFragment_List_Adapter(Context context, ArrayList<LatestNews.StoriesEntity> storiesEntities) {
+    public HomeFragment_List_Adapter(Context context, ArrayList<StoriesEntity> storiesEntities) {
         this.context = context;
         this.storiesEntities = storiesEntities;
         singleton = VolleySingleton.getVolleySingleton(context);
@@ -38,14 +38,14 @@ public class HomeFragment_List_Adapter extends BaseAdapter {
     }
 
 
-    public void OnLoading(ArrayList<LatestNews.StoriesEntity> storiesEntities) {
+    public void OnLoading(ArrayList<StoriesEntity> storiesEntities) {
         this.storiesEntities.addAll(storiesEntities);
         Log.e("sss", "加载更多");
         notifyDataSetChanged();
 
     }
 
-    public void OnRefreshing(ArrayList<LatestNews.StoriesEntity> storiesEntities) {
+    public void OnRefreshing(ArrayList<StoriesEntity> storiesEntities) {
         this.storiesEntities.clear();
         this.storiesEntities.addAll(storiesEntities);
         notifyDataSetChanged();
@@ -79,12 +79,15 @@ public class HomeFragment_List_Adapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        LatestNews.StoriesEntity storiesEntity = (LatestNews.StoriesEntity) getItem(position);
+        StoriesEntity storiesEntity = (StoriesEntity) getItem(position);
         if (storiesEntity != null) {
             viewHolder.news_list_item_text.setText(storiesEntity.getTitle());
             ImageLoader.ImageListener listener = ImageLoader.getImageListener(viewHolder.news_list_item_img,R.mipmap.lanniao,
                     R.mipmap.lanniao);
+            if(storiesEntity.getImages()!=null){
                 imageLoader.get(storiesEntity.getImages().get(0),listener);
+            }
+
             viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -96,6 +99,7 @@ public class HomeFragment_List_Adapter extends BaseAdapter {
                 }
             });
         }
+
         return convertView;
     }
 
