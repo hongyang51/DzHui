@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.lanou3g.mydazahui.base.MainActivity;
 import com.lanou3g.mydazahui.R;
+import com.lanou3g.mydazahui.base.MainActivity;
 import com.lanou3g.mydazahui.utils.SharedPreferUtil;
+
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * Created by xyb on 15/9/21.
@@ -58,5 +60,17 @@ public class PatchWorkOneActivity extends MainActivity implements View.OnClickLi
     protected void onDestroy() {
         super.onDestroy();
         SharedPreferUtil.setBoolean(PatchWorkOneActivity.this, "is_user_guide", false);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        JPushInterface.onPause(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        JPushInterface.onResume(this);
     }
 }

@@ -2,6 +2,7 @@ package com.lanou3g.mydazahui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +38,7 @@ public class HappyComment_Activity extends MainActivity {
     private ListView Comment_list;
     private HappyComment_Adapter adapter;
     private ImageView default_img;
+    private CardView List_cardView;
 
 
     @Override
@@ -60,6 +62,7 @@ public class HappyComment_Activity extends MainActivity {
         Comment_list = (ListView) findViewById(R.id.Comment_list);
         default_img = (ImageView) findViewById(R.id.default_img);
         singleton = VolleySingleton.getVolleySingleton(this);
+        List_cardView = (CardView) findViewById(R.id.List_cardView);
         imageLoader = singleton.getImageLoader();
     }
 
@@ -72,6 +75,7 @@ public class HappyComment_Activity extends MainActivity {
         happy_content.setText(jokes.getContent() + "");
         time.setText(jokes.getCreated() + "");
         comment_text.setText(jokes.getComment_count() + "");
+        List_cardView.setVisibility(View.VISIBLE);
         String User_cover_url = Final_Base.HAPPY_URL + jokes.getUser_cover_url_100x100();
         ImageLoader.ImageListener listener = ImageLoader.getImageListener(groom_img, R.mipmap.ic_launcher, R.mipmap.ic_launcher);
         imageLoader.get(User_cover_url, listener);
