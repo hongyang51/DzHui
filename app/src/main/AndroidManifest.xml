@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lanou3g.mydazahui">
 
@@ -34,8 +34,8 @@
         android:icon="@mipmap/dzhtubiao"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.PWReadOneActivity"></activity>
-        <activity android:name=".base.MainActivity"></activity>
+        <activity android:name=".activity.PWReadOneActivity" />
+        <activity android:name=".base.MainActivity" />
         <activity android:name=".activity.PatchWork_FirstActivity" />
         <activity android:name=".activity.PWRead_Home_Tanhost_Activity" />
         <activity android:name=".activity.WebViewActivity" />
@@ -69,7 +69,7 @@
         <service
             android:name="cn.jpush.android.service.DownloadService"
             android:enabled="true"
-            android:exported="false"></service>
+            android:exported="false" />
 
 
         <!-- Required SDK 核心功能-->
@@ -114,7 +114,7 @@
 
         <!-- User defined.  For test only  用户自定义的广播接收器-->
         <receiver
-            android:name=".MyNetWorkBroadcastReceive"
+            android:name=".receive.MyNetWorkBroadcastReceive"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -144,6 +144,53 @@
             android:name="JPUSH_APPKEY"
             android:value="8e17b303fc9d8f4e647e9225" />
         <!--  </>值来自开发者平台取得的AppKey-->
+
+
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="56121df1e0f55a23d4008ce4" />
+
+        <activity
+            android:name="com.umeng.socialize.view.ShareActivity"
+            android:configChanges="orientation|keyboard"
+            android:launchMode="singleTask"
+            android:noHistory="true"
+            android:theme="@style/Theme.UMDialog"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
+        <activity
+            android:name="com.umeng.socialize.view.CommentActivity"
+            android:configChanges="orientation|keyboard"
+            android:theme="@style/Theme.UMDefault" />
+        <activity
+            android:name="com.umeng.socialize.view.CommentDetail"
+            android:configChanges="orientation|keyboard"
+            android:noHistory="true"
+            android:theme="@style/Theme.UMDefault" />
+        <activity
+            android:name="com.umeng.socialize.view.CommentDetailNoMap"
+            android:configChanges="orientation|keyboard"
+            android:noHistory="true"
+            android:theme="@style/Theme.UMDefault" />
+        <!-- ############ QQ空间和QQ SSO授权的Activity注册 ############ -->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent1104894320" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+
+        </activity>
 
 
     </application>

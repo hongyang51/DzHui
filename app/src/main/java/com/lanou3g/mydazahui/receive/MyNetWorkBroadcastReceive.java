@@ -1,4 +1,4 @@
-package com.lanou3g.mydazahui;
+package com.lanou3g.mydazahui.receive;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -12,6 +12,7 @@ import android.support.v7.app.NotificationCompat;
 import android.support.v7.app.NotificationCompat.Builder;
 import android.util.Log;
 
+import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.activity.PatchWorkOneActivity;
 
 import cn.jpush.android.api.JPushInterface;

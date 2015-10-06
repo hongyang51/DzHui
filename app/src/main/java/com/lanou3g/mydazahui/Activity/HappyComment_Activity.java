@@ -1,6 +1,7 @@
 package com.lanou3g.mydazahui.activity;
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.util.Log;
@@ -23,13 +24,22 @@ import com.lanou3g.mydazahui.bean.Happy;
 import com.lanou3g.mydazahui.bean.HappyComment;
 import com.lanou3g.mydazahui.utils.CircleImageView;
 import com.lanou3g.mydazahui.utils.VolleySingleton;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.controller.UMServiceFactory;
+import com.umeng.socialize.controller.UMSocialService;
+import com.umeng.socialize.media.QQShareContent;
+import com.umeng.socialize.media.QZoneShareContent;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.sso.QZoneSsoHandler;
+import com.umeng.socialize.sso.SinaSsoHandler;
+import com.umeng.socialize.sso.UMQQSsoHandler;
 
 import java.util.ArrayList;
 
 /**
  * Created by dllo on 15/9/29.
  */
-public class HappyComment_Activity extends MainActivity {
+public class HappyComment_Activity extends MainActivity implements View.OnClickListener {
     private Happy.jokes jokes;
     private TextView Title, time, happy_content, like_text, unlike_text, comment_text, head;
     private CircleImageView groom_img;
@@ -37,17 +47,91 @@ public class HappyComment_Activity extends MainActivity {
     private ImageLoader imageLoader;
     private ListView Comment_list;
     private HappyComment_Adapter adapter;
-    private ImageView default_img;
+    private ImageView default_img,share;
     private CardView List_cardView;
 
+    // 首先在您的Activity中添加如下成员变量
+    final UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.share");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView();
         initData();
+        initViewListen();
+        // 配置需要分享的相关平台
+        configPlatforms();
+        // 设置分享的内容
+        setShareContent();
 
 
+    }
+    /**
+     * 根据不同的平台设置不同的分享内容</br>
+     */
+    private void setShareContent() {
+        UMImage urlImage = new UMImage(this,
+                "http://www.umeng.com/images/pic/social/integrated_3.png");
+        UMImage image = new UMImage(this,
+                BitmapFactory.decodeResource(getResources(), R.drawable.device));
+        image.setTitle("thumb title");
+        image.setThumb("http://www.umeng.com/images/pic/social/integrated_3.png");
+
+        // 配置SSO
+        mController.getConfig().setSsoHandler(new SinaSsoHandler());
+
+        QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler(this,
+                "1104894320", "sOmOaMZHcMhk0mPF");
+        qZoneSsoHandler.addToSocialSDK();
+        mController.setShareContent("来自 大杂烩  http://www.513951.com");
+        // 设置QQ空间分享内容
+        QZoneShareContent qzone = new QZoneShareContent();
+        qzone.setShareContent("share test");
+        qzone.setTargetUrl("http://m.lengxiaohua.com/p/joke/"+jokes.getJokeid());
+        qzone.setTitle("QZone title");
+        qzone.setShareMedia(urlImage);
+        // qzone.setShareMedia(uMusic);
+
+        mController.setShareMedia(qzone);
+        QQShareContent qqShareContent = new QQShareContent();
+        qqShareContent.setShareContent("来自 大杂烩  http://www.513951.com");
+        qqShareContent.setTitle("hello, title");
+        qqShareContent.setTargetUrl("http://m.lengxiaohua.com/p/joke/"+jokes.getJokeid());
+//        qqShareContent.setShareMedia(image);
+        mController.setShareMedia(qqShareContent);
+
+    }
+
+    private void configPlatforms() {
+        // 添加新浪SSO授权
+        mController.getConfig().setSsoHandler(new SinaSsoHandler());
+
+        // 添加QQ、QZone平台
+        addQQQZonePlatform();
+    }
+    /**
+     * @功能描述 : 添加QQ平台支持 QQ分享的内容， 包含四种类型， 即单纯的文字、图片、音乐、视频. 参数说明 : title, summary,
+     *       image url中必须至少设置一个, targetUrl必须设置,网页地址必须以"http://"开头 . title :
+     *       要分享标题 summary : 要分享的文字概述 image url : 图片地址 [以上三个参数至少填写一个] targetUrl
+     *       : 用户点击该分享时跳转到的目标地址 [必填] ( 若不填写则默认设置为友盟主页 )
+     * @return
+     */
+    private void addQQQZonePlatform() {
+        String appId = "1104894320";
+        String appKey = "sOmOaMZHcMhk0mPF";
+        // 添加QQ支持, 并且设置QQ分享内容的target url
+        UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(this,
+                appId, appKey);
+        qqSsoHandler.setTargetUrl("http://www.umeng.com/social");
+        qqSsoHandler.addToSocialSDK();
+
+        // 添加QZone平台
+        QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler(this, appId, appKey);
+        qZoneSsoHandler.addToSocialSDK();
+    }
+
+    private void initViewListen() {
+        share.setOnClickListener(this);
     }
 
     private void initView() {
@@ -61,6 +145,7 @@ public class HappyComment_Activity extends MainActivity {
         groom_img = (CircleImageView) findViewById(R.id.groom_img);
         Comment_list = (ListView) findViewById(R.id.Comment_list);
         default_img = (ImageView) findViewById(R.id.default_img);
+        share = (ImageView) findViewById(R.id.share);
         singleton = VolleySingleton.getVolleySingleton(this);
         List_cardView = (CardView) findViewById(R.id.List_cardView);
         imageLoader = singleton.getImageLoader();
@@ -118,4 +203,13 @@ public class HappyComment_Activity extends MainActivity {
     }
 
 
+    @Override
+    public void onClick(View v) {
+        mController.getConfig().setPlatforms(
+                SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.SINA
+                );
+        mController.openShare(this, false);
+
+
+    }
 }
