@@ -25,7 +25,7 @@ public class TopStoriesEntityDao extends AbstractDao<TopStoriesEntity, Void> {
         public final static Property Ga_prefix = new Property(1, String.class, "ga_prefix", false, "GA_PREFIX");
         public final static Property Image = new Property(2, String.class, "image", false, "IMAGE");
         public final static Property Type = new Property(3, String.class, "type", false, "TYPE");
-        public final static Property Id = new Property(4, String.class, "id", false, "ID");
+        public final static Property Id = new Property(4, Integer.class, "id", false, "ID");
     };
 
 
@@ -45,7 +45,7 @@ public class TopStoriesEntityDao extends AbstractDao<TopStoriesEntity, Void> {
                 "\"GA_PREFIX\" TEXT," + // 1: ga_prefix
                 "\"IMAGE\" TEXT," + // 2: image
                 "\"TYPE\" TEXT," + // 3: type
-                "\"ID\" TEXT);"); // 4: id
+                "\"ID\" INTEGER);"); // 4: id
     }
 
     /** Drops the underlying database table. */
@@ -78,7 +78,7 @@ public class TopStoriesEntityDao extends AbstractDao<TopStoriesEntity, Void> {
         if (type != null) {
             stmt.bindString(4, type);
         }
-
+ 
         Integer id = entity.getId();
         if (id != null) {
             stmt.bindLong(5, id);

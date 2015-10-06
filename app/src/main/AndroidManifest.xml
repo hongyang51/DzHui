@@ -37,8 +37,11 @@
         <activity android:name=".activity.PWReadOneActivity" />
         <activity android:name=".base.MainActivity" />
         <activity android:name=".activity.PatchWork_FirstActivity" />
-        <activity android:name=".activity.PWRead_Home_Tanhost_Activity" />
+        <activity android:name=".activity.PWRead_Home_Tanhost_Activity"
+            android:launchMode="singleTask"
+            />
         <activity android:name=".activity.WebViewActivity" />
+        <activity android:name=".activity.UserCenterActivity" />
         <activity
             android:name=".activity.GroomActivity"
             android:launchMode="singleTask" />

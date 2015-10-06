@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0F0F0">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/title_include">
+
+    </include>
+
+    <View
+        android:id="@+id/view_1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/include"
+        android:layout_marginTop="10dp"
+        android:background="@color/welcome_en">
+
+    </View>
+
+    <EditText
+        android:id="@+id/name_ed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view_1"
+        android:background="@android:color/white"
+        android:hint="手机/邮箱/用户名"
+        android:inputType="phone"
+        android:padding="10dp"
+        android:selectAllOnFocus="true"
+        android:singleLine="true" />
+
+    <View
+        android:id="@+id/view_2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/name_ed"
+        android:background="@color/umeng_socialize_text_time">
+
+    </View>
+
+    <EditText
+        android:id="@+id/permiss_ed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view_2"
+        android:background="@android:color/white"
+        android:hint="密码"
+        android:inputType="textPassword"
+        android:padding="10dp"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+
+        />
+
+    <View
+        android:id="@+id/view_3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/permiss_ed"
+        android:background="@color/umeng_socialize_text_time">
+
+    </View>
+
+    <Button
+        android:id="@+id/load_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view_3"
+        android:layout_margin="17dp"
+        android:background="@drawable/load"
+        android:text="登录"
+        android:textColor="@android:color/white"
+        android:textSize="19sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/other_linear"
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:id="@+id/other_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="使用第三方账号登陆" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/other_textView"
+            android:background="@color/umeng_socialize_text_ucenter">
+
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@+id/other_textView"
+            android:background="@color/umeng_socialize_text_ucenter">
+
+        </TextView>
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/other_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/QQ"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/umeng_socialize_qq_on" />
+
+        <ImageView
+            android:id="@+id/QZONE"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/umeng_socialize_qzone_on" />
+
+        <ImageView
+            android:id="@+id/SINA"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/umeng_socialize_sina_on" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>

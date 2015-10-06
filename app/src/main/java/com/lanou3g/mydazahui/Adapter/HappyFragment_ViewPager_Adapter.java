@@ -210,7 +210,9 @@ public class HappyFragment_ViewPager_Adapter extends PagerAdapter {
                     Gson gson = new Gson();
                     Happy happy = gson.fromJson(response, Happy.class);
                     jokes = (ArrayList<Happy.jokes>) happy.getJokes();
+                    if(ada!=null){
                     ada.Refreshing(jokes);
+                    }
                     loadingLayoutOne.setRefreshing(false);
                     Log.e("当前刷新的是", 0 + "");
                 }

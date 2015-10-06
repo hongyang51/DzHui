@@ -1,14 +1,12 @@
 package com.lanou3g.mydazahui.activity;
 
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.Response;
@@ -19,6 +17,7 @@ import com.google.gson.Gson;
 import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.adapter.HappyComment_Adapter;
 import com.lanou3g.mydazahui.base.Final_Base;
+import com.lanou3g.mydazahui.base.ListViewForScrollView;
 import com.lanou3g.mydazahui.base.MainActivity;
 import com.lanou3g.mydazahui.bean.Happy;
 import com.lanou3g.mydazahui.bean.HappyComment;
@@ -45,9 +44,9 @@ public class HappyComment_Activity extends MainActivity implements View.OnClickL
     private CircleImageView groom_img;
     private VolleySingleton singleton;
     private ImageLoader imageLoader;
-    private ListView Comment_list;
+    private ListViewForScrollView Comment_list;
     private HappyComment_Adapter adapter;
-    private ImageView default_img,share;
+    private ImageView default_img, share;
     private CardView List_cardView;
 
     // 首先在您的Activity中添加如下成员变量
@@ -66,37 +65,31 @@ public class HappyComment_Activity extends MainActivity implements View.OnClickL
 
 
     }
+
     /**
      * 根据不同的平台设置不同的分享内容</br>
      */
     private void setShareContent() {
         UMImage urlImage = new UMImage(this,
-                "http://www.umeng.com/images/pic/social/integrated_3.png");
-        UMImage image = new UMImage(this,
-                BitmapFactory.decodeResource(getResources(), R.drawable.device));
-        image.setTitle("thumb title");
-        image.setThumb("http://www.umeng.com/images/pic/social/integrated_3.png");
+                Final_Base.HAPPY_URL + jokes.getUri());
+
 
         // 配置SSO
         mController.getConfig().setSsoHandler(new SinaSsoHandler());
-
-        QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler(this,
-                "1104894320", "sOmOaMZHcMhk0mPF");
-        qZoneSsoHandler.addToSocialSDK();
-        mController.setShareContent("来自 大杂烩  http://www.513951.com");
+        mController.setShareContent(jokes.getContent() + "http://m.lengxiaohua.com/p/joke/" + jokes.getJokeid() + "      ---来自大杂烩");
         // 设置QQ空间分享内容
         QZoneShareContent qzone = new QZoneShareContent();
-        qzone.setShareContent("share test");
-        qzone.setTargetUrl("http://m.lengxiaohua.com/p/joke/"+jokes.getJokeid());
-        qzone.setTitle("QZone title");
+        qzone.setShareContent("---来自大杂烩--http://www.513951.com");
+        qzone.setTargetUrl("http://m.lengxiaohua.com/p/joke/" + jokes.getJokeid());
+        qzone.setTitle(jokes.getContent());
         qzone.setShareMedia(urlImage);
         // qzone.setShareMedia(uMusic);
 
         mController.setShareMedia(qzone);
         QQShareContent qqShareContent = new QQShareContent();
-        qqShareContent.setShareContent("来自 大杂烩  http://www.513951.com");
-        qqShareContent.setTitle("hello, title");
-        qqShareContent.setTargetUrl("http://m.lengxiaohua.com/p/joke/"+jokes.getJokeid());
+        qqShareContent.setShareContent("---来自大杂烩--http://www.513951.com");
+        qqShareContent.setTitle(jokes.getContent());
+        qqShareContent.setTargetUrl("http://m.lengxiaohua.com/p/joke/" + jokes.getJokeid());
 //        qqShareContent.setShareMedia(image);
         mController.setShareMedia(qqShareContent);
 
@@ -109,12 +102,13 @@ public class HappyComment_Activity extends MainActivity implements View.OnClickL
         // 添加QQ、QZone平台
         addQQQZonePlatform();
     }
+
     /**
-     * @功能描述 : 添加QQ平台支持 QQ分享的内容， 包含四种类型， 即单纯的文字、图片、音乐、视频. 参数说明 : title, summary,
-     *       image url中必须至少设置一个, targetUrl必须设置,网页地址必须以"http://"开头 . title :
-     *       要分享标题 summary : 要分享的文字概述 image url : 图片地址 [以上三个参数至少填写一个] targetUrl
-     *       : 用户点击该分享时跳转到的目标地址 [必填] ( 若不填写则默认设置为友盟主页 )
      * @return
+     * @功能描述 : 添加QQ平台支持 QQ分享的内容， 包含四种类型， 即单纯的文字、图片、音乐、视频. 参数说明 : title, summary,
+     * image url中必须至少设置一个, targetUrl必须设置,网页地址必须以"http://"开头 . title :
+     * 要分享标题 summary : 要分享的文字概述 image url : 图片地址 [以上三个参数至少填写一个] targetUrl
+     * : 用户点击该分享时跳转到的目标地址 [必填] ( 若不填写则默认设置为友盟主页 )
      */
     private void addQQQZonePlatform() {
         String appId = "1104894320";
@@ -143,7 +137,7 @@ public class HappyComment_Activity extends MainActivity implements View.OnClickL
         unlike_text = (TextView) findViewById(R.id.unlike_text);
         comment_text = (TextView) findViewById(R.id.comment_text);
         groom_img = (CircleImageView) findViewById(R.id.groom_img);
-        Comment_list = (ListView) findViewById(R.id.Comment_list);
+        Comment_list = (ListViewForScrollView) findViewById(R.id.Comment_list);
         default_img = (ImageView) findViewById(R.id.default_img);
         share = (ImageView) findViewById(R.id.share);
         singleton = VolleySingleton.getVolleySingleton(this);
@@ -207,9 +201,7 @@ public class HappyComment_Activity extends MainActivity implements View.OnClickL
     public void onClick(View v) {
         mController.getConfig().setPlatforms(
                 SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.SINA
-                );
+        );
         mController.openShare(this, false);
-
-
     }
 }

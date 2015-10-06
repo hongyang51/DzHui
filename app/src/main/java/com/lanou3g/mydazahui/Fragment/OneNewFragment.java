@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -106,6 +108,7 @@ public class OneNewFragment extends AbsBaseFragment implements SwipeRefreshLoadi
                 imageLoader.get(themeNews.getBackground(), listener);
                 storiesEntities = (ArrayList<ThemeNews.StoriesEntity>) themeNews.getStories();
                 list_adapter.addDatas(storiesEntities);
+                StartAnimation();
 
             }
         }, new Response.ErrorListener() {
@@ -117,6 +120,16 @@ public class OneNewFragment extends AbsBaseFragment implements SwipeRefreshLoadi
         request.setShouldCache(false);
         singleton.addQueue(request, Final_Base.THEMES_URL_REQUEUE_TAG);
 
+    }
+
+    private void StartAnimation() {
+        // 缩放动画
+        ScaleAnimation scaleAnimation = new ScaleAnimation(1, 1.3f, 1, 1.3f,
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        scaleAnimation.setDuration(5000);// 设置动画的时间
+        scaleAnimation.setRepeatCount(Animation.INFINITE);
+        scaleAnimation.setRepeatMode(Animation.REVERSE);
+        static_img.setAnimation(scaleAnimation);
     }
 
     //     刷新方法

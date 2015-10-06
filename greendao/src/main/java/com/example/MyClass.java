@@ -21,8 +21,8 @@ public class MyClass {
         Entity entity = schema.addEntity("GuidePage");
         entity.addStringProperty("text");// 标签
         entity.addStringProperty("img");
-        // 指定生成的实体类,类名
 
+        // 指定生成的实体类,类名
         Entity Latestentity = schema.addEntity("StoriesEntity");
         Latestentity.addStringProperty("title");// 标签
         Latestentity.addStringProperty("ga_prefix");
@@ -39,6 +39,11 @@ public class MyClass {
 
         Entity images = schema.addEntity("images");
         images.addStringProperty("images");
+
+        Entity user = schema.addEntity("User");
+        user.addStringProperty("name");
+        user.addStringProperty("profile_image_url");
+
 
 //
 //        // 指定生成的实体类,类名

@@ -1,26 +1,29 @@
 package com.lanou3g.mydazahui.fragment;
 
-import android.os.Bundle;
+import android.content.Intent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.lanou3g.mydazahui.R;
+import com.lanou3g.mydazahui.activity.UserCenterActivity;
 import com.lanou3g.mydazahui.base.BaseFragment;
+import com.lanou3g.mydazahui.base.DaoSingleton;
+import com.lanou3g.mydazahui.greendaobean.User;
+import com.lanou3g.mydazahui.greendaobean.UserDao;
 import com.lanou3g.mydazahui.utils.CircleImageView;
 import com.lanou3g.mydazahui.utils.VolleySingleton;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.bean.SocializeEntity;
+import com.umeng.socialize.bean.StatusCode;
 import com.umeng.socialize.controller.UMServiceFactory;
 import com.umeng.socialize.controller.UMSocialService;
 import com.umeng.socialize.controller.listener.SocializeListeners;
-import com.umeng.socialize.exception.SocializeException;
-import com.umeng.socialize.sso.QZoneSsoHandler;
-import com.umeng.socialize.sso.UMQQSsoHandler;
-import com.umeng.socialize.utils.Log;
 
-import java.util.Map;
-import java.util.Set;
+import java.util.ArrayList;
 
 /**
  * Created by dllo on 15/9/22.
@@ -31,103 +34,98 @@ public class AboutFragment extends BaseFragment implements View.OnClickListener 
     private CircleImageView circleImageView;
     private VolleySingleton singleton;
     private ImageLoader imageLoader;
+    private UserDao userDao;
+    private RelativeLayout relativeLayout;
+    private ImageLoader.ImageListener listener;
+    private Button button;
 
     @Override
     public View initViews() {
         View view = View.inflate(mActivity, R.layout.fragment_about, null);
         mController = UMServiceFactory.getUMSocialService("com.umeng.login");
         singleton = VolleySingleton.getVolleySingleton(mActivity);
+
         imageLoader = singleton.getImageLoader();
-        addQZoneQQPlatform();
         circleImageView = (CircleImageView) view.findViewById(R.id.circleImageView);
         person_textview = (TextView) view.findViewById(R.id.person_textview);
-        person_textview.setOnClickListener(this);
-        circleImageView.setOnClickListener(this);
+        relativeLayout = (RelativeLayout) view.findViewById(R.id.relativeLayout);
+        button = (Button) view.findViewById(R.id.button);
+        userDao = DaoSingleton.getInstance().getUserDao();
+        relativeLayout.setOnClickListener(this);
+        button.setOnClickListener(this);
         return view;
-    }
-
-    private void addQZoneQQPlatform() {
-        String appId = "1104894320";
-        String appKey = "sOmOaMZHcMhk0mPF";
-        // 添加QQ支持, 并且设置QQ分享内容的target url
-        UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(getActivity(),
-                appId, appKey);
-        qqSsoHandler.setTargetUrl("http://www.umeng.com");
-        qqSsoHandler.addToSocialSDK();
-
-        // 添加QZone平台
-        QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler(getActivity(), appId, appKey);
-        qZoneSsoHandler.addToSocialSDK();
     }
 
     @Override
     public void initData() {
+        ArrayList<User> users = (ArrayList<User>) userDao.loadAll();
+        if (users.size() > 0) {
+            User user = users.get(0);
+            listener = ImageLoader.getImageListener(circleImageView, R.mipmap.dzhreceiver, R.mipmap.dzhreceiver);
+            imageLoader.get(user.getProfile_image_url(), listener);
+            person_textview.setText(user.getName());
+        }
 
     }
 
+    @Override
+    public void onClick(View v) {
+        ArrayList<User> users = (ArrayList<User>) userDao.loadAll();
+        switch (v.getId()) {
+            case R.id.relativeLayout:
+                if (users.size() == 0) {
+                    Intent intent = new Intent(mActivity, UserCenterActivity.class);
+                    mActivity.startActivity(intent);
+                } else {
+                    Toast.makeText(mActivity, "您已登陆", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.button:
+                if (users.size() > 0) {
+                    userDao.deleteAll();
+                    person_textview.setText("个人中心");
+                    circleImageView.setImageResource(R.mipmap.dzhreceiver);
+                    logout(SHARE_MEDIA.SINA);
+                    Toast.makeText(mActivity, "退出成功", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(mActivity, "请登录", Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
 
-    private void loadQQ() {
-        mController.doOauthVerify(mActivity, SHARE_MEDIA.QQ, new SocializeListeners.UMAuthListener() {
+    }
+
+    /**
+     * 注销本次登录</br>
+     */
+    private void logout(final SHARE_MEDIA platform) {
+        mController.deleteOauth(mActivity, platform, new SocializeListeners.SocializeClientListener() {
+
             @Override
-            public void onStart(SHARE_MEDIA platform) {
-                Toast.makeText(mActivity, "授权开始", Toast.LENGTH_SHORT).show();
+            public void onStart() {
+
             }
 
             @Override
-            public void onError(SocializeException e, SHARE_MEDIA platform) {
-                Toast.makeText(mActivity, "授权错误", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onComplete(Bundle value, SHARE_MEDIA platform) {
-                Toast.makeText(mActivity, "授权完成", Toast.LENGTH_SHORT).show();
-                //获取相关授权信息
-                mController.getPlatformInfo(mActivity, SHARE_MEDIA.QQ, new SocializeListeners.UMDataListener() {
-                    @Override
-                    public void onStart() {
-                        Toast.makeText(mActivity, "获取平台数据开始...", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onComplete(int status, Map<String, Object> info) {
-                        if (status == 200 && info != null) {
-                            StringBuilder sb = new StringBuilder();
-                            Set<String> keys = info.keySet();
-                            for (String key : keys) {
-                                sb.append(key + "=" + info.get(key).toString() + "\r\n");
-                            }
-                            ImageLoader.ImageListener listener = ImageLoader.getImageListener(circleImageView, R.mipmap.dzhreceiver, R.mipmap.dzhreceiver);
-                            imageLoader.get(info.get("profile_image_url").toString(), listener);
-
-
-                            person_textview.setText(info.get("screen_name").toString());
-
-                            Log.d("TestData", sb.toString());
-                        } else {
-                            Log.d("TestData", "发生错误：" + status);
-                        }
-                    }
-                });
-            }
-
-            @Override
-            public void onCancel(SHARE_MEDIA platform) {
-                Toast.makeText(mActivity, "授权取消", Toast.LENGTH_SHORT).show();
+            public void onComplete(int status, SocializeEntity entity) {
+                String showText = "解除" + platform.toString() + "平台授权成功";
+                if (status != StatusCode.ST_CODE_SUCCESSED) {
+                    showText = "解除" + platform.toString() + "平台授权失败[" + status + "]";
+                }
+                Toast.makeText(mActivity, showText, Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.person_textview:
-                loadQQ();
-                break;
-            case R.id.circleImageView:
-                loadQQ();
-                break;
-
+    public void onResume() {
+        super.onResume();
+        ArrayList<User> users = (ArrayList<User>) userDao.loadAll();
+        if (users.size() > 0) {
+            User user = users.get(0);
+            listener = ImageLoader.getImageListener(circleImageView, R.mipmap.dzhreceiver, R.mipmap.dzhreceiver);
+            imageLoader.get(user.getProfile_image_url(), listener);
+            person_textview.setText(user.getName());
         }
-
     }
 }

@@ -8,6 +8,7 @@ import com.lanou3g.mydazahui.greendaobean.DaoSession;
 import com.lanou3g.mydazahui.greendaobean.GuidePageDao;
 import com.lanou3g.mydazahui.greendaobean.StoriesEntityDao;
 import com.lanou3g.mydazahui.greendaobean.TopStoriesEntityDao;
+import com.lanou3g.mydazahui.greendaobean.UserDao;
 import com.lanou3g.mydazahui.greendaobean.imagesDao;
 
 /**
@@ -27,6 +28,7 @@ public class DaoSingleton {
     private StoriesEntityDao storiesEntityDao;
     private TopStoriesEntityDao topStoriesEntityDao;
     private imagesDao imagesDao;
+    private UserDao userDao;
 
 
     private DaoSingleton() {
@@ -100,6 +102,13 @@ public class DaoSingleton {
             imagesDao = getDaoSession().getImagesDao();
         }
         return imagesDao;
+    }
+
+    public UserDao getUserDao() {
+        if (userDao == null) {
+            userDao = getDaoSession().getUserDao();
+        }
+        return userDao;
     }
 }
 

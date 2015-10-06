@@ -12,4 +12,9 @@
     <color name="transparent">#F0F2F6</color>
     <color name="top_color">#4a6bb1</color>
     <color name="text_gray">#8D7A71</color>
+
+    <color name="button_on">#7CB6A9</color>
+    <color name="button_off">#72A798</color>
+
+
 </resources>
