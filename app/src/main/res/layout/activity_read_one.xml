@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
+        android:src="@mipmap/read"
         />
     <ImageView
         android:id="@+id/read_one_lanniao"
@@ -15,6 +16,7 @@
         android:layout_height="200dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:src="@mipmap/lanniao"
         />
     <TextView
         android:layout_width="wrap_content"

@@ -3,7 +3,6 @@ package com.lanou3g.mydazahui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
@@ -22,7 +21,7 @@ import com.google.gson.Gson;
 import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.base.DaoSingleton;
 import com.lanou3g.mydazahui.base.MainActivity;
-import com.lanou3g.mydazahui.bean.GuidePage;
+import com.lanou3g.mydazahui.greendaobean.GuidePage;
 import com.lanou3g.mydazahui.greendaobean.GuidePageDao;
 import com.lanou3g.mydazahui.utils.SharedPreferUtil;
 import com.lanou3g.mydazahui.utils.VolleySingleton;
@@ -52,7 +51,6 @@ public class PWReadOneActivity extends MainActivity {
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         widthPixels = metrics.widthPixels;
         heightPixels = metrics.heightPixels;
-
         initView();
         initDatas();
     }
@@ -66,47 +64,39 @@ public class PWReadOneActivity extends MainActivity {
         volleySingleton = VolleySingleton.getVolleySingleton(this);
         relativeLayout = (RelativeLayout) findViewById(R.id.read_one_linearLayout);
         guidePageDao = DaoSingleton.getInstance().getGuidePageDao();
+
     }
 
     private void initDatas() {
         AddUrl = Url + widthPixels + "*" + heightPixels;//拼接网址
+
+        if (guidePageDao.loadAll().size() > 0) {
+            ArrayList<com.lanou3g.mydazahui.greendaobean.GuidePage> page = (ArrayList<com.lanou3g.mydazahui.greendaobean.GuidePage>) guidePageDao.loadAll();
+            com.lanou3g.mydazahui.greendaobean.GuidePage guidePage = page.get(0);
+            read_one_TextView.setText(guidePage.getText());
+            ImageLoader.ImageListener listener = ImageLoader.getImageListener(imageView, R.mipmap.read, R.mipmap.read);
+            imageLoader = volleySingleton.getImageLoader();
+            String imgUrl = guidePage.getImg();
+            imageLoader.get(imgUrl, listener);
+            read_one_lanniao.setImageResource(R.mipmap.lanniao);
+
+        }
+        StartAnimation();//执行动画
         StringRequest stringRequest = new StringRequest(AddUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
-                GuidePage guidePage = gson.fromJson(response, GuidePage.class);
-                com.lanou3g.mydazahui.greendaobean.GuidePage page = gson.fromJson(response, com.lanou3g.mydazahui.greendaobean.GuidePage.class);
-// 数据库
+                GuidePage page = gson.fromJson(response, GuidePage.class);
+                // 数据库
                 guidePageDao.deleteAll();
                 guidePageDao.insert(page);
 
-                read_one_TextView.setText(guidePage.getText());
-                ImageLoader.ImageListener listener = ImageLoader.getImageListener(imageView, R.mipmap.read, R.mipmap.read);
-                imageLoader = volleySingleton.getImageLoader();
-                String imgUrl = guidePage.getImg();
-                imageLoader.get(imgUrl, listener);
-                read_one_lanniao.setImageResource(R.mipmap.lanniao);
-                StartAnimation();//执行动画
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                if (guidePageDao.loadAll().size() > 0) {
-                    ArrayList<com.lanou3g.mydazahui.greendaobean.GuidePage> page = (ArrayList<com.lanou3g.mydazahui.greendaobean.GuidePage>) guidePageDao.loadAll();
-                    com.lanou3g.mydazahui.greendaobean.GuidePage guidePage = page.get(0);
-                    read_one_TextView.setText(guidePage.getText());
-                    ImageLoader.ImageListener listener = ImageLoader.getImageListener(imageView, R.mipmap.read, R.mipmap.read);
-                    imageLoader = volleySingleton.getImageLoader();
-                    String imgUrl = guidePage.getImg();
-                    imageLoader.get(imgUrl, listener);
-                    read_one_lanniao.setImageResource(R.mipmap.lanniao);
-                    StartAnimation();//执行动画
-                    Log.e("缓存", "知乎又狗屎了");
-                } else {
-                    Toast.makeText(PWReadOneActivity.this, "第一次启动请连接网络呦", Toast.LENGTH_LONG).show();
-                }
 
-
+                Toast.makeText(PWReadOneActivity.this, "网络不稳定", Toast.LENGTH_LONG).show();
             }
         });
         stringRequest.setShouldCache(false);

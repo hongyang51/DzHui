@@ -7,6 +7,9 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
+        <include layout="@layout/title_include">
+
+        </include>
 
     <FrameLayout
         android:id="@+id/gonn_fm"

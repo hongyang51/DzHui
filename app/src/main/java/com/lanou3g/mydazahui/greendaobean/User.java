@@ -8,13 +8,15 @@ public class User {
 
     private String name;
     private String profile_image_url;
+    private String platform;
 
     public User() {
     }
 
-    public User(String name, String profile_image_url) {
+    public User(String name, String profile_image_url, String platform) {
         this.name = name;
         this.profile_image_url = profile_image_url;
+        this.platform = platform;
     }
 
     public String getName() {
@@ -31,6 +33,14 @@ public class User {
 
     public void setProfile_image_url(String profile_image_url) {
         this.profile_image_url = profile_image_url;
+    }
+
+    public String getPlatform() {
+        return platform;
+    }
+
+    public void setPlatform(String platform) {
+        this.platform = platform;
     }
 
 }

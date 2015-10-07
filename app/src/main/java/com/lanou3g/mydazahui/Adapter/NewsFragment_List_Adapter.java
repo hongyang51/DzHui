@@ -159,7 +159,7 @@ public class NewsFragment_List_Adapter extends BaseAdapter {
             viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.e("ID", storiesEntities.get(position).getId() + "");
+                    Log.e("ID", storiesEntities.get(position).getId() + ".......");
                     int newsId = storiesEntities.get(position).getId();// 因为设置了list头所有position-1
                     Intent intent = new Intent(context, WebViewActivity.class);
                     intent.putExtra(Final_Base.NEWSID, newsId);

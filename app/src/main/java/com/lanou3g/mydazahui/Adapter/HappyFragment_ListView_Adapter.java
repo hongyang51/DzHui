@@ -1,6 +1,6 @@
 package com.lanou3g.mydazahui.adapter;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.util.Log;
@@ -17,6 +17,15 @@ import com.lanou3g.mydazahui.base.Final_Base;
 import com.lanou3g.mydazahui.bean.Happy;
 import com.lanou3g.mydazahui.utils.CircleImageView;
 import com.lanou3g.mydazahui.utils.VolleySingleton;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.controller.UMServiceFactory;
+import com.umeng.socialize.controller.UMSocialService;
+import com.umeng.socialize.media.QQShareContent;
+import com.umeng.socialize.media.QZoneShareContent;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.sso.QZoneSsoHandler;
+import com.umeng.socialize.sso.SinaSsoHandler;
+import com.umeng.socialize.sso.UMQQSsoHandler;
 
 import java.util.ArrayList;
 
@@ -24,19 +33,21 @@ import java.util.ArrayList;
  * Created by dllo on 15/9/28.
  */
 public class HappyFragment_ListView_Adapter extends BaseAdapter {
-    private Context context;
+    private Activity context;
     private ArrayList<Happy.jokes> jokes;
     private VolleySingleton singleton;
     private ImageLoader imageLoader;
+    // 首先在您的Activity中添加如下成员变量
+    final UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.share");
 
 
-
-
-    public HappyFragment_ListView_Adapter(Context context, ArrayList<Happy.jokes> jokes) {
+    public HappyFragment_ListView_Adapter(Activity context, ArrayList<Happy.jokes> jokes) {
         this.context = context;
         this.jokes = jokes;
         singleton = VolleySingleton.getVolleySingleton(context);
         imageLoader = singleton.getImageLoader();
+        // 配置需要分享的相关平台
+        configPlatforms();
     }
 
     public void Loading(ArrayList<Happy.jokes> jokes) {
@@ -50,32 +61,9 @@ public class HappyFragment_ListView_Adapter extends BaseAdapter {
         this.jokes.addAll(jokes);
         notifyDataSetChanged();
 
-//            StringRequest request = new StringRequest(Urls[0], new Response.Listener<String>() {
-//                @Override
-//                public void onResponse(String response) {
-//                    Log.e("sss", "------------>" + response);
-//                    Gson gson = new Gson();
-//                    Happy happy = gson.fromJson(response, Happy.class);
-//                    jokes = (ArrayList<Happy.jokes>) happy.getJokes();
-//                    refreshData(jokes);
-////                adapter.Refreshing(jokes);
-////                loadingLayout.setRefreshing(false);
-//                    loadingLayout.setRefreshing(false);
-//                }
-//            }, new Response.ErrorListener() {
-//                @Override
-//                public void onErrorResponse(VolleyError error) {
-//
-//                }
-//            });
-//            singleton.addQueue(request, "request");
     }
 
-//    private void refreshData(ArrayList<Happy.jokes> jokes) {
-//        this.jokes.clear();
-//        this.jokes.addAll(jokes);
-//        notifyDataSetChanged();
-//    }
+
 
     @Override
     public int getCount() {
@@ -107,12 +95,13 @@ public class HappyFragment_ListView_Adapter extends BaseAdapter {
             holder.like_text = (TextView) convertView.findViewById(R.id.like_text);
             holder.cardView = (CardView) convertView.findViewById(R.id.cardView);
             holder.default_img = (ImageView) convertView.findViewById(R.id.default_img);
+            holder.share = (ImageView) convertView.findViewById(R.id.share);
             convertView.setTag(holder);
 
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        final Happy.jokes joke = (Happy.jokes) getItem(position);
+        final Happy.jokes  joke = (Happy.jokes) getItem(position);
 
         holder.Title.setText(joke.getUser_name() + "");
         holder.like_text.setText(joke.getLike_count() + "");
@@ -120,6 +109,35 @@ public class HappyFragment_ListView_Adapter extends BaseAdapter {
         holder.happy_content.setText(joke.getContent() + "");
         holder.time.setText(joke.getCreated() + "");
         holder.comment_text.setText(joke.getComment_count() + "");
+        holder.share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // 设置分享的内容
+                UMImage urlImage = new UMImage(context,
+                        Final_Base.HAPPY_URL + joke.getUri());
+                // 配置SSO
+                mController.getConfig().setSsoHandler(new SinaSsoHandler());
+                mController.setShareContent(joke.getContent() + "http://m.lengxiaohua.com/p/joke/" + joke.getJokeid() + "      ---来自大杂烩");
+                // 设置QQ空间分享内容
+                QZoneShareContent qzone = new QZoneShareContent();
+                qzone.setShareContent("---来自大杂烩--http://www.513951.com");
+                qzone.setTargetUrl("http://m.lengxiaohua.com/p/joke/" + joke.getJokeid());
+                qzone.setTitle(joke.getContent());
+                qzone.setShareMedia(urlImage);
+
+                mController.setShareMedia(qzone);
+                QQShareContent qqShareContent = new QQShareContent();
+                qqShareContent.setShareContent("---来自大杂烩--http://www.513951.com");
+                qqShareContent.setTitle(joke.getContent());
+                qqShareContent.setTargetUrl("http://m.lengxiaohua.com/p/joke/" + joke.getJokeid());
+                mController.setShareMedia(qqShareContent);
+                mController.getConfig().setPlatforms(
+                        SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.SINA
+                );
+                mController.openShare(context, false);
+            }
+        });
         String User_cover_url = Final_Base.HAPPY_URL + joke.getUser_cover_url_100x100();
         ImageLoader.ImageListener listener = ImageLoader.getImageListener(holder.groom_img, R.mipmap.ic_launcher, R.mipmap.ic_launcher);
         imageLoader.get(User_cover_url, listener);
@@ -129,8 +147,9 @@ public class HappyFragment_ListView_Adapter extends BaseAdapter {
             String default_img_uri = Final_Base.HAPPY_URL + joke.getUri();
             imageLoader.get(default_img_uri, default_img_listener);
             holder.default_img.setVisibility(View.VISIBLE);
+            Log.e("网址", joke.getUri() + "网址不为空");
         } else {
-            Log.e("网址", joke.getUri() + "网址为空");
+
             holder.default_img.setVisibility(View.GONE);
             Log.e("网址", "得到的网址为空");
         }
@@ -138,8 +157,7 @@ public class HappyFragment_ListView_Adapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, HappyComment_Activity.class);
-                intent.putExtra("jokes",joke);
-//                Bundle bundle = new Bundle();
+                intent.putExtra("jokes", joke);
                 context.startActivity(intent);
             }
         });
@@ -147,11 +165,32 @@ public class HappyFragment_ListView_Adapter extends BaseAdapter {
     }
 
 
+
     private class ViewHolder {
         private TextView Title, time, happy_content, like_text, unlike_text, comment_text;
         private CircleImageView groom_img;
         private CardView cardView;
-        private ImageView default_img;
+        private ImageView default_img,share;
 
+    }
+    private void configPlatforms() {
+        // 添加新浪SSO授权
+        mController.getConfig().setSsoHandler(new SinaSsoHandler());
+
+        // 添加QQ、QZone平台
+        addQQQZonePlatform();
+    }
+    private void addQQQZonePlatform() {
+        String appId = "1104894320";
+        String appKey = "sOmOaMZHcMhk0mPF";
+        // 添加QQ支持, 并且设置QQ分享内容的target url
+        UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(context,
+                appId, appKey);
+        qqSsoHandler.setTargetUrl("http://www.umeng.com/social");
+        qqSsoHandler.addToSocialSDK();
+
+        // 添加QZone平台
+        QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler(context, appId, appKey);
+        qZoneSsoHandler.addToSocialSDK();
     }
 }

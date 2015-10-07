@@ -1,6 +1,7 @@
 package com.lanou3g.mydazahui.adapter;
 
-import android.content.Context;
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.support.v4.view.PagerAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,8 +27,7 @@ import java.util.Map;
  * Created by dllo on 15/9/28.
  */
 public class HappyFragment_ViewPager_Adapter extends PagerAdapter {
-    private Context context;
-    //    private ListView listView;
+    private Activity context;
     private HappyFragment_ListView_Adapter ada, ada1;
     private String[] Url = {Final_Base.HAPPY_URL_TOP + "popular" + Final_Base.HAPPY_URL_CENTER
             + 0 + Final_Base.HAPPY_URL_BOTTOM, Final_Base.HAPPY_URL_TOP + "new" + Final_Base.HAPPY_URL_CENTER
@@ -36,19 +36,21 @@ public class HappyFragment_ViewPager_Adapter extends PagerAdapter {
     private VolleySingleton singleton;
     private SwipeRefreshLoadingLayout loadingLayoutOne;
     private SwipeRefreshLoadingLayout loadingLayoutTwo;
-    //    private Handler handler;
     private LayoutInflater inflater;
     private int PId = 0;
     private int NId = 0;
 
     private View view;
     private Map<Integer, View> views;
+    private ProgressDialog dialog;
 
 
-    public HappyFragment_ViewPager_Adapter(Context context) {
+    public HappyFragment_ViewPager_Adapter(Activity context) {
         this.context = context;
         singleton = VolleySingleton.getVolleySingleton(context);
         inflater = LayoutInflater.from(context);
+        dialog = new ProgressDialog(context);
+
         views = new HashMap<>();
 
     }
@@ -68,6 +70,9 @@ public class HappyFragment_ViewPager_Adapter extends PagerAdapter {
         if (view == null) {
             view = inflater.inflate(R.layout.happy_viewpager_item, null);
 
+            dialog.setMessage("正在加载中");
+            dialog.show();
+
             final ListView listView = (ListView) view.findViewById(R.id.happy_listview);
 
             StringRequest request = new StringRequest(Url[position], new Response.Listener<String>() {
@@ -80,12 +85,20 @@ public class HappyFragment_ViewPager_Adapter extends PagerAdapter {
                     HappyFragment_ListView_Adapter adapter = new HappyFragment_ListView_Adapter(context, jokes);
                     if (position == 0) {
                         ada = adapter;
+                        if( dialog.isShowing()){
+                            dialog.dismiss();
+                        }
 
                     } else {
                         ada1 = adapter;
+                        if( dialog.isShowing()){
+                            dialog.dismiss();
+                        }
                     }
 
                     listView.setAdapter(adapter);
+
+
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -128,10 +141,6 @@ public class HappyFragment_ViewPager_Adapter extends PagerAdapter {
         return view;
     }
 
-//    @Override
-//    public void destroyItem(ViewGroup container, int position, Object object) {
-//        container.removeView((View) object);
-//    }
 
 
     private class OneLoadClick implements SwipeRefreshLoadingLayout.OnLoadListener {
@@ -161,11 +170,6 @@ public class HappyFragment_ViewPager_Adapter extends PagerAdapter {
 
         }
     }
-
-//    private void initOnLoad(String Url, final SwipeRefreshLoadingLayout loadingLayout) {
-//
-//
-//    }
 
 
     private class OneClick implements SwipeRefreshLoadingLayout.OnRefreshListener {
@@ -253,26 +257,5 @@ public class HappyFragment_ViewPager_Adapter extends PagerAdapter {
 
         }
     }
-//        i = i + 15;
-//        String[] Url = {Final_Base.HAPPY_URL_TOP + "popular" + Final_Base.HAPPY_URL_CENTER
-//                + 0 + Final_Base.HAPPY_URL_BOTTOM, Final_Base.HAPPY_URL_TOP + "new" + Final_Base.HAPPY_URL_CENTER
-//                + 0 + Final_Base.HAPPY_URL_BOTTOM};
-//        StringRequest request = new StringRequest(Url[i], new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String response) {
-//                Log.e("sss","------------>"+response);
-//                Gson gson = new Gson();
-//                Happy happy = gson.fromJson(response, Happy.class);
-//                jokes = (ArrayList<Happy.jokes>) happy.getJokes();
-//                adapter.Refreshing(jokes);
-//                loadingLayout.setRefreshing(false);
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//
-//            }
-//        });
-//        singleton.addQueue(request, "request");
 
 }

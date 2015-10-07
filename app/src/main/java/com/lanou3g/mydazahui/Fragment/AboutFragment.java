@@ -1,6 +1,8 @@
 package com.lanou3g.mydazahui.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -33,20 +35,22 @@ public class AboutFragment extends BaseFragment implements View.OnClickListener 
     private UMSocialService mController;
     private CircleImageView circleImageView;
     private VolleySingleton singleton;
-    private ImageLoader imageLoader;
     private UserDao userDao;
     private RelativeLayout relativeLayout;
-    private ImageLoader.ImageListener listener;
     private Button button;
+    private ImageLoader imageLoader;
+    private ImageLoader.ImageListener listener;
+
+
 
     @Override
     public View initViews() {
         View view = View.inflate(mActivity, R.layout.fragment_about, null);
         mController = UMServiceFactory.getUMSocialService("com.umeng.login");
         singleton = VolleySingleton.getVolleySingleton(mActivity);
-
         imageLoader = singleton.getImageLoader();
         circleImageView = (CircleImageView) view.findViewById(R.id.circleImageView);
+        listener = ImageLoader.getImageListener(circleImageView,R.mipmap.dzhreceiver,R.mipmap.dzhreceiver);
         person_textview = (TextView) view.findViewById(R.id.person_textview);
         relativeLayout = (RelativeLayout) view.findViewById(R.id.relativeLayout);
         button = (Button) view.findViewById(R.id.button);
@@ -61,11 +65,9 @@ public class AboutFragment extends BaseFragment implements View.OnClickListener 
         ArrayList<User> users = (ArrayList<User>) userDao.loadAll();
         if (users.size() > 0) {
             User user = users.get(0);
-            listener = ImageLoader.getImageListener(circleImageView, R.mipmap.dzhreceiver, R.mipmap.dzhreceiver);
-            imageLoader.get(user.getProfile_image_url(), listener);
+            imageLoader.get(user.getProfile_image_url(),listener);
             person_textview.setText(user.getName());
         }
-
     }
 
     @Override
@@ -82,13 +84,18 @@ public class AboutFragment extends BaseFragment implements View.OnClickListener 
                 break;
             case R.id.button:
                 if (users.size() > 0) {
+                    if (users.get(0).getPlatform().equals("qq")) {
+                        logout(SHARE_MEDIA.QQ);
+                    } else if (users.get(0).getPlatform().equals("qzone")) {
+                        logout(SHARE_MEDIA.QZONE);
+                    } else if (users.get(0).getPlatform().equals("sina")) {
+                        logout(SHARE_MEDIA.SINA);
+                    }
+                    Log.e("Platform", users.get(0).getPlatform());
                     userDao.deleteAll();
-                    person_textview.setText("个人中心");
-                    circleImageView.setImageResource(R.mipmap.dzhreceiver);
-                    logout(SHARE_MEDIA.SINA);
                     Toast.makeText(mActivity, "退出成功", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(mActivity, "请登录", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(mActivity, "请先登录", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
@@ -108,13 +115,29 @@ public class AboutFragment extends BaseFragment implements View.OnClickListener 
 
             @Override
             public void onComplete(int status, SocializeEntity entity) {
+
                 String showText = "解除" + platform.toString() + "平台授权成功";
                 if (status != StatusCode.ST_CODE_SUCCESSED) {
                     showText = "解除" + platform.toString() + "平台授权失败[" + status + "]";
                 }
                 Toast.makeText(mActivity, showText, Toast.LENGTH_SHORT).show();
+                if (iChangePage != null) {
+                    iChangePage.changePage();
+                }
             }
         });
+    }
+
+    public interface IChangePage{
+        void changePage();
+    }
+
+    private IChangePage iChangePage;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        iChangePage = context instanceof IChangePage ? ((IChangePage) context) : null;
     }
 
     @Override
@@ -123,8 +146,7 @@ public class AboutFragment extends BaseFragment implements View.OnClickListener 
         ArrayList<User> users = (ArrayList<User>) userDao.loadAll();
         if (users.size() > 0) {
             User user = users.get(0);
-            listener = ImageLoader.getImageListener(circleImageView, R.mipmap.dzhreceiver, R.mipmap.dzhreceiver);
-            imageLoader.get(user.getProfile_image_url(), listener);
+            imageLoader.get(user.getProfile_image_url(),listener);
             person_textview.setText(user.getName());
         }
     }

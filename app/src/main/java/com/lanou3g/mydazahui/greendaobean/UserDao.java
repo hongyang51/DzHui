@@ -25,6 +25,7 @@ public class UserDao extends AbstractDao<User, Void> {
     public static class Properties {
         public final static Property Name = new Property(0, String.class, "name", false, "NAME");
         public final static Property Profile_image_url = new Property(1, String.class, "profile_image_url", false, "PROFILE_IMAGE_URL");
+        public final static Property Platform = new Property(2, String.class, "platform", false, "PLATFORM");
     };
 
 
@@ -41,7 +42,8 @@ public class UserDao extends AbstractDao<User, Void> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"USER\" (" + //
                 "\"NAME\" TEXT," + // 0: name
-                "\"PROFILE_IMAGE_URL\" TEXT);"); // 1: profile_image_url
+                "\"PROFILE_IMAGE_URL\" TEXT," + // 1: profile_image_url
+                "\"PLATFORM\" TEXT);"); // 2: platform
     }
 
     /** Drops the underlying database table. */
@@ -64,6 +66,11 @@ public class UserDao extends AbstractDao<User, Void> {
         if (profile_image_url != null) {
             stmt.bindString(2, profile_image_url);
         }
+ 
+        String platform = entity.getPlatform();
+        if (platform != null) {
+            stmt.bindString(3, platform);
+        }
     }
 
     /** @inheritdoc */
@@ -77,7 +84,8 @@ public class UserDao extends AbstractDao<User, Void> {
     public User readEntity(Cursor cursor, int offset) {
         User entity = new User( //
             cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0), // name
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1) // profile_image_url
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // profile_image_url
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2) // platform
         );
         return entity;
     }
@@ -87,6 +95,7 @@ public class UserDao extends AbstractDao<User, Void> {
     public void readEntity(Cursor cursor, User entity, int offset) {
         entity.setName(cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0));
         entity.setProfile_image_url(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setPlatform(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
      }
     
     /** @inheritdoc */

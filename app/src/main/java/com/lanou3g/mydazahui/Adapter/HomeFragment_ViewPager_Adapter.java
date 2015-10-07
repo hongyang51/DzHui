@@ -29,7 +29,6 @@ public class HomeFragment_ViewPager_Adapter extends PagerAdapter {
     private VolleySingleton singleton;
     private ImageLoader imageLoader;
     private ArrayList<TopStoriesEntity> topStories;
-//    private int itemId;
 
     public HomeFragment_ViewPager_Adapter(Context context, ArrayList<TopStoriesEntity> topStories) {
         this.context = context;
@@ -37,7 +36,6 @@ public class HomeFragment_ViewPager_Adapter extends PagerAdapter {
         singleton = VolleySingleton.getVolleySingleton(context);
         imageLoader = singleton.getImageLoader();
     }
-
 
 
     @Override
@@ -52,7 +50,6 @@ public class HomeFragment_ViewPager_Adapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
-//        itemId = position % topStories.size();
         view = View.inflate(context, R.layout.home_viewpager_item, null);
         home_viewpager_item_imageView = (ImageView) view.findViewById(R.id.home_viewpager_item_imageView);
         home_viewpager_item_textView = (TextView) view.findViewById(R.id.home_viewpager_item_textView);
@@ -73,9 +70,6 @@ public class HomeFragment_ViewPager_Adapter extends PagerAdapter {
         });
 
 
-//        Log.e("sss", position + "");
-//        initView();
-
         /**
          * //千万不要忘了 添加view集合
          * */
@@ -83,26 +77,6 @@ public class HomeFragment_ViewPager_Adapter extends PagerAdapter {
         return view;
     }
 
-//    private void initView() {
-//        view = View.inflate(context, R.layout.home_viewpager_item, null);
-//        home_viewpager_item_imageView = (ImageView) view.findViewById(R.id.home_viewpager_item_imageView);
-//        home_viewpager_item_textView = (TextView) view.findViewById(R.id.home_viewpager_item_textView);
-//        ImageLoader.ImageListener listener = ImageLoader.getImageListener(home_viewpager_item_imageView,R.mipmap.lanniao,R.mipmap.lanniao);
-//        String imgUrl = topStories.get(itemId).getImage();
-//        imageLoader.get(imgUrl,listener);
-//        String text = topStories.get(itemId).getTitle();
-//        home_viewpager_item_textView.setText(text);
-//        view.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(context, WebViewActivity.class);
-//                int newsId = topStories.get(itemId).getId();
-//                Log.e("sss",itemId+"----->"+topStories.get(itemId).getTitle());
-//                intent.putExtra(Final_Base.NEWSID, newsId);
-//                context.startActivity(intent);
-//            }
-//        });
-//    }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {

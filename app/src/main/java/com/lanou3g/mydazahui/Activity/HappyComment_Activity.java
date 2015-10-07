@@ -46,7 +46,8 @@ public class HappyComment_Activity extends MainActivity implements View.OnClickL
     private ImageLoader imageLoader;
     private ListViewForScrollView Comment_list;
     private HappyComment_Adapter adapter;
-    private ImageView default_img, share;
+    private ImageView default_img;
+    private ImageView share;
     private CardView List_cardView;
 
     // 首先在您的Activity中添加如下成员变量

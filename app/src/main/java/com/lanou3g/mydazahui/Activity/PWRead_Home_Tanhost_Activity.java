@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.TabHost;
 import android.widget.Toast;
 
+import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.base.Final_Base;
 import com.lanou3g.mydazahui.base.MainActivity;
 import com.lanou3g.mydazahui.bean.Theme;
@@ -15,15 +17,15 @@ import com.lanou3g.mydazahui.fragment.AboutFragment;
 import com.lanou3g.mydazahui.fragment.HappyFragment;
 import com.lanou3g.mydazahui.fragment.HomeFragment;
 import com.lanou3g.mydazahui.fragment.NewsFragment;
-import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.utils.SharedPreferUtil;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by dllo on 15/9/23.
  */
-public class PWRead_Home_Tanhost_Activity extends MainActivity implements HomeFragment.NewsOnclick {
+public class PWRead_Home_Tanhost_Activity extends MainActivity implements HomeFragment.NewsOnclick, AboutFragment.IChangePage {
     private TabHost myTabhost;
     private FragmentManager manager;
     private long exitTime = 0;// 双击返回间隔时间
@@ -35,7 +37,6 @@ public class PWRead_Home_Tanhost_Activity extends MainActivity implements HomeFr
         initView();
         initTabHost();
     }
-
 
     /**
      * 初始化视图
@@ -115,5 +116,17 @@ public class PWRead_Home_Tanhost_Activity extends MainActivity implements HomeFr
                 viewPager.setCurrentItem(i);
             }
         }
+    }
+
+    @Override
+    public void changePage() {
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.tabhost_frameLayout_about, new AboutFragment());
+        transaction.commit();//提交事务
+        Log.e("taggg", "执行跳转");
+    }
+
+    public class SerInfo implements Serializable {
+
     }
 }

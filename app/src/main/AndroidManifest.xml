@@ -38,7 +38,6 @@
         <activity android:name=".base.MainActivity" />
         <activity android:name=".activity.PatchWork_FirstActivity" />
         <activity android:name=".activity.PWRead_Home_Tanhost_Activity"
-            android:launchMode="singleTask"
             />
         <activity android:name=".activity.WebViewActivity" />
         <activity android:name=".activity.UserCenterActivity" />

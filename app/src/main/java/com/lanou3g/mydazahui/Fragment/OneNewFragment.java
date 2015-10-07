@@ -16,13 +16,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.StringRequest;
+import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.adapter.NewsFragment_List_Adapter;
 import com.lanou3g.mydazahui.base.AbsBaseFragment;
 import com.lanou3g.mydazahui.base.Final_Base;
 import com.lanou3g.mydazahui.bean.Theme;
 import com.lanou3g.mydazahui.bean.ThemeNews;
 import com.lanou3g.mydazahui.listview.SwipeRefreshLoadingLayout;
-import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.utils.VolleySingleton;
 
 import java.util.ArrayList;
@@ -58,6 +58,7 @@ public class OneNewFragment extends AbsBaseFragment implements SwipeRefreshLoadi
     @Override
     protected View inflaterView(LayoutInflater inflater, ViewGroup container) {
         static_img_view = inflater.inflate(R.layout.fragment_static_img, null);
+
         return inflater.inflate(R.layout.allnews_listview, container, false);
     }
 
@@ -87,18 +88,7 @@ public class OneNewFragment extends AbsBaseFragment implements SwipeRefreshLoadi
         swipeRefreshLoadingLayout = (SwipeRefreshLoadingLayout) view.findViewById(R.id.swipeRefreshLoadingLayout);
         swipeRefreshLoadingLayout.setOnRefreshListener(this);
         swipeRefreshLoadingLayout.setOnLoadListener(this);
-//        allnews_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                if (position > 0) {
-//                    Log.e("ID", storiesEntities.get(position - 1).getId() + "");
-//                    int newsId = storiesEntities.get(position - 1).getId();// 因为设置了list头所有position-1
-//                    Intent intent = new Intent(mActivity, WebViewActivity.class);
-//                    intent.putExtra(Final_Base.NEWSID, newsId);
-//                    startActivity(intent);
-//                }
-//            }
-//        });
+
         request = new StringRequest(urlAdd, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -108,6 +98,7 @@ public class OneNewFragment extends AbsBaseFragment implements SwipeRefreshLoadi
                 imageLoader.get(themeNews.getBackground(), listener);
                 storiesEntities = (ArrayList<ThemeNews.StoriesEntity>) themeNews.getStories();
                 list_adapter.addDatas(storiesEntities);
+
                 StartAnimation();
 
             }

@@ -1,5 +1,6 @@
 package com.lanou3g.mydazahui.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
@@ -72,68 +73,10 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
     private int a = 1;
     private StoriesEntityDao storiesEntityDao;
     private TopStoriesEntityDao topStoriesEntityDao;
+    private ProgressDialog dialog;
 
 
-    // 上拉加载
-    @Override
-    public void onLoad() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-        Calendar calendar = Calendar.getInstance();
-        //日期减一
-        a = a - 1;
-        calendar.add(calendar.DATE, a);
-        String newsDate = sdf.format(calendar.getTime());
-        Log.e("要获得新闻的日期", latestNews.getDate());
 
-        if (latestNews.getDate().equals(newsDate)) {
-            String newUrl = Final_Base.OLD_NEWS_URL + newsDate;
-            Log.i("TEST", "当前网址" + newUrl);
-            StringRequest stringRequest = new StringRequest(newUrl, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    Gson gson = new Gson();
-                    latestNews = gson.fromJson(response, LatestNews.class);
-                    storiesEntities = (ArrayList<StoriesEntity>) latestNews.getStories();
-                    list_adapter.OnLoading(storiesEntities);
-                    swipeRefreshLoadingLayout.setLoading(false);
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                }
-            });
-            singleton.addQueue(stringRequest, "onLoding");
-        } else {
-            Toast.makeText(mActivity, "当前日期为" + latestNews.getDate() + "请您校正", Toast.LENGTH_LONG).show();
-            swipeRefreshLoadingLayout.setLoading(false);
-            return;
-        }
-    }
-
-    // 下拉刷新
-    @Override
-    public void onRefresh() {
-        StringRequest stringRequest = new StringRequest(Final_Base.LATESTNEWS_URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Gson gson = new Gson();
-                latestNews = gson.fromJson(response, LatestNews.class);
-                storiesEntities = (ArrayList<StoriesEntity>) latestNews.getStories();
-                list_adapter.OnRefreshing(storiesEntities);
-                swipeRefreshLoadingLayout.setRefreshing(false);
-                a = 1;
-//                Log.e("sss","正在刷新");
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-
-        singleton.addQueue(stringRequest, "onRefresh");
-    }
 
     public interface NewsOnclick {
         void OnNewsOnclick(String s, ArrayList<Theme.OthersEntity> othersEntities);
@@ -160,8 +103,16 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
         viewPager = (ViewPager) view.findViewById(R.id.home_fragment_viewPager);
         singleton = VolleySingleton.getVolleySingleton(mActivity);
         imageLoader = singleton.getImageLoader();
-//        latestDao = DaoSingleton.getInstance().getLatestDao();
         return views;
+    }
+
+    @Override
+    public void initData() {
+        dialog = new ProgressDialog(getContext());
+        dialog.setMessage("正在加载中.....");
+        dialog.show();
+        initFromeTopUrl();// 从网上拉取
+        initFromeThemes();
     }
 
     // 从网上拉取
@@ -174,13 +125,14 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
                 latestNews = gson.fromJson(response, LatestNews.class);
                 storiesEntities = (ArrayList<StoriesEntity>) latestNews.getStories();
                 topStories = (ArrayList<TopStoriesEntity>) latestNews.getTop_stories();
-//                com.lanou3g.mydazahui.greendaobean.LatestNews news = gson.fromJson(response, com.lanou3g.mydazahui.greendaobean.LatestNews.class);
                 storiesEntityDao.deleteAll();
                 storiesEntityDao.insertOrReplaceInTx(storiesEntities);
 
                 topStoriesEntityDao.deleteAll();
                 topStoriesEntityDao.insertOrReplaceInTx(topStories);
-
+                if( dialog.isShowing()){
+                    dialog.dismiss();
+                }
                 adapter = new HomeFragment_ViewPager_Adapter(mActivity, topStories);
                 viewPager.setAdapter(adapter);
                 startImageTimerTask();
@@ -248,7 +200,9 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
                     listView.setAdapter(list_adapter);
                 }
 
-
+                if( dialog.isShowing()){
+                    dialog.dismiss();
+                }
                 Log.e("解析失败", "网络拉取失败" + "HomeFragment");
 
             }
@@ -398,10 +352,71 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
         stopImageTimerTask();
     }
 
+
+
+    // 上拉加载
     @Override
-    public void initData() {
-        initFromeTopUrl();// 从网上拉取
-        initFromeThemes();
-//setInitialSavedState();
+    public void onLoad() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        Calendar calendar = Calendar.getInstance();
+        //日期减一
+        a = a - 1;
+        calendar.add(calendar.DATE, a);
+        String newsDate = sdf.format(calendar.getTime());
+        if (latestNews != null) {
+
+            Log.e("要获得新闻的日期", latestNews.getDate());
+
+            if (latestNews.getDate().equals(newsDate)) {
+                String newUrl = Final_Base.OLD_NEWS_URL + newsDate;
+                Log.i("TEST", "当前网址" + newUrl);
+                StringRequest stringRequest = new StringRequest(newUrl, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Gson gson = new Gson();
+                        latestNews = gson.fromJson(response, LatestNews.class);
+                        storiesEntities = (ArrayList<StoriesEntity>) latestNews.getStories();
+                        list_adapter.OnLoading(storiesEntities);
+                        swipeRefreshLoadingLayout.setLoading(false);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                });
+                singleton.addQueue(stringRequest, "onLoding");
+            } else {
+                Toast.makeText(mActivity, "当前日期为" + latestNews.getDate() + "请您校正", Toast.LENGTH_LONG).show();
+                swipeRefreshLoadingLayout.setLoading(false);
+                return;
+            }
+        }else{
+            Toast.makeText(mActivity, "请检查您的网络", Toast.LENGTH_LONG).show();
+            swipeRefreshLoadingLayout.setLoading(false);
+        }
     }
+    // 下拉刷新
+    @Override
+    public void onRefresh() {
+        StringRequest stringRequest = new StringRequest(Final_Base.LATESTNEWS_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Gson gson = new Gson();
+                latestNews = gson.fromJson(response, LatestNews.class);
+                storiesEntities = (ArrayList<StoriesEntity>) latestNews.getStories();
+                list_adapter.OnRefreshing(storiesEntities);
+                swipeRefreshLoadingLayout.setRefreshing(false);
+                a = 1;
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        singleton.addQueue(stringRequest, "onRefresh");
+    }
+
 }

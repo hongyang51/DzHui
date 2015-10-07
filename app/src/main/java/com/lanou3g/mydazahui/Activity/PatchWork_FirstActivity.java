@@ -23,7 +23,7 @@ public class PatchWork_FirstActivity extends MainActivity {
     private PatchWork_First_PageAdapter patchWork_first_pageAdapter;
     private LinearLayout linearLayout; //引导的小圆点
     private ImageView imageView;
-    private ArrayList<ImageView> imageViews = new ArrayList<ImageView>();
+    private ArrayList<ImageView> imageViews = new ArrayList<>();
     private Button pacthWork_First_Button;
 
     @Override
@@ -41,7 +41,7 @@ public class PatchWork_FirstActivity extends MainActivity {
         pacthWork_First_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferUtil.setBoolean(PatchWork_FirstActivity.this,"is_user_guide_showed",true);
+                SharedPreferUtil.setBoolean(PatchWork_FirstActivity.this, "is_user_guide_showed", true);
                 startActivity(new Intent(PatchWork_FirstActivity.this, PWRead_Home_Tanhost_Activity.class));
                 finish();
             }
@@ -54,10 +54,10 @@ public class PatchWork_FirstActivity extends MainActivity {
             }
             imageView.setLayoutParams(params);
             imageViews.add(imageView);
-            if(i==0){
+            if (i == 0) {
                 imageView.setBackgroundResource(R.drawable.patchwork_first_red);
-            }else{
-            imageViews.get(i).setBackgroundResource(R.drawable.patchwork_first_guid);
+            } else {
+                imageViews.get(i).setBackgroundResource(R.drawable.patchwork_first_guid);
             }
             linearLayout.addView(imageViews.get(i));
         }
@@ -68,6 +68,7 @@ public class PatchWork_FirstActivity extends MainActivity {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
+
             @Override
             public void onPageSelected(int position) {
                 for (int i = 0; i < 3; i++) {

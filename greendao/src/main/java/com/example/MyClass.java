@@ -43,6 +43,7 @@ public class MyClass {
         Entity user = schema.addEntity("User");
         user.addStringProperty("name");
         user.addStringProperty("profile_image_url");
+        user.addStringProperty("platform");
 
 
 //
