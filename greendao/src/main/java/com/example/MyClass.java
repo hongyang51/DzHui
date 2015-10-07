@@ -45,6 +45,12 @@ public class MyClass {
         user.addStringProperty("profile_image_url");
         user.addStringProperty("platform");
 
+        Entity collection = schema.addEntity("Collection");
+        collection.addStringProperty("user_name");
+        collection.addStringProperty("title");
+        collection.addStringProperty("body");
+        collection.addIntProperty("newsId");
+
 
 //
 //        // 指定生成的实体类,类名

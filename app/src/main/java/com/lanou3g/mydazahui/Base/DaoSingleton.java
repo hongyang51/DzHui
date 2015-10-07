@@ -3,6 +3,7 @@ package com.lanou3g.mydazahui.base;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.lanou3g.mydazahui.greendaobean.CollectionDao;
 import com.lanou3g.mydazahui.greendaobean.DaoMaster;
 import com.lanou3g.mydazahui.greendaobean.DaoSession;
 import com.lanou3g.mydazahui.greendaobean.GuidePageDao;
@@ -29,6 +30,7 @@ public class DaoSingleton {
     private TopStoriesEntityDao topStoriesEntityDao;
     private imagesDao imagesDao;
     private UserDao userDao;
+    private CollectionDao collectionDao;
 
 
     private DaoSingleton() {
@@ -109,6 +111,14 @@ public class DaoSingleton {
             userDao = getDaoSession().getUserDao();
         }
         return userDao;
+    }
+
+    public CollectionDao getCollectionDao() {
+        if (collectionDao == null) {
+            collectionDao = getDaoSession().getCollectionDao();
+        }
+
+        return collectionDao;
     }
 }
 

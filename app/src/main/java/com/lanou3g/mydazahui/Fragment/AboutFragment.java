@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.lanou3g.mydazahui.R;
+import com.lanou3g.mydazahui.activity.CollectionActivity;
 import com.lanou3g.mydazahui.activity.UserCenterActivity;
 import com.lanou3g.mydazahui.base.BaseFragment;
 import com.lanou3g.mydazahui.base.DaoSingleton;
@@ -40,7 +41,7 @@ public class AboutFragment extends BaseFragment implements View.OnClickListener 
     private Button button;
     private ImageLoader imageLoader;
     private ImageLoader.ImageListener listener;
-
+    private TextView collection;
 
 
     @Override
@@ -50,12 +51,14 @@ public class AboutFragment extends BaseFragment implements View.OnClickListener 
         singleton = VolleySingleton.getVolleySingleton(mActivity);
         imageLoader = singleton.getImageLoader();
         circleImageView = (CircleImageView) view.findViewById(R.id.circleImageView);
-        listener = ImageLoader.getImageListener(circleImageView,R.mipmap.dzhreceiver,R.mipmap.dzhreceiver);
+        listener = ImageLoader.getImageListener(circleImageView, R.mipmap.dzhreceiver, R.mipmap.dzhreceiver);
         person_textview = (TextView) view.findViewById(R.id.person_textview);
         relativeLayout = (RelativeLayout) view.findViewById(R.id.relativeLayout);
         button = (Button) view.findViewById(R.id.button);
+        collection = (TextView) view.findViewById(R.id.collection);
         userDao = DaoSingleton.getInstance().getUserDao();
         relativeLayout.setOnClickListener(this);
+        collection.setOnClickListener(this);
         button.setOnClickListener(this);
         return view;
     }
@@ -65,7 +68,7 @@ public class AboutFragment extends BaseFragment implements View.OnClickListener 
         ArrayList<User> users = (ArrayList<User>) userDao.loadAll();
         if (users.size() > 0) {
             User user = users.get(0);
-            imageLoader.get(user.getProfile_image_url(),listener);
+            imageLoader.get(user.getProfile_image_url(), listener);
             person_textview.setText(user.getName());
         }
     }
@@ -98,6 +101,10 @@ public class AboutFragment extends BaseFragment implements View.OnClickListener 
                     Toast.makeText(mActivity, "请先登录", Toast.LENGTH_SHORT).show();
                 }
                 break;
+            case R.id.collection:
+                Intent intent = new Intent(mActivity, CollectionActivity.class);
+                mActivity.startActivity(intent);
+                break;
         }
 
     }
@@ -128,7 +135,7 @@ public class AboutFragment extends BaseFragment implements View.OnClickListener 
         });
     }
 
-    public interface IChangePage{
+    public interface IChangePage {
         void changePage();
     }
 
@@ -146,7 +153,7 @@ public class AboutFragment extends BaseFragment implements View.OnClickListener 
         ArrayList<User> users = (ArrayList<User>) userDao.loadAll();
         if (users.size() > 0) {
             User user = users.get(0);
-            imageLoader.get(user.getProfile_image_url(),listener);
+            imageLoader.get(user.getProfile_image_url(), listener);
             person_textview.setText(user.getName());
         }
     }

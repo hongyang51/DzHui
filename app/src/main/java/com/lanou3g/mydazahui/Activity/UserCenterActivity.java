@@ -85,7 +85,7 @@ public class UserCenterActivity extends MainActivity implements View.OnClickList
                 login(SHARE_MEDIA.SINA);
                 break;
             case R.id.load_button:
-                Toast.makeText(this,"请使用第三方登陆",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "请使用第三方登陆", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
@@ -138,12 +138,28 @@ public class UserCenterActivity extends MainActivity implements View.OnClickList
 
             @Override
             public void onComplete(int status, Map<String, Object> info) {
-                if (info != null) {
+                if (status == 200 && info != null) {
+//                    String userName = info.get("screen_name").toString();
+//                    String userPicture = info.get("profile_image_url").toString();
+//                    String platForm = platform.toString();
+//                    MyConfig.putSharePre(UserCenterActivity.this, "users", "userName", userName);
+//                    MyConfig.putSharePre(UserCenterActivity.this, "users", "userPicture", userPicture);
+//                    MyConfig.putSharePre(UserCenterActivity.this, "users", "platForm", platForm);
+//                    String name = MyConfig.getSharePreStr(UserCenterActivity.this, "users", "userName");
+//                    if (name != null && name != "0") {
+//                        try {
+//                            Thread.sleep(3000);
+//                            finish();
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
                     userDao.deleteAll();
                     User user = new User();
                     user.setPlatform(platform.toString());
                     user.setName(info.get("screen_name").toString());
                     user.setProfile_image_url(info.get("profile_image_url").toString());
+
                     userDao.insertOrReplace(user);
                     finish();
                     Log.e("TestData", info.toString());

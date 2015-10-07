@@ -33,7 +33,7 @@ public class NewsFragment_List_Adapter extends BaseAdapter {
     private VolleySingleton singleton;
     private ImageLoader imageLoader;
     private List<ThemeNews.StoriesEntity> storiesEntities;
-    private List<ThemeNews.StoriesEntity> storiesEntities2;
+    private List<ThemeNews.StoriesEntity> storiesEntitiesTwo;
     private LayoutInflater infalter;
     private Context context;
 
@@ -47,7 +47,7 @@ public class NewsFragment_List_Adapter extends BaseAdapter {
     }
 
     public void OnLoading(int newsId, final SwipeRefreshLoadingLayout swipeRefreshLoadingLayout) {
-        storiesEntities2 = new ArrayList<>();
+        storiesEntitiesTwo = new ArrayList<>();
         int LoadId = storiesEntities.get(storiesEntities.size() - 1).getId();
 
         final String s = Final_Base.THEMES_URL + newsId + "/before/" + LoadId;
@@ -56,7 +56,7 @@ public class NewsFragment_List_Adapter extends BaseAdapter {
             @Override
             public void onResponse(String response) {
                 ThemeNews themeNews = JSON.parseObject(response, ThemeNews.class);
-                storiesEntities2 = themeNews.getStories();
+                storiesEntitiesTwo = themeNews.getStories();
                 swipeRefreshLoadingLayout.setLoading(false);
                 initOnloading();
 
@@ -72,18 +72,18 @@ public class NewsFragment_List_Adapter extends BaseAdapter {
     }
 
     private void initOnloading() {
-        this.storiesEntities.addAll(storiesEntities2);
+        this.storiesEntities.addAll(storiesEntitiesTwo);
         Log.e("ssss", "s111ss");
         notifyDataSetChanged();
     }
 
     public void OnRefreshing(String urlAdd, final SwipeRefreshLoadingLayout swipeRefreshLoadingLayout) {
-        storiesEntities2 = new ArrayList<>();
+        storiesEntitiesTwo = new ArrayList<>();
         StringRequest stringRequest = new StringRequest(urlAdd, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 ThemeNews themeNews = JSON.parseObject(response, ThemeNews.class);
-                storiesEntities2 = themeNews.getStories();
+                storiesEntitiesTwo = themeNews.getStories();
                 swipeRefreshLoadingLayout.setRefreshing(false);
                 initOnrefreshing();
             }
@@ -99,7 +99,7 @@ public class NewsFragment_List_Adapter extends BaseAdapter {
 
     private void initOnrefreshing() {
         this.storiesEntities.clear();
-        this.storiesEntities.addAll(storiesEntities2);
+        this.storiesEntities.addAll(storiesEntitiesTwo);
         notifyDataSetChanged();
     }
 

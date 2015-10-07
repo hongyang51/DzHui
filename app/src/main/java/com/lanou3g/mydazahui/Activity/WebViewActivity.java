@@ -22,9 +22,14 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.lanou3g.mydazahui.R;
+import com.lanou3g.mydazahui.base.DaoSingleton;
 import com.lanou3g.mydazahui.base.Final_Base;
 import com.lanou3g.mydazahui.base.MainActivity;
 import com.lanou3g.mydazahui.bean.NewsContent;
+import com.lanou3g.mydazahui.greendaobean.Collection;
+import com.lanou3g.mydazahui.greendaobean.CollectionDao;
+import com.lanou3g.mydazahui.greendaobean.User;
+import com.lanou3g.mydazahui.greendaobean.UserDao;
 import com.lanou3g.mydazahui.utils.CircleImageView;
 import com.lanou3g.mydazahui.utils.VolleySingleton;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -38,6 +43,8 @@ import com.umeng.socialize.sso.SinaSsoHandler;
 import com.umeng.socialize.sso.UMQQSsoHandler;
 
 import java.util.ArrayList;
+
+import de.greenrobot.dao.query.QueryBuilder;
 
 /**
  * Created by dllo on 15/9/24.
@@ -60,6 +67,9 @@ public class WebViewActivity extends MainActivity {
     private ProgressDialog dialog;
     // 首先在您的Activity中添加如下成员变量
     final UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.share");
+    private CollectionDao collectionDao;
+    private Collection collection;
+    private UserDao userDao;
 
 
     @Override
@@ -93,6 +103,9 @@ public class WebViewActivity extends MainActivity {
         listener = ImageLoader.getImageListener(news_img, R.mipmap.lanniao, R.mipmap.lanniao);
         listener_user = ImageLoader.getImageListener(groom_img, R.mipmap.ic_launcher, R.mipmap.ic_launcher);
         dialog = new ProgressDialog(this);
+        collectionDao = DaoSingleton.getInstance().getCollectionDao();
+        collection = new Collection();
+        userDao = DaoSingleton.getInstance().getUserDao();
 
     }
 
@@ -100,7 +113,10 @@ public class WebViewActivity extends MainActivity {
         dialog.setMessage("正在加载中.....");
         dialog.show();
         load.setText("新闻内容");
+        Intent intent = getIntent();
+        newsId = intent.getIntExtra(Final_Base.NEWSID, 1);
         more.setVisibility(View.VISIBLE);
+        news = Final_Base.NEWS_URL + newsId;
         more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,7 +134,37 @@ public class WebViewActivity extends MainActivity {
                                 Toast.makeText(WebViewActivity.this, "您点了分享", Toast.LENGTH_SHORT).show();
                                 break;
                             case R.id.bpig:
-                                Toast.makeText(WebViewActivity.this, "你点了大猪~", Toast.LENGTH_SHORT).show();
+                                //select username from 表名 where condition;
+                                //取缓存
+//                                String userName = MyConfig.getSharePreStr(WebViewActivity.this, "users", "userName");
+                                //判断缓存里面是否有值
+
+                                ArrayList<User> users = (ArrayList<User>) userDao.loadAll();
+                                if (users.size() > 0) {
+                                    User user = users.get(0);
+                                    String userName = user.getName();
+                                    QueryBuilder qb = collectionDao.queryBuilder();
+                                    qb.where(CollectionDao.Properties.Title.eq(newsContent.getTitle()));
+                                    qb.where(CollectionDao.Properties.User_name.eq(userName));
+                                    ArrayList<Collection> collections = (ArrayList<Collection>) qb.list();
+                                    if (collections.size() > 0 ) {
+                                        Toast.makeText(WebViewActivity.this, "您已收藏", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        //插入数据库
+                                        collection.setUser_name(userName);
+                                        collection.setTitle(newsContent.getTitle());
+                                        collection.setBody(newsContent.getBody());
+                                        collection.setNewsId(newsId);
+                                        collectionDao.insert(collection);
+                                        Toast.makeText(WebViewActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                } else {
+                                    Toast.makeText(WebViewActivity.this, "请登录", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(WebViewActivity.this, UserCenterActivity.class);
+                                    startActivity(intent);
+                                }
+
 
                                 break;
                         }
@@ -128,9 +174,8 @@ public class WebViewActivity extends MainActivity {
                 popup.show();
             }
         });
-        Intent intent = getIntent();
-        newsId = intent.getIntExtra(Final_Base.NEWSID, 1);
-        news = Final_Base.NEWS_URL + newsId;
+
+
         Log.e("News", news);
         StringRequest request = new StringRequest(news, new Response.Listener<String>() {
             @Override
@@ -263,6 +308,11 @@ public class WebViewActivity extends MainActivity {
 
         QQShareContent qqShareContent = new QQShareContent();
         qqShareContent.setShareContent("---来自大杂烩--http://www.513951.com");
+        if (newsContent.getImage() != null) {
+            UMImage urlImage = new UMImage(this,
+                    newsContent.getImage());
+            qqShareContent.setShareMedia(urlImage);
+        }
         qqShareContent.setTitle(newsContent.getTitle());
         qqShareContent.setTargetUrl(newsContent.getShare_url() + "");
         mController.setShareMedia(qqShareContent);

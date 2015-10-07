@@ -44,6 +44,10 @@
         <activity
             android:name=".activity.GroomActivity"
             android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.CollectionActivity"
+            android:launchMode="singleTask" />
+
         <activity android:name=".activity.PatchWorkOneActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
