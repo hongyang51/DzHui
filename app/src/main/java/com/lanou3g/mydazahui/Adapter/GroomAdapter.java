@@ -8,12 +8,13 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
-import com.lanou3g.mydazahui.bean.Groom;
 import com.lanou3g.mydazahui.R;
-import com.lanou3g.mydazahui.utils.CircleImageView;
+import com.lanou3g.mydazahui.bean.Groom;
 import com.lanou3g.mydazahui.utils.VolleySingleton;
 
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by dllo on 15/9/25.

@@ -17,7 +17,6 @@ import com.lanou3g.mydazahui.base.BaseFragment;
 import com.lanou3g.mydazahui.base.DaoSingleton;
 import com.lanou3g.mydazahui.greendaobean.User;
 import com.lanou3g.mydazahui.greendaobean.UserDao;
-import com.lanou3g.mydazahui.utils.CircleImageView;
 import com.lanou3g.mydazahui.utils.VolleySingleton;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.bean.SocializeEntity;
@@ -27,6 +26,8 @@ import com.umeng.socialize.controller.UMSocialService;
 import com.umeng.socialize.controller.listener.SocializeListeners;
 
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by dllo on 15/9/22.

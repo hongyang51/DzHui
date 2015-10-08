@@ -25,13 +25,13 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <com.lanou3g.mydazahui.utils.CircleImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/groom_img"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@mipmap/ic_launcher">
 
-                    </com.lanou3g.mydazahui.utils.CircleImageView>
+                    </de.hdodenhof.circleimageview.CircleImageView>
 
                     <LinearLayout
                         android:layout_width="wrap_content"

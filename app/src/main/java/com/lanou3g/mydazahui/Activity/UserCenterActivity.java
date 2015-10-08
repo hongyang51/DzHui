@@ -38,7 +38,6 @@ public class UserCenterActivity extends MainActivity implements View.OnClickList
         setContentView(R.layout.activity_user);
         initView();
         initData();
-
     }
 
     private void initData() {

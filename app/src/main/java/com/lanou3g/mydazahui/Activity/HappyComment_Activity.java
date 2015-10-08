@@ -21,7 +21,6 @@ import com.lanou3g.mydazahui.base.ListViewForScrollView;
 import com.lanou3g.mydazahui.base.MainActivity;
 import com.lanou3g.mydazahui.bean.Happy;
 import com.lanou3g.mydazahui.bean.HappyComment;
-import com.lanou3g.mydazahui.utils.CircleImageView;
 import com.lanou3g.mydazahui.utils.VolleySingleton;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.UMServiceFactory;
@@ -34,6 +33,8 @@ import com.umeng.socialize.sso.SinaSsoHandler;
 import com.umeng.socialize.sso.UMQQSsoHandler;
 
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by dllo on 15/9/29.

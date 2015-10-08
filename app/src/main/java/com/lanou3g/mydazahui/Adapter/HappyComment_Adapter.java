@@ -11,10 +11,11 @@ import com.android.volley.toolbox.ImageLoader;
 import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.base.Final_Base;
 import com.lanou3g.mydazahui.bean.HappyComment;
-import com.lanou3g.mydazahui.utils.CircleImageView;
 import com.lanou3g.mydazahui.utils.VolleySingleton;
 
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by dllo on 15/9/29.

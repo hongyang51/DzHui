@@ -20,7 +20,7 @@ public class PatchWorkOneActivity extends MainActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_main);
+        setContentView(R.layout.activity_main);
         initFind();
         initData();
     }

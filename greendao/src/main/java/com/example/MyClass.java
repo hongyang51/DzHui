@@ -47,7 +47,7 @@ public class MyClass {
 
         Entity collection = schema.addEntity("Collection");
         collection.addStringProperty("user_name");
-        collection.addStringProperty("title");
+        collection.addStringProperty("title").primaryKey();
         collection.addStringProperty("body");
         collection.addIntProperty("newsId");
 

@@ -30,7 +30,6 @@ import com.lanou3g.mydazahui.greendaobean.Collection;
 import com.lanou3g.mydazahui.greendaobean.CollectionDao;
 import com.lanou3g.mydazahui.greendaobean.User;
 import com.lanou3g.mydazahui.greendaobean.UserDao;
-import com.lanou3g.mydazahui.utils.CircleImageView;
 import com.lanou3g.mydazahui.utils.VolleySingleton;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.UMServiceFactory;
@@ -45,6 +44,7 @@ import com.umeng.socialize.sso.UMQQSsoHandler;
 import java.util.ArrayList;
 
 import de.greenrobot.dao.query.QueryBuilder;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by dllo on 15/9/24.

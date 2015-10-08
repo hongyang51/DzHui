@@ -15,7 +15,6 @@ import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.activity.HappyComment_Activity;
 import com.lanou3g.mydazahui.base.Final_Base;
 import com.lanou3g.mydazahui.bean.Happy;
-import com.lanou3g.mydazahui.utils.CircleImageView;
 import com.lanou3g.mydazahui.utils.VolleySingleton;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.UMServiceFactory;
@@ -28,6 +27,8 @@ import com.umeng.socialize.sso.SinaSsoHandler;
 import com.umeng.socialize.sso.UMQQSsoHandler;
 
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by dllo on 15/9/28.
@@ -142,16 +143,26 @@ public class HappyFragment_ListView_Adapter extends BaseAdapter {
         ImageLoader.ImageListener listener = ImageLoader.getImageListener(holder.groom_img, R.mipmap.ic_launcher, R.mipmap.ic_launcher);
         imageLoader.get(User_cover_url, listener);
         if (!joke.getUri().equals("")) {
+            String string =joke.getUri().substring(0,1);
+            if(string.equals("/")){
+                ImageLoader.ImageListener default_img_listener = ImageLoader.getImageListener(holder.default_img, R.mipmap.joke_default_img, R.mipmap.joke_default_img);
+                String default_img_uri = Final_Base.HAPPY_URL + joke.getUri();
+                imageLoader.get(default_img_uri, default_img_listener);
+                holder.default_img.setVisibility(View.VISIBLE);
+                Log.e("网址", "网址为"+joke.getUri());
+            }else{
+                ImageLoader.ImageListener default_img_listener = ImageLoader.getImageListener(holder.default_img, R.mipmap.joke_default_img, R.mipmap.joke_default_img);
 
-            ImageLoader.ImageListener default_img_listener = ImageLoader.getImageListener(holder.default_img, R.mipmap.joke_default_img, R.mipmap.joke_default_img);
-            String default_img_uri = Final_Base.HAPPY_URL + joke.getUri();
-            imageLoader.get(default_img_uri, default_img_listener);
-            holder.default_img.setVisibility(View.VISIBLE);
-            Log.e("网址", joke.getUri() + "网址不为空");
+                imageLoader.get(joke.getUri(), default_img_listener);
+                holder.default_img.setVisibility(View.VISIBLE);
+                Log.e("网址", "网址为"+joke.getUri());
+            }
+
+
         } else {
 
             holder.default_img.setVisibility(View.GONE);
-            Log.e("网址", "得到的网址为空");
+            Log.e("网址", "图像网址为空");
         }
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override

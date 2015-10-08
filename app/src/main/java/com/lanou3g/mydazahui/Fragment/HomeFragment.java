@@ -2,6 +2,7 @@ package com.lanou3g.mydazahui.fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -296,7 +297,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
         textView = (TextView) view.findViewById(text_id[i]);
         getImageView = (ImageView) view.findViewById(img_id[i]);
         getImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        textView.setTextColor(getResources().getColor(android.R.color.white));
+        textView.setTextColor(Color.parseColor("#FFFFFF"));
         textView.setText(othersEntities.get(i).getName());
 
         final String newsName = othersEntities.get(i).getName();
