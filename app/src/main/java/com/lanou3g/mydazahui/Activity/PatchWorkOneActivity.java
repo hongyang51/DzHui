@@ -2,6 +2,7 @@ package com.lanou3g.mydazahui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -46,10 +47,14 @@ public class PatchWorkOneActivity extends MainActivity implements View.OnClickLi
                 if(!userGuid){
                 Intent read_image = new Intent(PatchWorkOneActivity.this,PWReadOneActivity.class);
                 startActivity(read_image);
+                    overridePendingTransition
+                            (R.anim.translate_enter_in, R.anim.translate_enter_out);
 
                 }else{
                     Intent read_image = new Intent(PatchWorkOneActivity.this,PWRead_Home_Tanhost_Activity.class);
                     startActivity(read_image);
+                    overridePendingTransition
+                            (R.anim.translate_enter_in, R.anim.translate_enter_out);
                 }
                 break;
         }
@@ -72,5 +77,15 @@ public class PatchWorkOneActivity extends MainActivity implements View.OnClickLi
     protected void onResume() {
         super.onResume();
         JPushInterface.onResume(this);
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode ==KeyEvent.KEYCODE_BACK){
+            finish();
+            overridePendingTransition
+                    (R.anim.translate_exit_in, R.anim.translate_exit_out);
+
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

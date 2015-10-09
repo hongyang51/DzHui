@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.TabHost;
 import android.widget.Toast;
 
@@ -61,22 +62,26 @@ public class PWRead_Home_Tanhost_Activity extends MainActivity implements HomeFr
         // 定义一个tabspec单元 参数代表的是tabspec的tag名称
         // 定义首页标签
         TabHost.TabSpec tabSpec_home = myTabhost.newTabSpec(Final_Base.TABSPC_HOME_TAG);
-        tabSpec_home.setIndicator("首页");
+        View home = getLayoutInflater().inflate(R.layout.tab_home, null);
+        tabSpec_home.setIndicator(home);
         tabSpec_home.setContent(R.id.tabhost_frameLayout_home);
         myTabhost.addTab(tabSpec_home);
         // 定义新闻标签
         TabHost.TabSpec tabSpec_news = myTabhost.newTabSpec(Final_Base.TABSPC_NEWS_TAG);
-        tabSpec_news.setIndicator("新闻");
+        View news = getLayoutInflater().inflate(R.layout.tab_news, null);
+        tabSpec_news.setIndicator(news);
         tabSpec_news.setContent(R.id.tabhost_frameLayout_news);
         myTabhost.addTab(tabSpec_news);
         // 定义开心标签
         TabHost.TabSpec tabSpec_happy = myTabhost.newTabSpec(Final_Base.TABSPC_HAPPY_TAG);
-        tabSpec_happy.setIndicator("开心");
+        View happy = getLayoutInflater().inflate(R.layout.tab_happy, null);
+        tabSpec_happy.setIndicator(happy);
         tabSpec_happy.setContent(R.id.tabhost_frameLayout_happy);
         myTabhost.addTab(tabSpec_happy);
         // 定义关于标签
         TabHost.TabSpec tabSpec_about = myTabhost.newTabSpec(Final_Base.TABSPC_ABOUT_TAG);
-        tabSpec_about.setIndicator("关于");
+        View about = getLayoutInflater().inflate(R.layout.tab_about, null);
+        tabSpec_about.setIndicator(about);
         tabSpec_about.setContent(R.id.tabhost_frameLayout_about);
         myTabhost.addTab(tabSpec_about);
 
@@ -94,7 +99,9 @@ public class PWRead_Home_Tanhost_Activity extends MainActivity implements HomeFr
                 Toast.makeText(PWRead_Home_Tanhost_Activity.this, "再按一次退出新闻大杂烩", Toast.LENGTH_SHORT).show();
                 exitTime = System.currentTimeMillis();
             } else {
-                PWRead_Home_Tanhost_Activity.this.finish();
+                finish();
+                overridePendingTransition
+                        (R.anim.translate_exit_in, R.anim.translate_exit_out);
             }
         }
         return false;

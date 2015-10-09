@@ -126,7 +126,7 @@ public class HappyFragment_ViewPager_Adapter extends PagerAdapter {
 
 
         if (position == 0) {
-            loadingLayoutOne.setColor(R.color.color_1, R.color.color_2, R.color.color_3, R.color.color_4);
+            loadingLayoutOne.setColor(R.color.transparent, R.color.color_2, R.color.color_3, R.color.color_4);
             loadingLayoutOne.setOnLoadListener(new ZooLoadLick());
             loadingLayoutOne.setOnRefreshListener(new ZooClick());
             Log.e("当前点击的是", 0 + "");

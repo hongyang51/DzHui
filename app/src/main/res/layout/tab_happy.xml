@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:drawableTop="@drawable/third_text_selector"
+    android:gravity="center"
+    android:text="开心"
+    android:paddingTop="5dp"
+    android:textColor="@drawable/third_image_selector" />

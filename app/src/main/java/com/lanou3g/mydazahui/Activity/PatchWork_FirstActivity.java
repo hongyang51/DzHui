@@ -18,7 +18,7 @@ import java.util.ArrayList;
 /**
  * Created by xyb on 15/9/22.
  */
-public class PatchWork_FirstActivity extends MainActivity {
+public class PatchWork_FirstActivity extends MainActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
     private ViewPager patchWorkFirst;
     private PatchWork_First_PageAdapter patchWork_first_pageAdapter;
     private LinearLayout linearLayout; //引导的小圆点
@@ -30,7 +30,9 @@ public class PatchWork_FirstActivity extends MainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView();
+        initViewListener();
     }
+
 
     private void initView() {
         setContentView(R.layout.patchwork_first_viewpager);
@@ -38,14 +40,7 @@ public class PatchWork_FirstActivity extends MainActivity {
         patchWorkFirst = (ViewPager) findViewById(R.id.PatchWork_First_Viewpager);
         linearLayout = (LinearLayout) findViewById(R.id.patchWork_first_LinearLayout);
         pacthWork_First_Button = (Button) findViewById(R.id.pacthwork_first_button);
-        pacthWork_First_Button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPreferUtil.setBoolean(PatchWork_FirstActivity.this, "is_user_guide_showed", true);
-                startActivity(new Intent(PatchWork_FirstActivity.this, PWRead_Home_Tanhost_Activity.class));
-                finish();
-            }
-        });
+
         for (int i = 0; i < 3; i++) {
             imageView = new ImageView(this);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(8, 8);
@@ -62,33 +57,53 @@ public class PatchWork_FirstActivity extends MainActivity {
             linearLayout.addView(imageViews.get(i));
         }
         patchWorkFirst.setAdapter(patchWork_first_pageAdapter);
-        // Viewpager监听
-        patchWorkFirst.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+    }
+
+
+    private void initViewListener() {
+        pacthWork_First_Button.setOnClickListener(this);
+        patchWorkFirst.addOnPageChangeListener(this);// Viewpager监听
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.pacthwork_first_button:
+                SharedPreferUtil.setBoolean(PatchWork_FirstActivity.this, "is_user_guide_showed", true);
+                startActivity(new Intent(PatchWork_FirstActivity.this, PWRead_Home_Tanhost_Activity.class));
+                finish();
+                break;
+        }
+
+    }
+
+    /**
+     * Viewpager监听
+     */
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        for (int i = 0; i < 3; i++) {
+            if (i == position) {
+                imageViews.get(i).setBackgroundResource(R.drawable.patchwork_first_red);
+            } else {
+                imageViews.get(i).setBackgroundResource(R.drawable.patchwork_first_guid);
             }
+        }
+        if (position == 2) {
+            pacthWork_First_Button.setVisibility(View.VISIBLE);
+        } else {
+            pacthWork_First_Button.setVisibility(View.GONE);
+        }
+    }
 
-            @Override
-            public void onPageSelected(int position) {
-                for (int i = 0; i < 3; i++) {
-                    if (i == position) {
-                        imageViews.get(i).setBackgroundResource(R.drawable.patchwork_first_red);
-                    } else {
-                        imageViews.get(i).setBackgroundResource(R.drawable.patchwork_first_guid);
-                    }
-                }
-                if (position == 2) {
-                    pacthWork_First_Button.setVisibility(View.VISIBLE);
-                } else {
-                    pacthWork_First_Button.setVisibility(View.GONE);
-                }
-            }
+    @Override
+    public void onPageScrollStateChanged(int state) {
 
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
     }
 }

@@ -57,7 +57,7 @@ public class MyNetWorkBroadcastReceive extends BroadcastReceiver {
         builder.setLargeIcon(icon);
         builder.setAutoCancel(true);
         builder.setOngoing(true);
-        builder.setSmallIcon(R.mipmap.dzhreceiver);
+        builder.setSmallIcon(R.mipmap.ic_launcher);
         // 设置点击之后的跳转
         Intent intent = new Intent(context, PatchWorkOneActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 100,

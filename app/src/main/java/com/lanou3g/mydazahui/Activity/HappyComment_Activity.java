@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.Response;
@@ -49,7 +50,9 @@ public class HappyComment_Activity extends MainActivity implements View.OnClickL
     private HappyComment_Adapter adapter;
     private ImageView default_img;
     private ImageView share;
+    private ImageView back;
     private CardView List_cardView;
+    private RelativeLayout title_relative;
 
     // 首先在您的Activity中添加如下成员变量
     final UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.share");
@@ -64,8 +67,6 @@ public class HappyComment_Activity extends MainActivity implements View.OnClickL
         configPlatforms();
         // 设置分享的内容
         setShareContent();
-
-
     }
 
     /**
@@ -74,8 +75,6 @@ public class HappyComment_Activity extends MainActivity implements View.OnClickL
     private void setShareContent() {
         UMImage urlImage = new UMImage(this,
                 Final_Base.HAPPY_URL + jokes.getUri());
-
-
         // 配置SSO
         mController.getConfig().setSsoHandler(new SinaSsoHandler());
         mController.setShareContent(jokes.getContent() + "http://m.lengxiaohua.com/p/joke/" + jokes.getJokeid() + "      ---来自大杂烩");
@@ -85,14 +84,12 @@ public class HappyComment_Activity extends MainActivity implements View.OnClickL
         qzone.setTargetUrl("http://m.lengxiaohua.com/p/joke/" + jokes.getJokeid());
         qzone.setTitle(jokes.getContent());
         qzone.setShareMedia(urlImage);
-        // qzone.setShareMedia(uMusic);
 
         mController.setShareMedia(qzone);
         QQShareContent qqShareContent = new QQShareContent();
         qqShareContent.setShareContent("---来自大杂烩--http://www.513951.com");
         qqShareContent.setTitle(jokes.getContent());
         qqShareContent.setTargetUrl("http://m.lengxiaohua.com/p/joke/" + jokes.getJokeid());
-//        qqShareContent.setShareMedia(image);
         mController.setShareMedia(qqShareContent);
 
     }
@@ -118,7 +115,7 @@ public class HappyComment_Activity extends MainActivity implements View.OnClickL
         // 添加QQ支持, 并且设置QQ分享内容的target url
         UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(this,
                 appId, appKey);
-        qqSsoHandler.setTargetUrl("http://www.umeng.com/social");
+        qqSsoHandler.setTargetUrl("http://www.513951.com/");
         qqSsoHandler.addToSocialSDK();
 
         // 添加QZone平台
@@ -128,12 +125,15 @@ public class HappyComment_Activity extends MainActivity implements View.OnClickL
 
     private void initViewListen() {
         share.setOnClickListener(this);
+        back.setOnClickListener(this);
     }
 
     private void initView() {
         setContentView(R.layout.happy_listview_item);
         Title = (TextView) findViewById(R.id.Title);
         time = (TextView) findViewById(R.id.time);
+        title_relative = (RelativeLayout) findViewById(R.id.title_relative);
+        title_relative.setVisibility(View.VISIBLE);
         happy_content = (TextView) findViewById(R.id.happy_content);
         like_text = (TextView) findViewById(R.id.like_text);
         unlike_text = (TextView) findViewById(R.id.unlike_text);
@@ -141,6 +141,7 @@ public class HappyComment_Activity extends MainActivity implements View.OnClickL
         groom_img = (CircleImageView) findViewById(R.id.groom_img);
         Comment_list = (ListViewForScrollView) findViewById(R.id.Comment_list);
         default_img = (ImageView) findViewById(R.id.default_img);
+        back = (ImageView) findViewById(R.id.back);
         share = (ImageView) findViewById(R.id.share);
         singleton = VolleySingleton.getVolleySingleton(this);
         List_cardView = (CardView) findViewById(R.id.List_cardView);
@@ -162,15 +163,23 @@ public class HappyComment_Activity extends MainActivity implements View.OnClickL
         imageLoader.get(User_cover_url, listener);
 
         if (!jokes.getUri().equals("")) {
+            String string = jokes.getUri().substring(0, 1);
+            if (string.equals("/")) {
+                ImageLoader.ImageListener default_img_listener = ImageLoader.getImageListener(default_img, R.mipmap.joke_default_img, R.mipmap.joke_default_img);
+                String default_img_uri = Final_Base.HAPPY_URL + jokes.getUri();
+                imageLoader.get(default_img_uri, default_img_listener);
+                default_img.setVisibility(View.VISIBLE);
+                Log.e("网址", "网址为" + jokes.getUri());
+            } else {
+                ImageLoader.ImageListener default_img_listener = ImageLoader.getImageListener(default_img, R.mipmap.joke_default_img, R.mipmap.joke_default_img);
 
-            ImageLoader.ImageListener default_img_listener = ImageLoader.getImageListener(default_img, R.mipmap.joke_default_img, R.mipmap.joke_default_img);
-            String default_img_uri = Final_Base.HAPPY_URL + jokes.getUri();
-            imageLoader.get(default_img_uri, default_img_listener);
-            default_img.setVisibility(View.VISIBLE);
+                imageLoader.get(jokes.getUri(), default_img_listener);
+                default_img.setVisibility(View.VISIBLE);
+                Log.e("网址", "网址为" + jokes.getUri());
+            }
         } else {
-            Log.e("网址", jokes.getUri() + "网址为空");
             default_img.setVisibility(View.GONE);
-            Log.e("网址", "得到的网址为空");
+            Log.e("网址", "图像网址为空");
         }
         String pre_joke_id = Final_Base.HAPPY_COMMENT_TOP + jokes.getJokeid() + Final_Base.HAPPY_COMMENT_Back;
         Log.e("当前的评论", "网址为" + pre_joke_id);
@@ -201,9 +210,19 @@ public class HappyComment_Activity extends MainActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        mController.getConfig().setPlatforms(
-                SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.SINA
-        );
-        mController.openShare(this, false);
+        switch (v.getId()) {
+            case R.id.back:
+                finish();
+                overridePendingTransition
+                        (R.anim.translate_exit_in, R.anim.translate_exit_out);
+                break;
+            case R.id.share:
+                mController.getConfig().setPlatforms(
+                        SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.SINA
+                );
+                mController.openShare(this, false);
+                break;
+        }
+
     }
 }

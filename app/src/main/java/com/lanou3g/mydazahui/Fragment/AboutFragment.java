@@ -2,9 +2,12 @@ package com.lanou3g.mydazahui.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +20,8 @@ import com.lanou3g.mydazahui.base.BaseFragment;
 import com.lanou3g.mydazahui.base.DaoSingleton;
 import com.lanou3g.mydazahui.greendaobean.User;
 import com.lanou3g.mydazahui.greendaobean.UserDao;
+import com.lanou3g.mydazahui.utils.DataCleanManager;
+import com.lanou3g.mydazahui.utils.SharedPreferUtil;
 import com.lanou3g.mydazahui.utils.VolleySingleton;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.bean.SocializeEntity;
@@ -27,13 +32,14 @@ import com.umeng.socialize.controller.listener.SocializeListeners;
 
 import java.util.ArrayList;
 
+import cn.jpush.android.api.JPushInterface;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by dllo on 15/9/22.
  */
-public class AboutFragment extends BaseFragment implements View.OnClickListener {
-    private TextView person_textview;
+public class AboutFragment extends BaseFragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+    private TextView person_textview,clear_text;
     private UMSocialService mController;
     private CircleImageView circleImageView;
     private VolleySingleton singleton;
@@ -42,7 +48,8 @@ public class AboutFragment extends BaseFragment implements View.OnClickListener 
     private Button button;
     private ImageLoader imageLoader;
     private ImageLoader.ImageListener listener;
-    private TextView collection;
+    private CardView collection,clear_card;
+    private CheckBox push_CheckBox;
 
 
     @Override
@@ -52,20 +59,40 @@ public class AboutFragment extends BaseFragment implements View.OnClickListener 
         singleton = VolleySingleton.getVolleySingleton(mActivity);
         imageLoader = singleton.getImageLoader();
         circleImageView = (CircleImageView) view.findViewById(R.id.circleImageView);
-        listener = ImageLoader.getImageListener(circleImageView, R.mipmap.dzhreceiver, R.mipmap.dzhreceiver);
+        listener = ImageLoader.getImageListener(circleImageView, R.mipmap.ic_launcher, R.mipmap.ic_launcher);
         person_textview = (TextView) view.findViewById(R.id.person_textview);
+        clear_text = (TextView) view.findViewById(R.id.clear_text);
         relativeLayout = (RelativeLayout) view.findViewById(R.id.relativeLayout);
         button = (Button) view.findViewById(R.id.button);
-        collection = (TextView) view.findViewById(R.id.collection);
+        collection = (CardView) view.findViewById(R.id.collection);
+        clear_card = (CardView) view.findViewById(R.id.clear_card);
+        push_CheckBox = (CheckBox) view.findViewById(R.id.push_CheckBox);
         userDao = DaoSingleton.getInstance().getUserDao();
         relativeLayout.setOnClickListener(this);
         collection.setOnClickListener(this);
+        clear_card.setOnClickListener(this);
         button.setOnClickListener(this);
+        push_CheckBox.setOnCheckedChangeListener(this);
+        boolean userGuid = SharedPreferUtil.getBoolean(mActivity, "is_user_push", true);
+        if (userGuid){
+            push_CheckBox.setChecked(true);
+        }else{
+            push_CheckBox.setChecked(false);
+        }
+
         return view;
     }
 
     @Override
     public void initData() {
+        try {
+            String i = DataCleanManager.getCacheSize(mActivity.getCacheDir());
+            clear_text.setText(i);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         ArrayList<User> users = (ArrayList<User>) userDao.loadAll();
         if (users.size() > 0) {
             User user = users.get(0);
@@ -103,8 +130,30 @@ public class AboutFragment extends BaseFragment implements View.OnClickListener 
                 }
                 break;
             case R.id.collection:
-                Intent intent = new Intent(mActivity, CollectionActivity.class);
-                mActivity.startActivity(intent);
+                if (users.size() == 0) {
+                    Toast.makeText(mActivity,"请登录",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(mActivity, UserCenterActivity.class);
+                    mActivity.startActivity(intent);
+                    mActivity.overridePendingTransition
+                            (R.anim.translate_enter_in, R.anim.translate_enter_out);
+                } else {
+                    Intent intent = new Intent(mActivity, CollectionActivity.class);
+                    mActivity.startActivity(intent);
+                    mActivity.overridePendingTransition
+                            (R.anim.translate_enter_in, R.anim.translate_enter_out);
+                }
+
+                break;
+            case R.id.clear_card:
+                DataCleanManager.deleteFolderFile(mActivity.getCacheDir().toString(), true);
+                try {
+                    String i = DataCleanManager.getCacheSize(mActivity.getCacheDir());
+                    Log.e("sss", i);
+                    clear_text.setText(i);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Toast.makeText(mActivity, "清除成功", Toast.LENGTH_SHORT).show();
                 break;
         }
 
@@ -136,6 +185,17 @@ public class AboutFragment extends BaseFragment implements View.OnClickListener 
         });
     }
 
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (isChecked == true) {
+            JPushInterface.resumePush(mActivity);
+            SharedPreferUtil.setBoolean(mActivity, "is_user_push", true);
+        } else {
+            JPushInterface.stopPush(mActivity);
+            SharedPreferUtil.setBoolean(mActivity, "is_user_push", false);
+        }
+    }
+
     public interface IChangePage {
         void changePage();
     }
@@ -156,6 +216,12 @@ public class AboutFragment extends BaseFragment implements View.OnClickListener 
             User user = users.get(0);
             imageLoader.get(user.getProfile_image_url(), listener);
             person_textview.setText(user.getName());
+        }
+        try {
+            String i = DataCleanManager.getCacheSize(mActivity.getCacheDir());
+            clear_text.setText(i);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

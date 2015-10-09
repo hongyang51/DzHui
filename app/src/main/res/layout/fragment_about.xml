@@ -50,16 +50,95 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:layout_margin="5dp"
+            android:id="@+id/collection"
             >
             <TextView
-                android:id="@+id/collection"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+
+                style="@style/about_style"
                 android:text="我的收藏"
-                android:gravity="center"
-                android:textSize="17dp"
+
                 />
 
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:id="@+id/clear_card"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:text="清除缓存"
+                    android:layout_centerVertical="true"
+                    style="@style/about_style"
+                    />
+                <TextView
+                    style="@style/about_style"
+                    android:id="@+id/clear_text"
+                    android:text="0k"
+                    android:textSize="13sp"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/top_color"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="17dp"
+                    />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            >
+            <TextView
+
+                android:text="推送设置"
+                style="@style/about_style"
+                />
+            <CheckBox
+                android:id="@+id/push_CheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/redio"
+                android:button="@null"
+                />
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            >
+            <TextView
+                android:text="非WiFi下使用省流量模式"
+                style="@style/about_style"
+                />
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/redio"
+                android:button="@null"
+                />
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            >
+            <TextView
+                android:text="关于此应用"
+                style="@style/about_style"
+                />
         </android.support.v7.widget.CardView>
 
 
@@ -73,6 +152,7 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:background="@drawable/load"
+        android:textColor="@color/umeng_socialize_ucenter_bg"
         android:text="退出登陆" />
 
 </LinearLayout>

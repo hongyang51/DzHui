@@ -2,17 +2,47 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="5dp">
+        android:orientation="vertical">
+        <RelativeLayout
+            android:id="@+id/title_relative"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:background="@android:color/white">
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/back" />
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/load"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="冷评价"
+                android:textColor="@color/umeng_socialize_list_item_textcolor"
+                android:textSize="15sp" />
+
+        </RelativeLayout>
         <android.support.v7.widget.CardView
             android:id="@+id/cardView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -44,7 +74,6 @@
                             android:id="@+id/Title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="1111"
                             android:textColor="@android:color/black"
                             android:textSize="20sp" />
 
@@ -52,7 +81,7 @@
                             android:id="@+id/time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="4464656" />
+                             />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -61,7 +90,7 @@
                     android:id="@+id/happy_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="SSSSSS"
+                    android:text="正在加载....."
                     android:textColor="@android:color/secondary_text_light" />
 
                 <ImageView
@@ -92,7 +121,7 @@
 
                         android:layout_marginRight="10dp"
                         android:layout_toRightOf="@+id/like_imgView"
-                        android:text="sss" />
+                        android:text="0" />
 
                     <ImageView
                         android:id="@+id/unlike_imgView"
@@ -110,7 +139,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/unlike_imgView"
-                        android:text="sss" />
+                        android:text="0" />
 
                     <ImageView
                         android:id="@+id/comment_img"
@@ -130,7 +159,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="10dp"
                         android:layout_toLeftOf="@+id/share"
-                        android:text="sss" />
+                        android:text="0" />
 
                     <ImageView
                         android:id="@+id/share"
@@ -154,6 +183,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_margin="5dp"
             android:visibility="gone">
 
             <com.lanou3g.mydazahui.base.ListViewForScrollView

@@ -152,15 +152,12 @@ public class HappyFragment_ListView_Adapter extends BaseAdapter {
                 Log.e("网址", "网址为"+joke.getUri());
             }else{
                 ImageLoader.ImageListener default_img_listener = ImageLoader.getImageListener(holder.default_img, R.mipmap.joke_default_img, R.mipmap.joke_default_img);
-
                 imageLoader.get(joke.getUri(), default_img_listener);
                 holder.default_img.setVisibility(View.VISIBLE);
                 Log.e("网址", "网址为"+joke.getUri());
             }
 
-
         } else {
-
             holder.default_img.setVisibility(View.GONE);
             Log.e("网址", "图像网址为空");
         }

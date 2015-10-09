@@ -2,6 +2,7 @@ package com.lanou3g.mydazahui.activity;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -31,6 +32,7 @@ public class UserCenterActivity extends MainActivity implements View.OnClickList
     private UMSocialService mController;
     private UserDao userDao;
     private Button button;
+    private ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class UserCenterActivity extends MainActivity implements View.OnClickList
         QZONE.setOnClickListener(this);
         SINA.setOnClickListener(this);
         button.setOnClickListener(this);
+        back.setOnClickListener(this);
     }
 
     private void initView() {
@@ -52,6 +55,7 @@ public class UserCenterActivity extends MainActivity implements View.OnClickList
         QZONE = (ImageView) findViewById(R.id.QZONE);
         SINA = (ImageView) findViewById(R.id.SINA);
         button = (Button) findViewById(R.id.load_button);
+        back = (ImageView) findViewById(R.id.back);
         userDao = DaoSingleton.getInstance().getUserDao();
         mController = UMServiceFactory.getUMSocialService("com.umeng.login");
         addQZoneQQPlatform();
@@ -85,6 +89,11 @@ public class UserCenterActivity extends MainActivity implements View.OnClickList
                 break;
             case R.id.load_button:
                 Toast.makeText(this, "请使用第三方登陆", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.back:
+                finish();
+                overridePendingTransition
+                        (R.anim.translate_exit_in, R.anim.translate_exit_out);
                 break;
         }
     }
@@ -165,5 +174,16 @@ public class UserCenterActivity extends MainActivity implements View.OnClickList
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode ==KeyEvent.KEYCODE_BACK){
+            finish();
+            overridePendingTransition
+                    (R.anim.translate_exit_in, R.anim.translate_exit_out);
+
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

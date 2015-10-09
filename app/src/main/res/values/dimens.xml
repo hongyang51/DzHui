@@ -12,4 +12,6 @@
     <dimen name="read_one_TextView">20sp</dimen>
     <dimen name="view_Pager_height">250dp</dimen>
     <dimen name="tensevendp">17dp</dimen>
+    <dimen name="dimens_50dp">50dp</dimen>
+    <dimen name="dimens_10dp">10dp</dimen>
 </resources>

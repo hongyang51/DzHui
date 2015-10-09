@@ -139,7 +139,7 @@ public class DataCleanManager {
      * 删除指定目录下文件及目录
      *
      * @param deleteThisPath
-     * @param filepath
+     * @param
      * @return
      */
     public static void deleteFolderFile(String filePath, boolean deleteThisPath) {
@@ -157,7 +157,7 @@ public class DataCleanManager {
                         file.delete();
                     } else {// 目录
                         if (file.listFiles().length == 0) {// 目录下没有文件或者目录，删除
-                            file.delete();
+
                         }
                     }
                 }

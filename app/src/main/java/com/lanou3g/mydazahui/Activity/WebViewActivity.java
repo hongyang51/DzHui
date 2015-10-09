@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -49,10 +50,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * Created by dllo on 15/9/24.
  */
-public class WebViewActivity extends MainActivity {
+public class WebViewActivity extends MainActivity implements View.OnClickListener {
     private int newsId;
     private VolleySingleton singleton;
-    private ImageView news_img, more;
+    private ImageView news_img, more, back;
     private CircleImageView groom_img;
     private TextView news_title, news_img_text_from, load;
     private ImageLoader.ImageListener listener, listener_user;
@@ -93,6 +94,7 @@ public class WebViewActivity extends MainActivity {
         imageLoader = singleton.getImageLoader();
         webview = (WebView) findViewById(R.id.webview);
         news_img = (ImageView) findViewById(R.id.news_img);
+        back = (ImageView) findViewById(R.id.back);
         news_title = (TextView) findViewById(R.id.news_title);
         load = (TextView) findViewById(R.id.load);
         more = (ImageView) findViewById(R.id.more);
@@ -116,6 +118,7 @@ public class WebViewActivity extends MainActivity {
         Intent intent = getIntent();
         newsId = intent.getIntExtra(Final_Base.NEWSID, 1);
         more.setVisibility(View.VISIBLE);
+        back.setOnClickListener(this);
         news = Final_Base.NEWS_URL + newsId;
         more.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,7 +150,7 @@ public class WebViewActivity extends MainActivity {
                                     qb.where(CollectionDao.Properties.Title.eq(newsContent.getTitle()));
                                     qb.where(CollectionDao.Properties.User_name.eq(userName));
                                     ArrayList<Collection> collections = (ArrayList<Collection>) qb.list();
-                                    if (collections.size() > 0 ) {
+                                    if (collections.size() > 0) {
                                         Toast.makeText(WebViewActivity.this, "您已收藏", Toast.LENGTH_SHORT).show();
                                     } else {
                                         //插入数据库
@@ -323,5 +326,27 @@ public class WebViewActivity extends MainActivity {
     protected void onDestroy() {
         super.onDestroy();
         singleton.removeRequest(news);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            finish();
+            overridePendingTransition
+                    (R.anim.translate_exit_in, R.anim.translate_exit_out);
+
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.back:
+                finish();
+                overridePendingTransition
+                        (R.anim.translate_exit_in, R.anim.translate_exit_out);
+                break;
+        }
     }
 }
