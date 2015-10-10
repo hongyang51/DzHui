@@ -136,7 +136,7 @@ public class CollectionActivity extends MainActivity {
                         adapter = new Collection_List_Adapter(CollectionActivity.this, collections);
                         list_collection.setAdapter(adapter);
 
-                        Toast.makeText(CollectionActivity.this, "你点击了确定按钮~", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CollectionActivity.this, "取消成功", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .create();

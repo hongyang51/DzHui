@@ -55,17 +55,12 @@ public class HappyFragment_ListView_Adapter extends BaseAdapter {
         this.jokes.addAll(jokes);
         notifyDataSetChanged();
     }
-
-
     public void Refreshing(ArrayList<Happy.jokes> jokes) {
         this.jokes.clear();
         this.jokes.addAll(jokes);
         notifyDataSetChanged();
 
     }
-
-
-
     @Override
     public int getCount() {
         return jokes != null && jokes.size() > 0 ? jokes.size() : 5;

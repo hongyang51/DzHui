@@ -13,9 +13,9 @@
     <View
         android:id="@+id/view_1"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/dimen_1dp"
         android:layout_below="@+id/include"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/dimen_10dp"
         android:background="@color/welcome_en">
 
     </View>
@@ -28,14 +28,14 @@
         android:background="@android:color/white"
         android:hint="手机/邮箱/用户名"
         android:inputType="phone"
-        android:padding="10dp"
+        android:padding="@dimen/dimen_10dp"
         android:selectAllOnFocus="true"
         android:singleLine="true" />
 
     <View
         android:id="@+id/view_2"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/dimen_1dp"
         android:layout_below="@+id/name_ed"
         android:background="@color/umeng_socialize_text_time">
 
@@ -49,7 +49,7 @@
         android:background="@android:color/white"
         android:hint="密码"
         android:inputType="textPassword"
-        android:padding="10dp"
+        android:padding="@dimen/dimen_10dp"
         android:selectAllOnFocus="true"
         android:singleLine="true"
 
@@ -58,7 +58,7 @@
     <View
         android:id="@+id/view_3"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/dimen_1dp"
         android:layout_below="@+id/permiss_ed"
         android:background="@color/umeng_socialize_text_time">
 
@@ -69,17 +69,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/view_3"
-        android:layout_margin="17dp"
+        android:layout_margin="@dimen/dimen_17dp"
         android:background="@drawable/load"
         android:text="登录"
         android:textColor="@android:color/white"
-        android:textSize="19sp" />
+        android:textSize="@dimen/dimen_19sp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/other_linear"
-        android:layout_marginBottom="10dp">
+        android:layout_marginBottom="@dimen/dimen_10dp">
 
         <TextView
             android:id="@+id/other_textView"
@@ -90,10 +90,10 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/dimen_1dp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="@dimen/dimen_10dp"
+            android:layout_marginRight="@dimen/dimen_10dp"
             android:layout_toLeftOf="@+id/other_textView"
             android:background="@color/umeng_socialize_text_ucenter">
 
@@ -101,10 +101,10 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/dimen_1dp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="@dimen/dimen_10dp"
+            android:layout_marginRight="@dimen/dimen_10dp"
             android:layout_toRightOf="@+id/other_textView"
             android:background="@color/umeng_socialize_text_ucenter">
 
@@ -122,21 +122,21 @@
 
         <ImageView
             android:id="@+id/QQ"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dimen_0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/umeng_socialize_qq_on" />
 
         <ImageView
             android:id="@+id/QZONE"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dimen_0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/umeng_socialize_qzone_on" />
 
         <ImageView
             android:id="@+id/SINA"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dimen_0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/umeng_socialize_sina_on" />

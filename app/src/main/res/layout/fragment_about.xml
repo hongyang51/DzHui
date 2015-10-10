@@ -6,7 +6,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/dimen_0dp"
         android:layout_weight="1">
 
         <ImageView
@@ -34,113 +34,113 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/circleImageView"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="2dp"
-                android:text="个人中心" />
+                android:layout_marginTop="@dimen/dimen_2dp"
+                android:text="@string/person_center" />
         </RelativeLayout>
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/dimen_0dp"
         android:layout_weight="3"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
+
         <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_margin="5dp"
             android:id="@+id/collection"
-            >
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_0dp"
+            android:layout_margin="@dimen/dimen_5dp"
+            android:layout_weight="1">
+
             <TextView
 
                 style="@style/about_style"
-                android:text="我的收藏"
+                android:text="@string/collect"
 
                 />
 
         </android.support.v7.widget.CardView>
+
         <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_margin="5dp"
             android:id="@+id/clear_card"
-            >
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_0dp"
+            android:layout_margin="@dimen/dimen_5dp"
+            android:layout_weight="1">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <TextView
-                    android:text="清除缓存"
+                    style="@style/about_style"
                     android:layout_centerVertical="true"
-                    style="@style/about_style"
-                    />
+                    android:text="@string/clear" />
+
                 <TextView
-                    style="@style/about_style"
                     android:id="@+id/clear_text"
-                    android:text="0k"
-                    android:textSize="13sp"
-                    android:layout_centerVertical="true"
-                    android:textColor="@color/top_color"
+                    style="@style/about_style"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="17dp"
-                    />
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dimen_17dp"
+                    android:text="0k"
+                    android:textColor="@color/top_color"
+                    android:textSize="@dimen/dimen_13sp" />
 
             </RelativeLayout>
 
         </android.support.v7.widget.CardView>
+
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_margin="5dp"
-            >
+            android:layout_height="@dimen/dimen_0dp"
+            android:layout_margin="@dimen/dimen_5dp"
+            android:layout_weight="1">
+
             <TextView
 
-                android:text="推送设置"
                 style="@style/about_style"
-                />
+                android:text="@string/push" />
+
             <CheckBox
                 android:id="@+id/push_CheckBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|right"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="@dimen/dimen_10dp"
                 android:background="@drawable/redio"
-                android:button="@null"
-                />
+                android:button="@null" />
         </android.support.v7.widget.CardView>
+
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_margin="5dp"
-            >
+            android:layout_height="@dimen/dimen_0dp"
+            android:layout_margin="@dimen/dimen_5dp"
+            android:layout_weight="1">
+
             <TextView
-                android:text="非WiFi下使用省流量模式"
                 style="@style/about_style"
-                />
+                android:text="@string/wifi" />
+
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|right"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/redio"
-                android:button="@null"
-                />
-        </android.support.v7.widget.CardView>
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_margin="5dp"
-            >
-            <TextView
-                android:text="关于此应用"
-                style="@style/about_style"
-                />
+                android:button="@null" />
         </android.support.v7.widget.CardView>
 
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_0dp"
+            android:layout_margin="@dimen/dimen_5dp"
+            android:layout_weight="1">
+
+            <TextView
+                style="@style/about_style"
+                android:text="@string/about" />
+        </android.support.v7.widget.CardView>
 
 
     </LinearLayout>
@@ -149,10 +149,10 @@
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginLeft="@dimen/dimen_5dp"
+        android:layout_marginRight="@dimen/dimen_5dp"
         android:background="@drawable/load"
-        android:textColor="@color/umeng_socialize_ucenter_bg"
-        android:text="退出登陆" />
+        android:text="@string/out"
+        android:textColor="@color/umeng_socialize_ucenter_bg" />
 
 </LinearLayout>

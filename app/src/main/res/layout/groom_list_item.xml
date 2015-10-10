@@ -31,14 +31,12 @@
             <TextView
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ssssss" />
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/bio"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="sssss" />
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
     </LinearLayout>
