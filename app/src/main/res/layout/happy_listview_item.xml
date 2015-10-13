@@ -2,21 +2,23 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <RelativeLayout
             android:id="@+id/title_relative"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-android:visibility="gone"
-            android:background="@android:color/white">
+            android:background="@android:color/white"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true">
 
                 <ImageView
                     android:id="@+id/back"
@@ -37,21 +39,21 @@ android:visibility="gone"
                 android:textSize="15sp" />
 
         </RelativeLayout>
+
         <Button
             android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="听笑话"
-            android:visibility="gone"
-            android:textColor="@android:color/white"
             android:background="@drawable/load"
-            />
+            android:text="听笑话"
+            android:textColor="@android:color/white"
+            android:visibility="gone" />
+
         <android.support.v7.widget.CardView
             android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            >
+            android:layout_margin="5dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -89,8 +91,7 @@ android:visibility="gone"
                         <TextView
                             android:id="@+id/time"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                             />
+                            android:layout_height="wrap_content" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -140,7 +141,7 @@ android:visibility="gone"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="10dp"
                         android:layout_toRightOf="@+id/like_text"
-                        android:src="@drawable/unlike" />
+                        android:src="@drawable/dolike" />
 
                     <TextView
                         android:id="@+id/unlike_text"
@@ -191,8 +192,8 @@ android:visibility="gone"
             android:id="@+id/List_cardView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_margin="5dp"
+            android:layout_marginTop="10dp"
             android:visibility="gone">
 
             <com.lanou3g.mydazahui.base.ListViewForScrollView

@@ -223,18 +223,20 @@ public class HappyComment_Activity extends MainActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back:
+                // 返回
                 finish();
                 overridePendingTransition
                         (R.anim.translate_exit_in, R.anim.translate_exit_out);
                 break;
             case R.id.share:
+                // 分享
                 mController.getConfig().setPlatforms(
                         SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.SINA
                 );
                 mController.openShare(this, false);
                 break;
             case R.id.button:
-
+                // 语音朗读
                 if (!mTts.isSpeaking()) {
                     mTts.setParameter(SpeechConstant.VOICE_NAME, "xiaokun");
                     mTts.setParameter(SpeechConstant.SPEED, "50");
@@ -250,6 +252,9 @@ public class HappyComment_Activity extends MainActivity implements View.OnClickL
 
     }
 
+    /**
+     * 语音朗读的监听
+     */
     private SynthesizerListener mSynListener = new SynthesizerListener() {
 
         @Override
@@ -291,7 +296,7 @@ public class HappyComment_Activity extends MainActivity implements View.OnClickL
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mTts.isSpeaking()){
+        if (mTts.isSpeaking()) {
             mTts.stopSpeaking();
         }
 
