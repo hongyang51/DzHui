@@ -6,6 +6,7 @@ import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -15,6 +16,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.SpeechSynthesizer;
+import com.iflytek.cloud.SynthesizerListener;
 import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.adapter.HappyComment_Adapter;
 import com.lanou3g.mydazahui.base.Final_Base;
@@ -53,9 +58,11 @@ public class HappyComment_Activity extends MainActivity implements View.OnClickL
     private ImageView back;
     private CardView List_cardView;
     private RelativeLayout title_relative;
+    private Button button;
 
     // 首先在您的Activity中添加如下成员变量
     final UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.share");
+    private SpeechSynthesizer mTts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,7 +138,9 @@ public class HappyComment_Activity extends MainActivity implements View.OnClickL
     private void initView() {
         setContentView(R.layout.happy_listview_item);
         Title = (TextView) findViewById(R.id.Title);
+        mTts = SpeechSynthesizer.createSynthesizer(this, null);
         time = (TextView) findViewById(R.id.time);
+        button = (Button) findViewById(R.id.button);
         title_relative = (RelativeLayout) findViewById(R.id.title_relative);
         title_relative.setVisibility(View.VISIBLE);
         happy_content = (TextView) findViewById(R.id.happy_content);
@@ -205,6 +214,8 @@ public class HappyComment_Activity extends MainActivity implements View.OnClickL
             }
         });
         singleton.addQueue(request, "request");
+        button.setVisibility(View.VISIBLE);
+        button.setOnClickListener(this);
     }
 
 
@@ -222,6 +233,66 @@ public class HappyComment_Activity extends MainActivity implements View.OnClickL
                 );
                 mController.openShare(this, false);
                 break;
+            case R.id.button:
+
+                if (!mTts.isSpeaking()) {
+                    mTts.setParameter(SpeechConstant.VOICE_NAME, "xiaokun");
+                    mTts.setParameter(SpeechConstant.SPEED, "50");
+                    mTts.setParameter(SpeechConstant.VOLUME, "80");
+                    mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD);
+                    mTts.setParameter(SpeechConstant.TTS_AUDIO_PATH, "./sdcard/iflytek.pcm");
+                    mTts.startSpeaking(jokes.getContent(), mSynListener);
+                }
+
+
+                break;
+        }
+
+    }
+
+    private SynthesizerListener mSynListener = new SynthesizerListener() {
+
+        @Override
+        public void onSpeakBegin() {
+
+        }
+
+        @Override
+        public void onBufferProgress(int i, int i1, int i2, String s) {
+
+        }
+
+        @Override
+        public void onSpeakPaused() {
+
+        }
+
+        @Override
+        public void onSpeakResumed() {
+
+        }
+
+        @Override
+        public void onSpeakProgress(int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onCompleted(SpeechError speechError) {
+
+        }
+
+        @Override
+        public void onEvent(int i, int i1, int i2, Bundle bundle) {
+
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mTts.isSpeaking()){
+            mTts.stopSpeaking();
         }
 
     }

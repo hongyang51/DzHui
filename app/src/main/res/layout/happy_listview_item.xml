@@ -10,7 +10,7 @@
             android:id="@+id/title_relative"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+android:visibility="gone"
             android:background="@android:color/white">
 
             <LinearLayout
@@ -37,6 +37,15 @@
                 android:textSize="15sp" />
 
         </RelativeLayout>
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="听笑话"
+            android:visibility="gone"
+            android:textColor="@android:color/white"
+            android:background="@drawable/load"
+            />
         <android.support.v7.widget.CardView
             android:id="@+id/cardView"
             android:layout_width="match_parent"

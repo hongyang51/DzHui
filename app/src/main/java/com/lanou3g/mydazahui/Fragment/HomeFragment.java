@@ -136,6 +136,8 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
                 }
                 adapter = new HomeFragment_ViewPager_Adapter(mActivity, topStories);
                 viewPager.setAdapter(adapter);
+
+                viewPager.setCurrentItem(2000);
                 startImageTimerTask();
                 viewPager.setOnTouchListener(new View.OnTouchListener() {
                     @Override
@@ -144,7 +146,6 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
                             startImageTimerTask();
                         } else {
                             stopImageTimerTask();
-
                         }
 
                         return false;
@@ -317,8 +318,6 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
         public void run() {
             int index = viewPager.getCurrentItem();
             viewPager.setCurrentItem(++index);
-//            Log.e("SSSSSSS", "线程");
-
             handler.postDelayed(runnable, 4000);
 
         }

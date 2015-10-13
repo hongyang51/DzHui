@@ -148,7 +148,6 @@ public class AboutFragment extends BaseFragment implements View.OnClickListener,
                 DataCleanManager.deleteFolderFile(mActivity.getCacheDir().toString(), true);
                 try {
                     String i = DataCleanManager.getCacheSize(mActivity.getCacheDir());
-                    Log.e("sss", i);
                     clear_text.setText(i);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -175,7 +174,7 @@ public class AboutFragment extends BaseFragment implements View.OnClickListener,
 
                 String showText = "解除" + platform.toString() + "平台授权成功";
                 if (status != StatusCode.ST_CODE_SUCCESSED) {
-                    showText = "解除" + platform.toString() + "平台授权失败[" + status + "]";
+
                 }
                 Toast.makeText(mActivity, showText, Toast.LENGTH_SHORT).show();
                 if (iChangePage != null) {

@@ -20,7 +20,6 @@ import com.lanou3g.mydazahui.fragment.HomeFragment;
 import com.lanou3g.mydazahui.fragment.NewsFragment;
 import com.lanou3g.mydazahui.utils.SharedPreferUtil;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -133,7 +132,4 @@ public class PWRead_Home_Tanhost_Activity extends MainActivity implements HomeFr
         Log.e("taggg", "执行跳转");
     }
 
-    public class SerInfo implements Serializable {
-
-    }
 }

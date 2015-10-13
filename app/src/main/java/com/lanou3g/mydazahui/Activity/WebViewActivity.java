@@ -252,9 +252,9 @@ public class WebViewActivity extends MainActivity implements View.OnClickListene
         webSettings.setAllowFileAccess(true); // 允许访问文件
         webSettings.setBuiltInZoomControls(false); // 设置不显示缩放按钮
         webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);// 图片自适应
-        String data = newsContent.getBody();
+        final String data = newsContent.getBody();
         if (data != null) {
-            webview.loadDataWithBaseURL(null, data, "text/html", "utf-8", null);
+            webview.loadDataWithBaseURL("", data, "text/html", "utf-8", null);
             webview.setVisibility(View.VISIBLE);
         } else if (newsContent.getShare_url() != null) {
             webview.setWebViewClient(new WebViewClient());
