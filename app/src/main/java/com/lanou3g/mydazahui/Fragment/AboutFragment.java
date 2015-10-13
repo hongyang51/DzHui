@@ -39,7 +39,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by dllo on 15/9/22.
  */
 public class AboutFragment extends BaseFragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
-    private TextView person_textview,clear_text;
+    private TextView person_textview, clear_text;
     private UMSocialService mController;
     private CircleImageView circleImageView;
     private VolleySingleton singleton;
@@ -48,7 +48,7 @@ public class AboutFragment extends BaseFragment implements View.OnClickListener,
     private Button button;
     private ImageLoader imageLoader;
     private ImageLoader.ImageListener listener;
-    private CardView collection,clear_card;
+    private CardView collection, clear_card;
     private CheckBox push_CheckBox;
 
 
@@ -74,9 +74,9 @@ public class AboutFragment extends BaseFragment implements View.OnClickListener,
         button.setOnClickListener(this);
         push_CheckBox.setOnCheckedChangeListener(this);
         boolean userGuid = SharedPreferUtil.getBoolean(mActivity, "is_user_push", true);
-        if (userGuid){
+        if (userGuid) {
             push_CheckBox.setChecked(true);
-        }else{
+        } else {
             push_CheckBox.setChecked(false);
         }
 
@@ -131,7 +131,7 @@ public class AboutFragment extends BaseFragment implements View.OnClickListener,
                 break;
             case R.id.collection:
                 if (users.size() == 0) {
-                    Toast.makeText(mActivity,"请登录",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mActivity, "请登录", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(mActivity, UserCenterActivity.class);
                     mActivity.startActivity(intent);
                     mActivity.overridePendingTransition
