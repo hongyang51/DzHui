@@ -10,6 +10,7 @@ import com.lanou3g.mydazahui.adapter.HappyFragment_ViewPager_Adapter;
 import com.lanou3g.mydazahui.base.BaseFragment;
 
 /**
+ * 开心页面
  * Created by dllo on 15/9/22.
  */
 public class HappyFragment extends BaseFragment implements RadioGroup.OnCheckedChangeListener {
@@ -19,8 +20,9 @@ public class HappyFragment extends BaseFragment implements RadioGroup.OnCheckedC
     private RadioButton happy_popular, happy_new;
 
 
-
-
+    /**
+     * 初始化视图
+     */
     @Override
     public View initViews() {
         View view = View.inflate(mActivity, R.layout.fragment_happy, null);
@@ -31,18 +33,30 @@ public class HappyFragment extends BaseFragment implements RadioGroup.OnCheckedC
         return view;
     }
 
+    /**
+     * 视图数据
+     */
     @Override
     public void initData() {
         adapter = new HappyFragment_ViewPager_Adapter(mActivity);
-        happy_bar.setOnCheckedChangeListener(this);
         happy_popular.setChecked(true);
         viewPager.setAdapter(adapter);
+        initViewLinstener();
+    }
+
+    /**
+     * 试图监听
+     */
+
+    private void initViewLinstener() {
+        happy_bar.setOnCheckedChangeListener(this);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
 
+            // viewpager第几个页被选择
             @Override
             public void onPageSelected(int position) {
                 switch (position) {
@@ -55,7 +69,6 @@ public class HappyFragment extends BaseFragment implements RadioGroup.OnCheckedC
                     default:
                         break;
                 }
-
             }
 
             @Override
@@ -65,12 +78,15 @@ public class HappyFragment extends BaseFragment implements RadioGroup.OnCheckedC
         });
     }
 
+    /**
+     * 页首checkBox监听
+     */
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
-        switch (checkedId){
+        switch (checkedId) {
             case R.id.happy_popular:
                 viewPager.setCurrentItem(0);
-            break;
+                break;
             case R.id.happy_new:
                 viewPager.setCurrentItem(1);
                 break;

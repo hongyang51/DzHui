@@ -19,6 +19,7 @@ import com.lanou3g.mydazahui.utils.VolleySingleton;
 import java.util.ArrayList;
 
 /**
+ * 新闻页面
  * Created by dllo on 15/9/22.
  */
 public class NewsFragment extends BaseFragment {
@@ -68,7 +69,5 @@ public class NewsFragment extends BaseFragment {
         });
         request.setShouldCache(false);
         singleton.addQueue(request,Final_Base.THEME_URL_REQUEUE_TAG);
-
-
     }
 }

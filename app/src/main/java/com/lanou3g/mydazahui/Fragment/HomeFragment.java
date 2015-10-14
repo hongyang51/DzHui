@@ -39,12 +39,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
+ * 主页面
  * Created by dllo on 15/9/22.
  */
 public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLayout.OnLoadListener, SwipeRefreshLoadingLayout.OnRefreshListener {
     private ViewPager viewPager;
     private VolleySingleton singleton;
-    private LinearLayout home_viewpager_LinearL,Pinterest;
+    private LinearLayout home_viewpager_LinearL, Pinterest;
     private ImageView imageView;
     private ImageView getImageView;
     private View view, views;
@@ -77,8 +78,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
     private ProgressDialog dialog;
 
 
-
-
+    // 监听接口
     public interface NewsOnclick {
         void OnNewsOnclick(String s, ArrayList<Theme.OthersEntity> othersEntities);
     }
@@ -89,31 +89,40 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
         onclickLisner = (NewsOnclick) context;
     }
 
-
+    /**
+     * 设置Fragment的视图
+     */
     @Override
     public View initViews() {
         storiesEntityDao = DaoSingleton.getInstance().getStoriesEntityDao();
         topStoriesEntityDao = DaoSingleton.getInstance().getTopStoriesEntityDao();
         views = View.inflate(mActivity, R.layout.fragment_tabhost_home_listview, null);
         swipeRefreshLoadingLayout = (SwipeRefreshLoadingLayout) views.findViewById(R.id.swipeRefreshLoadingLayout);
-        swipeRefreshLoadingLayout.setOnLoadListener(this);
-        swipeRefreshLoadingLayout.setOnRefreshListener(this);
         listView = (ListView) views.findViewById(R.id.Home_list_item);
         view = View.inflate(mActivity, R.layout.fragment_tabhost_home_socll, null);
         Pinterest = (LinearLayout) view.findViewById(R.id.Pinterest);
         viewPager = (ViewPager) view.findViewById(R.id.home_fragment_viewPager);
         singleton = VolleySingleton.getVolleySingleton(mActivity);
         imageLoader = singleton.getImageLoader();
+        initViewListener();
         return views;
     }
 
+    private void initViewListener() {
+        swipeRefreshLoadingLayout.setOnLoadListener(this);
+        swipeRefreshLoadingLayout.setOnRefreshListener(this);
+    }
+
+    /**
+     * 设置数据
+     */
     @Override
     public void initData() {
         dialog = new ProgressDialog(getContext());
         dialog.setMessage("正在加载中.....");
         dialog.show();
         initFromeTopUrl();// 从网上拉取
-        initFromeThemes();
+        initFromeThemes();// 从网上拉取分类
     }
 
     // 从网上拉取
@@ -126,12 +135,14 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
                 latestNews = gson.fromJson(response, LatestNews.class);
                 storiesEntities = (ArrayList<StoriesEntity>) latestNews.getStories();
                 topStories = (ArrayList<TopStoriesEntity>) latestNews.getTop_stories();
+                // 数据库的设置,插入
                 storiesEntityDao.deleteAll();
                 storiesEntityDao.insertOrReplaceInTx(storiesEntities);
-
+                // 数据库的设置,插入
                 topStoriesEntityDao.deleteAll();
                 topStoriesEntityDao.insertOrReplaceInTx(topStories);
-                if( dialog.isShowing()){
+                // dialog的消失设置
+                if (dialog.isShowing()) {
                     dialog.dismiss();
                 }
                 adapter = new HomeFragment_ViewPager_Adapter(mActivity, topStories);
@@ -153,21 +164,11 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
                 });
 
                 initGuide();// 设置引导小点
-                initListView();
+                initListViewData();
                 listView.addHeaderView(view);
                 listView.setAdapter(list_adapter);
             }
-//                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-////                        Intent intent = new Intent(mActivity, WebViewActivity.class);
-////                        int newsId = storiesEntities.get(position - 1).getId();
-////                        intent.putExtra(Final_Base.NEWSID, newsId);
-////                        startActivity(intent);
-////                        Log.e("ID", storiesEntities.get(position - 1).getId() + "");
-//                    }
-//                });
-//            }
+
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -181,7 +182,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
 
                     adapter = new HomeFragment_ViewPager_Adapter(mActivity, topStories);
                     viewPager.setAdapter(adapter);
-                    startImageTimerTask();
+                    startImageTimerTask();// 开始轮播
                     viewPager.setOnTouchListener(new View.OnTouchListener() {
                         @Override
                         public boolean onTouch(View v, MotionEvent event) {
@@ -189,20 +190,18 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
                                 startImageTimerTask();
                             } else {
                                 stopImageTimerTask();
-
                             }
-
                             return false;
                         }
                     });
 
                     initGuide();// 设置引导小点
-                    initListView();
+                    initListViewData();
                     listView.addHeaderView(view);
                     listView.setAdapter(list_adapter);
                 }
 
-                if( dialog.isShowing()){
+                if (dialog.isShowing()) {
                     dialog.dismiss();
                 }
                 Log.e("解析失败", "网络拉取失败" + "HomeFragment");
@@ -259,7 +258,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
         });
     }
 
-    // 从网上拉取 分类
+    // 从网上拉取分类
     private void initFromeThemes() {
         othersEntities = new ArrayList<>();
         StringRequest stringRequest = new StringRequest(Final_Base.THEME_URL, new Response.Listener<String>() {
@@ -280,9 +279,11 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
         singleton.addQueue(stringRequest, Final_Base.THEME_URL_REQUEUE_TAG);
     }
 
-    private void initListView() {
+    /**
+     * 设置listView的数据
+     */
+    private void initListViewData() {
         list_adapter = new HomeFragment_List_Adapter(mActivity, storiesEntities);
-//        Log.e("sss",storiesEntities.size()+"");
     }
 
     /**
@@ -294,13 +295,15 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
         }
     }
 
+    /**
+     * 伪瀑布流的数据设置
+     */
     private void initThemeView(final int i) {
         textView = (TextView) view.findViewById(text_id[i]);
         getImageView = (ImageView) view.findViewById(img_id[i]);
         getImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         textView.setTextColor(Color.parseColor("#FFFFFF"));
         textView.setText(othersEntities.get(i).getName());
-
         final String newsName = othersEntities.get(i).getName();
         final ImageLoader.ImageListener listener = ImageLoader.getImageListener(getImageView, R.mipmap.lanniao, R.mipmap.lanniao);
         imageLoader.get(othersEntities.get(i).getThumbnail(), listener);
@@ -312,7 +315,9 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
         });
     }
 
-
+    /**
+     * 轮播图的线程  通过handler开启线程
+     */
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
@@ -323,11 +328,16 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
         }
     };
 
-
+    /**
+     * 停止线程的方法
+     */
     private void stopImageTimerTask() {
         handler.removeCallbacks(runnable);
     }
 
+    /**
+     * 开启线程的方法
+     */
     private void startImageTimerTask() {
         stopImageTimerTask();
         handler.postDelayed(runnable, 4000);
@@ -340,12 +350,18 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
         stopImageTimerTask();
     }
 
+    /**
+     *
+     * */
     @Override
     public void onStart() {
         super.onStart();
         startImageTimerTask();
     }
 
+    /**
+     * 销毁视图
+     */
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -353,8 +369,10 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
     }
 
 
-
-    // 上拉加载
+    /**
+     * 上拉加载
+     * 获得系统的时间 并且拼接网址
+     */
     @Override
     public void onLoad() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
@@ -390,11 +408,12 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
                 swipeRefreshLoadingLayout.setLoading(false);
                 return;
             }
-        }else{
+        } else {
             Toast.makeText(mActivity, "请检查您的网络", Toast.LENGTH_LONG).show();
             swipeRefreshLoadingLayout.setLoading(false);
         }
     }
+
     // 下拉刷新
     @Override
     public void onRefresh() {

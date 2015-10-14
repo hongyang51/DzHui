@@ -36,6 +36,7 @@ import cn.jpush.android.api.JPushInterface;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
+ * 个人中心页面
  * Created by dllo on 15/9/22.
  */
 public class AboutFragment extends BaseFragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
@@ -51,7 +52,9 @@ public class AboutFragment extends BaseFragment implements View.OnClickListener,
     private CardView collection, clear_card;
     private CheckBox push_CheckBox;
 
-
+    /**
+     * 初始化视图
+     */
     @Override
     public View initViews() {
         View view = View.inflate(mActivity, R.layout.fragment_about, null);
@@ -68,31 +71,43 @@ public class AboutFragment extends BaseFragment implements View.OnClickListener,
         clear_card = (CardView) view.findViewById(R.id.clear_card);
         push_CheckBox = (CheckBox) view.findViewById(R.id.push_CheckBox);
         userDao = DaoSingleton.getInstance().getUserDao();
+        // 视图的监听
+        initViewListener();
+
+
+        return view;
+    }
+
+    /**
+     * 视图监听的方法
+     */
+    private void initViewListener() {
         relativeLayout.setOnClickListener(this);
         collection.setOnClickListener(this);
         clear_card.setOnClickListener(this);
         button.setOnClickListener(this);
         push_CheckBox.setOnCheckedChangeListener(this);
+        // 记录一下用户选择的状态 个性保存
         boolean userGuid = SharedPreferUtil.getBoolean(mActivity, "is_user_push", true);
         if (userGuid) {
             push_CheckBox.setChecked(true);
         } else {
             push_CheckBox.setChecked(false);
         }
-
-        return view;
     }
 
+    /**
+     * 设置数据
+     */
     @Override
     public void initData() {
         try {
             String i = DataCleanManager.getCacheSize(mActivity.getCacheDir());
             clear_text.setText(i);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        //根据缓存记录用户的状态并设置
         ArrayList<User> users = (ArrayList<User>) userDao.loadAll();
         if (users.size() > 0) {
             User user = users.get(0);
@@ -101,20 +116,30 @@ public class AboutFragment extends BaseFragment implements View.OnClickListener,
         }
     }
 
+    /**
+     * 点击监听
+     */
     @Override
     public void onClick(View v) {
         ArrayList<User> users = (ArrayList<User>) userDao.loadAll();
         switch (v.getId()) {
+
+            // 头像部分的点击监听
+
             case R.id.relativeLayout:
                 if (users.size() == 0) {
+                    // 没有缓存就跳转登陆
                     Intent intent = new Intent(mActivity, UserCenterActivity.class);
                     mActivity.startActivity(intent);
                 } else {
+                    // 有缓存就提示已登录
                     Toast.makeText(mActivity, "您已登陆", Toast.LENGTH_SHORT).show();
                 }
                 break;
+            // 登陆按钮的监听
             case R.id.button:
                 if (users.size() > 0) {
+                    // 判断登陆的平台类型进行退出
                     if (users.get(0).getPlatform().equals("qq")) {
                         logout(SHARE_MEDIA.QQ);
                     } else if (users.get(0).getPlatform().equals("qzone")) {
@@ -126,17 +151,21 @@ public class AboutFragment extends BaseFragment implements View.OnClickListener,
                     userDao.deleteAll();
                     Toast.makeText(mActivity, "退出成功", Toast.LENGTH_SHORT).show();
                 } else {
+                    // 如果没有登陆 提示先登陆
                     Toast.makeText(mActivity, "请先登录", Toast.LENGTH_SHORT).show();
                 }
                 break;
+            // 点击收藏的监听
             case R.id.collection:
                 if (users.size() == 0) {
+                    // 如果没有登陆 提示先登陆 并跳转登陆页面
                     Toast.makeText(mActivity, "请登录", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(mActivity, UserCenterActivity.class);
                     mActivity.startActivity(intent);
                     mActivity.overridePendingTransition
                             (R.anim.translate_enter_in, R.anim.translate_enter_out);
                 } else {
+                    // 如果登陆 跳转到收藏页面
                     Intent intent = new Intent(mActivity, CollectionActivity.class);
                     mActivity.startActivity(intent);
                     mActivity.overridePendingTransition
@@ -144,8 +173,10 @@ public class AboutFragment extends BaseFragment implements View.OnClickListener,
                 }
 
                 break;
+            // 点击清楚的监听
             case R.id.clear_card:
-                DataCleanManager.deleteFolderFile(mActivity.getCacheDir().toString(), true);
+                // 这个类中的清除不好使 需要用自己写的文件地址进行删除
+                DataCleanManager.cleanInternalCache(mActivity);
                 try {
                     String i = DataCleanManager.getCacheSize(mActivity.getCacheDir());
                     clear_text.setText(i);
@@ -174,7 +205,6 @@ public class AboutFragment extends BaseFragment implements View.OnClickListener,
 
                 String showText = "解除" + platform.toString() + "平台授权成功";
                 if (status != StatusCode.ST_CODE_SUCCESSED) {
-
                 }
                 Toast.makeText(mActivity, showText, Toast.LENGTH_SHORT).show();
                 if (iChangePage != null) {
@@ -184,6 +214,9 @@ public class AboutFragment extends BaseFragment implements View.OnClickListener,
         });
     }
 
+    /**
+     * 推送选择的监听
+     **/
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (isChecked == true) {
@@ -207,6 +240,9 @@ public class AboutFragment extends BaseFragment implements View.OnClickListener,
         iChangePage = context instanceof IChangePage ? ((IChangePage) context) : null;
     }
 
+    /**
+     * 可见可交互状态
+     */
     @Override
     public void onResume() {
         super.onResume();

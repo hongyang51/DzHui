@@ -18,7 +18,7 @@ public class DataCleanManager {
      * @param context
      */
     public static void cleanInternalCache(Context context) {
-        deleteFilesByDirectory(context.getCacheDir());
+        deleteFolderFile(context.getCacheDir().toString(),true);
     }
 
     /**
@@ -27,8 +27,8 @@ public class DataCleanManager {
      * @param context
      */
     public static void cleanDatabases(Context context) {
-        deleteFilesByDirectory(new File("/data/data/"
-                + context.getPackageName() + "/databases"));
+        deleteFolderFile(new File("/data/data/"
+                + context.getPackageName() + "/databases").toString(), true);
     }
 
     /**
@@ -138,8 +138,8 @@ public class DataCleanManager {
     /**
      * 删除指定目录下文件及目录
      *
+     * @param filePath
      * @param deleteThisPath
-     * @param
      * @return
      */
     public static void deleteFolderFile(String filePath, boolean deleteThisPath) {
