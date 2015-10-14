@@ -9,11 +9,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
+import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.adapter.News_ViewPager_FragmentAda;
 import com.lanou3g.mydazahui.base.BaseFragment;
+import com.lanou3g.mydazahui.base.DaoSingleton;
 import com.lanou3g.mydazahui.base.Final_Base;
 import com.lanou3g.mydazahui.bean.Theme;
-import com.lanou3g.mydazahui.R;
+import com.lanou3g.mydazahui.greendaobean.OthersEntity;
+import com.lanou3g.mydazahui.greendaobean.OthersEntityDao;
 import com.lanou3g.mydazahui.utils.VolleySingleton;
 
 import java.util.ArrayList;
@@ -27,7 +30,8 @@ public class NewsFragment extends BaseFragment {
     private ViewPager mViewPager;
     private VolleySingleton singleton;
     private StringRequest request;
-    private ArrayList<Theme.OthersEntity> othersEntities;
+    private ArrayList<OthersEntity> othersEntities;
+    private OthersEntityDao othersEntityDao;
     public ViewPager getmViewPager() {
         return mViewPager;
     }
@@ -35,11 +39,13 @@ public class NewsFragment extends BaseFragment {
     @Override
     public View initViews() {
         View view = View.inflate(mActivity, R.layout.fragment_others_tablayout_item, null);
+
         initView(view);
         return view;
     }
 
     private void initView(View view) {
+        othersEntityDao = DaoSingleton.getInstance().getOthersEntityDao();
         singleton = VolleySingleton.getVolleySingleton(mActivity);
         mTabLayout = (TabLayout) view.findViewById(R.id.TabLayout);
         mViewPager = (ViewPager) view.findViewById(R.id.viewPager);
@@ -54,7 +60,7 @@ public class NewsFragment extends BaseFragment {
             public void onResponse(String response) {
                 Gson gson = new Gson();
                 Theme theme = gson.fromJson(response,Theme.class);
-                othersEntities = (ArrayList<Theme.OthersEntity>) theme.getOthers();
+                othersEntities = (ArrayList<OthersEntity>) theme.getOthers();
                 News_ViewPager_FragmentAda fragmentAda = new News_ViewPager_FragmentAda(getChildFragmentManager(),othersEntities);
                 mViewPager.setAdapter(fragmentAda);
                 mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
@@ -65,6 +71,12 @@ public class NewsFragment extends BaseFragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e("解析失败", "网络拉取失败"+"NewsFragment");
+                othersEntities = (ArrayList<OthersEntity>) othersEntityDao.loadAll();
+                News_ViewPager_FragmentAda fragmentAda = new News_ViewPager_FragmentAda(getChildFragmentManager(),othersEntities);
+                mViewPager.setAdapter(fragmentAda);
+                mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+                mTabLayout.setupWithViewPager(mViewPager);
+                mTabLayout.setSelectedTabIndicatorColor(0xff0088ff);
             }
         });
         request.setShouldCache(false);

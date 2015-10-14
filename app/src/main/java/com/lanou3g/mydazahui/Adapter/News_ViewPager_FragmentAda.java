@@ -4,8 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.lanou3g.mydazahui.bean.Theme;
 import com.lanou3g.mydazahui.fragment.OneNewFragment;
+import com.lanou3g.mydazahui.greendaobean.OthersEntity;
 
 import java.util.ArrayList;
 
@@ -13,9 +13,9 @@ import java.util.ArrayList;
  * Created by dllo on 15/9/23.
  */
 public class News_ViewPager_FragmentAda extends FragmentPagerAdapter {
-    private ArrayList<Theme.OthersEntity> othersEntities;
+    private ArrayList<OthersEntity> othersEntities;
 
-    public News_ViewPager_FragmentAda(FragmentManager fm, ArrayList<Theme.OthersEntity> othersEntities) {
+    public News_ViewPager_FragmentAda(FragmentManager fm, ArrayList<OthersEntity> othersEntities) {
         super(fm);
         this.othersEntities = othersEntities;
     }

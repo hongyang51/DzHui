@@ -20,8 +20,8 @@ import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.adapter.NewsFragment_List_Adapter;
 import com.lanou3g.mydazahui.base.AbsBaseFragment;
 import com.lanou3g.mydazahui.base.Final_Base;
-import com.lanou3g.mydazahui.bean.Theme;
 import com.lanou3g.mydazahui.bean.ThemeNews;
+import com.lanou3g.mydazahui.greendaobean.OthersEntity;
 import com.lanou3g.mydazahui.listview.SwipeRefreshLoadingLayout;
 import com.lanou3g.mydazahui.utils.VolleySingleton;
 
@@ -46,7 +46,7 @@ public class OneNewFragment extends AbsBaseFragment implements SwipeRefreshLoadi
     private int newsId;
 
 
-    public static OneNewFragment getFragment(int position, ArrayList<Theme.OthersEntity> othersEntities) {
+    public static OneNewFragment getFragment(int position, ArrayList<OthersEntity> othersEntities) {
         OneNewFragment f = new OneNewFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable("others", othersEntities);
@@ -77,7 +77,7 @@ public class OneNewFragment extends AbsBaseFragment implements SwipeRefreshLoadi
         imageLoader = singleton.getImageLoader();
         listener = ImageLoader.getImageListener(static_img, R.mipmap.lanniao, R.mipmap.lanniao);
         int arg = (int) getArguments().get("arg");
-        ArrayList<Theme.OthersEntity> others = (ArrayList<Theme.OthersEntity>) getArguments().getSerializable("others");
+        ArrayList<OthersEntity> others = (ArrayList<OthersEntity>) getArguments().getSerializable("others");
         // 拼接链接
         newsId = others.get(arg).getId();
         urlAdd = Final_Base.THEMES_URL + newsId;
@@ -88,6 +88,7 @@ public class OneNewFragment extends AbsBaseFragment implements SwipeRefreshLoadi
         swipeRefreshLoadingLayout = (SwipeRefreshLoadingLayout) view.findViewById(R.id.swipeRefreshLoadingLayout);
         swipeRefreshLoadingLayout.setOnRefreshListener(this);
         swipeRefreshLoadingLayout.setOnLoadListener(this);
+        swipeRefreshLoadingLayout.setColor(R.color.color_2, R.color.color_1, R.color.color_4, R.color.color_3);
 
         request = new StringRequest(urlAdd, new Response.Listener<String>() {
             @Override

@@ -5,10 +5,10 @@
     <color name="colorAccent">#FF4081</color>
     <color name="welcome_ch">#FF7F00</color>
     <color name="welcome_en">#B5B5B5</color>
-    <color name="color_1">#999999</color>
+    <color name="color_1">#FF4081</color>
     <color name="color_4">#FF83FA</color>
     <color name="color_2">#F0F8FF</color>
-    <color name="color_3">#A020F0</color>
+    <color name="color_3">#FF7F00</color>
     <color name="transparent">#F0F2F6</color>
     <color name="top_color">#4a6bb1</color>
     <color name="text_gray">#8D7A71</color>

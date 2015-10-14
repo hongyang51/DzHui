@@ -13,11 +13,11 @@ import android.widget.Toast;
 import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.base.Final_Base;
 import com.lanou3g.mydazahui.base.MainActivity;
-import com.lanou3g.mydazahui.bean.Theme;
 import com.lanou3g.mydazahui.fragment.AboutFragment;
 import com.lanou3g.mydazahui.fragment.HappyFragment;
 import com.lanou3g.mydazahui.fragment.HomeFragment;
 import com.lanou3g.mydazahui.fragment.NewsFragment;
+import com.lanou3g.mydazahui.greendaobean.OthersEntity;
 import com.lanou3g.mydazahui.utils.SharedPreferUtil;
 
 import java.util.ArrayList;
@@ -110,7 +110,7 @@ public class PWRead_Home_Tanhost_Activity extends MainActivity implements HomeFr
      * 点击伪瀑布流跳转到对应的页面
      */
     @Override
-    public void OnNewsOnclick(String s, ArrayList<Theme.OthersEntity> othersEntities) {
+    public void OnNewsOnclick(String s, ArrayList<OthersEntity> othersEntities) {
         if (s != null) {
             myTabhost.setCurrentTab(1);
         }

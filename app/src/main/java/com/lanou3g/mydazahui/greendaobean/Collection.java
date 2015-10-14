@@ -14,6 +14,10 @@ public class Collection {
     public Collection() {
     }
 
+    public Collection(String title) {
+        this.title = title;
+    }
+
     public Collection(String user_name, String title, String body, Integer newsId) {
         this.user_name = user_name;
         this.title = title;

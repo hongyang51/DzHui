@@ -27,6 +27,8 @@ import com.lanou3g.mydazahui.base.DaoSingleton;
 import com.lanou3g.mydazahui.base.Final_Base;
 import com.lanou3g.mydazahui.bean.Theme;
 import com.lanou3g.mydazahui.greendaobean.LatestNews;
+import com.lanou3g.mydazahui.greendaobean.OthersEntity;
+import com.lanou3g.mydazahui.greendaobean.OthersEntityDao;
 import com.lanou3g.mydazahui.greendaobean.StoriesEntity;
 import com.lanou3g.mydazahui.greendaobean.StoriesEntityDao;
 import com.lanou3g.mydazahui.greendaobean.TopStoriesEntity;
@@ -53,7 +55,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
     private LatestNews latestNews;
     private ArrayList<ImageView> imageViews = new ArrayList<>();
     private ArrayList<TopStoriesEntity> topStories;
-    private ArrayList<Theme.OthersEntity> othersEntities;
+    private ArrayList<OthersEntity> othersEntities;
     private ArrayList<StoriesEntity> storiesEntities;
     private int[] text_id = {R.id.day_text, R.id.user_text,
             R.id.movie_text, R.id.unBored_text, R.id.Design_text,
@@ -75,12 +77,13 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
     private int a = 1;
     private StoriesEntityDao storiesEntityDao;
     private TopStoriesEntityDao topStoriesEntityDao;
+    private OthersEntityDao othersEntityDao;
     private ProgressDialog dialog;
 
 
     // 监听接口
     public interface NewsOnclick {
-        void OnNewsOnclick(String s, ArrayList<Theme.OthersEntity> othersEntities);
+        void OnNewsOnclick(String s, ArrayList<OthersEntity> othersEntities);
     }
 
     @Override
@@ -96,6 +99,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
     public View initViews() {
         storiesEntityDao = DaoSingleton.getInstance().getStoriesEntityDao();
         topStoriesEntityDao = DaoSingleton.getInstance().getTopStoriesEntityDao();
+        othersEntityDao = DaoSingleton.getInstance().getOthersEntityDao();
         views = View.inflate(mActivity, R.layout.fragment_tabhost_home_listview, null);
         swipeRefreshLoadingLayout = (SwipeRefreshLoadingLayout) views.findViewById(R.id.swipeRefreshLoadingLayout);
         listView = (ListView) views.findViewById(R.id.Home_list_item);
@@ -111,6 +115,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
     private void initViewListener() {
         swipeRefreshLoadingLayout.setOnLoadListener(this);
         swipeRefreshLoadingLayout.setOnRefreshListener(this);
+        swipeRefreshLoadingLayout.setColor(R.color.color_2, R.color.color_1, R.color.color_4, R.color.color_3);
     }
 
     /**
@@ -266,13 +271,18 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
             public void onResponse(String response) {
                 Gson gson = new Gson();
                 Theme theme = gson.fromJson(response, Theme.class);
-                othersEntities = (ArrayList<Theme.OthersEntity>) theme.getOthers();
+                othersEntities = (ArrayList<OthersEntity>) theme.getOthers();
+                othersEntityDao.deleteAll();
+                othersEntityDao.insertOrReplaceInTx(othersEntities);
                 initTheme();
                 Pinterest.setVisibility(View.VISIBLE);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                othersEntities = (ArrayList<OthersEntity>) othersEntityDao.loadAll();
+                initTheme();
+                Pinterest.setVisibility(View.VISIBLE);
             }
         });
         stringRequest.setShouldCache(false);
@@ -383,7 +393,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
         String newsDate = sdf.format(calendar.getTime());
         if (latestNews != null) {
 
-            Log.e("要获得新闻的日期", latestNews.getDate());
+            Log.e("要获得新闻的日期", latestNews.getDate()+newsDate);
 
             if (latestNews.getDate().equals(newsDate)) {
                 String newUrl = Final_Base.OLD_NEWS_URL + newsDate;
@@ -400,10 +410,14 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        swipeRefreshLoadingLayout.setLoading(false);
+
                     }
                 });
+                stringRequest.setShouldCache(false);
                 singleton.addQueue(stringRequest, "onLoding");
             } else {
+                a = 1;
                 Toast.makeText(mActivity, "当前日期为" + latestNews.getDate() + "请您校正", Toast.LENGTH_LONG).show();
                 swipeRefreshLoadingLayout.setLoading(false);
                 return;
@@ -431,10 +445,12 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Toast.makeText(mActivity, "请检查您的网络", Toast.LENGTH_LONG).show();
+                swipeRefreshLoadingLayout.setRefreshing(false);
+                a = 1;
             }
         });
-
+        stringRequest.setShouldCache(false);
         singleton.addQueue(stringRequest, "onRefresh");
     }
 

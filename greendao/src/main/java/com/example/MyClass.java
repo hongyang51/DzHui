@@ -51,6 +51,14 @@ public class MyClass {
         collection.addStringProperty("body");
         collection.addIntProperty("newsId");
 
+        Entity othersEntity = schema.addEntity("OthersEntity");
+        othersEntity.addStringProperty("thumbnail");
+        othersEntity.addStringProperty("description");
+        othersEntity.addStringProperty("name");
+        othersEntity.addIntProperty("color");
+        othersEntity.addIntProperty("id");
+        othersEntity.addIntProperty("newsThemeId");
+
 
 //
 //        // 指定生成的实体类,类名

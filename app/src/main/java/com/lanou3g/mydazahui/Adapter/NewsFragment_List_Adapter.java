@@ -66,7 +66,7 @@ public class NewsFragment_List_Adapter extends BaseAdapter {
             public void onErrorResponse(VolleyError error) {
 
             }
-        });
+        });stringRequest.setShouldCache(false);
         singleton.addQueue(stringRequest, "Onrefreshing");
         Log.e("sss", "加载更多");
     }
@@ -93,6 +93,7 @@ public class NewsFragment_List_Adapter extends BaseAdapter {
 
             }
         });
+        stringRequest.setShouldCache(false);
         singleton.addQueue(stringRequest, "Onrefreshing");
 
     }
