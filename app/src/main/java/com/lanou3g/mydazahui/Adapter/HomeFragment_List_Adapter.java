@@ -15,7 +15,7 @@ import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.activity.WebViewActivity;
 import com.lanou3g.mydazahui.base.Final_Base;
 import com.lanou3g.mydazahui.greendaobean.StoriesEntity;
-import com.lanou3g.mydazahui.utils.VolleySingleton;
+import com.lanou3g.mydazahui.utils.volley.VolleySingleton;
 
 import java.util.ArrayList;
 

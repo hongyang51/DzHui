@@ -18,7 +18,7 @@ import com.lanou3g.mydazahui.fragment.HappyFragment;
 import com.lanou3g.mydazahui.fragment.HomeFragment;
 import com.lanou3g.mydazahui.fragment.NewsFragment;
 import com.lanou3g.mydazahui.greendaobean.OthersEntity;
-import com.lanou3g.mydazahui.utils.SharedPreferUtil;
+import com.lanou3g.mydazahui.utils.sharedprefer.SharedPreferUtil;
 
 import java.util.ArrayList;
 

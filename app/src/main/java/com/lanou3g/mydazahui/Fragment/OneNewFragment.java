@@ -22,8 +22,8 @@ import com.lanou3g.mydazahui.base.AbsBaseFragment;
 import com.lanou3g.mydazahui.base.Final_Base;
 import com.lanou3g.mydazahui.bean.ThemeNews;
 import com.lanou3g.mydazahui.greendaobean.OthersEntity;
-import com.lanou3g.mydazahui.listview.SwipeRefreshLoadingLayout;
-import com.lanou3g.mydazahui.utils.VolleySingleton;
+import com.lanou3g.mydazahui.utils.refresh.SwipeRefreshLoadingLayout;
+import com.lanou3g.mydazahui.utils.volley.VolleySingleton;
 
 import java.util.ArrayList;
 

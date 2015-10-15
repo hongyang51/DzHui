@@ -12,12 +12,12 @@ import com.google.gson.Gson;
 import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.adapter.News_ViewPager_FragmentAda;
 import com.lanou3g.mydazahui.base.BaseFragment;
-import com.lanou3g.mydazahui.base.DaoSingleton;
+import com.lanou3g.mydazahui.utils.daosingleton.DaoSingleton;
 import com.lanou3g.mydazahui.base.Final_Base;
 import com.lanou3g.mydazahui.bean.Theme;
 import com.lanou3g.mydazahui.greendaobean.OthersEntity;
 import com.lanou3g.mydazahui.greendaobean.OthersEntityDao;
-import com.lanou3g.mydazahui.utils.VolleySingleton;
+import com.lanou3g.mydazahui.utils.volley.VolleySingleton;
 
 import java.util.ArrayList;
 

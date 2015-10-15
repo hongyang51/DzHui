@@ -106,7 +106,7 @@
                     android:padding="1dp">
 
                     <ImageView
-                        android:id="@+id/Design_img"
+                        android:id="@+id/design_img"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
 
@@ -118,7 +118,7 @@
                         android:src="#36000000" />
 
                     <TextView
-                        android:id="@+id/Design_text"
+                        android:id="@+id/design_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
@@ -191,7 +191,7 @@
                     android:padding="@dimen/dimen_1dp">
 
                     <ImageView
-                        android:id="@+id/Animation_img"
+                        android:id="@+id/animation_img"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
 
@@ -203,7 +203,7 @@
                         android:src="#36000000" />
 
                     <TextView
-                        android:id="@+id/Animation_text"
+                        android:id="@+id/animation_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
@@ -284,7 +284,7 @@
                     android:padding="@dimen/dimen_1dp">
 
                     <ImageView
-                        android:id="@+id/Big_img"
+                        android:id="@+id/big_img"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
 
@@ -296,7 +296,7 @@
                         android:src="#36000000" />
 
                     <TextView
-                        android:id="@+id/Big_text"
+                        android:id="@+id/big_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"

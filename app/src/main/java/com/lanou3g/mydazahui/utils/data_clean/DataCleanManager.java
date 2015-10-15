@@ -1,4 +1,4 @@
-package com.lanou3g.mydazahui.utils;
+package com.lanou3g.mydazahui.utils.data_clean;
 
 import android.content.Context;
 import android.os.Environment;

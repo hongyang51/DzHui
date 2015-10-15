@@ -15,7 +15,7 @@ import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.activity.HappyComment_Activity;
 import com.lanou3g.mydazahui.base.Final_Base;
 import com.lanou3g.mydazahui.bean.Happy;
-import com.lanou3g.mydazahui.utils.VolleySingleton;
+import com.lanou3g.mydazahui.utils.volley.VolleySingleton;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.UMServiceFactory;
 import com.umeng.socialize.controller.UMSocialService;

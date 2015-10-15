@@ -19,12 +19,12 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.lanou3g.mydazahui.R;
-import com.lanou3g.mydazahui.base.DaoSingleton;
+import com.lanou3g.mydazahui.utils.daosingleton.DaoSingleton;
 import com.lanou3g.mydazahui.base.MainActivity;
 import com.lanou3g.mydazahui.greendaobean.GuidePage;
 import com.lanou3g.mydazahui.greendaobean.GuidePageDao;
-import com.lanou3g.mydazahui.utils.SharedPreferUtil;
-import com.lanou3g.mydazahui.utils.VolleySingleton;
+import com.lanou3g.mydazahui.utils.sharedprefer.SharedPreferUtil;
+import com.lanou3g.mydazahui.utils.volley.VolleySingleton;
 
 import java.util.ArrayList;
 

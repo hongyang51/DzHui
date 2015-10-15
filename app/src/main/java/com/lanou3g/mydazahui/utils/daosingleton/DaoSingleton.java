@@ -1,8 +1,9 @@
-package com.lanou3g.mydazahui.base;
+package com.lanou3g.mydazahui.utils.daosingleton;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.lanou3g.mydazahui.base.BaseApplication;
 import com.lanou3g.mydazahui.greendaobean.CollectionDao;
 import com.lanou3g.mydazahui.greendaobean.DaoMaster;
 import com.lanou3g.mydazahui.greendaobean.DaoSession;

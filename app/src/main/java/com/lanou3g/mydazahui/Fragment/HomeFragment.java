@@ -23,7 +23,6 @@ import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.adapter.HomeFragment_List_Adapter;
 import com.lanou3g.mydazahui.adapter.HomeFragment_ViewPager_Adapter;
 import com.lanou3g.mydazahui.base.BaseFragment;
-import com.lanou3g.mydazahui.base.DaoSingleton;
 import com.lanou3g.mydazahui.base.Final_Base;
 import com.lanou3g.mydazahui.bean.Theme;
 import com.lanou3g.mydazahui.greendaobean.LatestNews;
@@ -33,8 +32,9 @@ import com.lanou3g.mydazahui.greendaobean.StoriesEntity;
 import com.lanou3g.mydazahui.greendaobean.StoriesEntityDao;
 import com.lanou3g.mydazahui.greendaobean.TopStoriesEntity;
 import com.lanou3g.mydazahui.greendaobean.TopStoriesEntityDao;
-import com.lanou3g.mydazahui.listview.SwipeRefreshLoadingLayout;
-import com.lanou3g.mydazahui.utils.VolleySingleton;
+import com.lanou3g.mydazahui.utils.daosingleton.DaoSingleton;
+import com.lanou3g.mydazahui.utils.refresh.SwipeRefreshLoadingLayout;
+import com.lanou3g.mydazahui.utils.volley.VolleySingleton;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -58,14 +58,14 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
     private ArrayList<OthersEntity> othersEntities;
     private ArrayList<StoriesEntity> storiesEntities;
     private int[] text_id = {R.id.day_text, R.id.user_text,
-            R.id.movie_text, R.id.unBored_text, R.id.Design_text,
-            R.id.Big_text, R.id.money_text, R.id.intenet_text,
-            R.id.game_text, R.id.music_text, R.id.Animation_text,
+            R.id.movie_text, R.id.unBored_text, R.id.design_text,
+            R.id.big_text, R.id.money_text, R.id.intenet_text,
+            R.id.game_text, R.id.music_text, R.id.animation_text,
             R.id.play_text};
     private int[] img_id = {R.id.day_img, R.id.user_img,
-            R.id.movie_img, R.id.unBored_img, R.id.Design_img,
-            R.id.Big_img, R.id.money_img, R.id.intenet_img,
-            R.id.game_img, R.id.music_img, R.id.Animation_img,
+            R.id.movie_img, R.id.unBored_img, R.id.design_img,
+            R.id.big_img, R.id.money_img, R.id.intenet_img,
+            R.id.game_img, R.id.music_img, R.id.animation_img,
             R.id.play_img};
     private ImageLoader imageLoader;
     private ListView listView;
@@ -393,7 +393,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
         String newsDate = sdf.format(calendar.getTime());
         if (latestNews != null) {
 
-            Log.e("要获得新闻的日期", latestNews.getDate()+newsDate);
+            Log.e("要获得新闻的日期", latestNews.getDate() + newsDate);
 
             if (latestNews.getDate().equals(newsDate)) {
                 String newUrl = Final_Base.OLD_NEWS_URL + newsDate;

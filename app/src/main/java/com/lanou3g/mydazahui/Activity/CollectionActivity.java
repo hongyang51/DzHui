@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.adapter.Collection_List_Adapter;
-import com.lanou3g.mydazahui.base.DaoSingleton;
+import com.lanou3g.mydazahui.utils.daosingleton.DaoSingleton;
 import com.lanou3g.mydazahui.base.Final_Base;
 import com.lanou3g.mydazahui.base.MainActivity;
 import com.lanou3g.mydazahui.greendaobean.Collection;

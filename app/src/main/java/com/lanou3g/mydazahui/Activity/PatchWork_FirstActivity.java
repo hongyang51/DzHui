@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import com.lanou3g.mydazahui.adapter.PatchWork_First_PageAdapter;
 import com.lanou3g.mydazahui.base.MainActivity;
 import com.lanou3g.mydazahui.R;
-import com.lanou3g.mydazahui.utils.SharedPreferUtil;
+import com.lanou3g.mydazahui.utils.sharedprefer.SharedPreferUtil;
 
 import java.util.ArrayList;
 

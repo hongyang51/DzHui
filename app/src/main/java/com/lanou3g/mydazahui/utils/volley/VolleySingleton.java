@@ -1,4 +1,4 @@
-package com.lanou3g.mydazahui.utils;
+package com.lanou3g.mydazahui.utils.volley;
 
 import android.content.Context;
 import android.graphics.Bitmap;

@@ -16,12 +16,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.StringRequest;
+import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.activity.WebViewActivity;
 import com.lanou3g.mydazahui.base.Final_Base;
 import com.lanou3g.mydazahui.bean.ThemeNews;
-import com.lanou3g.mydazahui.listview.SwipeRefreshLoadingLayout;
-import com.lanou3g.mydazahui.R;
-import com.lanou3g.mydazahui.utils.VolleySingleton;
+import com.lanou3g.mydazahui.utils.refresh.SwipeRefreshLoadingLayout;
+import com.lanou3g.mydazahui.utils.volley.VolleySingleton;
 
 import java.util.ArrayList;
 import java.util.List;

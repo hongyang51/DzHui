@@ -1,4 +1,4 @@
-package com.lanou3g.mydazahui.listview;
+package com.lanou3g.mydazahui.utils.refresh;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -133,7 +133,7 @@ public class SwipeRefreshLoadingLayout extends ViewGroup {
     /**
      * 回复进度条百分比
      */
-    private final Animation.AnimationListener mShrinkAnimationListener = new BaseAnimationListener() {
+    private final AnimationListener mShrinkAnimationListener = new BaseAnimationListener() {
         @Override
         public void onAnimationEnd(Animation animation) {
             mCurrPercentage = 0;

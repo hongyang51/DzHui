@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.lanou3g.mydazahui.R;
 import com.lanou3g.mydazahui.base.MainActivity;
-import com.lanou3g.mydazahui.utils.SharedPreferUtil;
+import com.lanou3g.mydazahui.utils.sharedprefer.SharedPreferUtil;
 
 import cn.jpush.android.api.JPushInterface;
 

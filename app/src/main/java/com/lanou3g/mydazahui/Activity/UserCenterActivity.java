@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.lanou3g.mydazahui.R;
-import com.lanou3g.mydazahui.base.DaoSingleton;
+import com.lanou3g.mydazahui.utils.daosingleton.DaoSingleton;
 import com.lanou3g.mydazahui.base.MainActivity;
 import com.lanou3g.mydazahui.greendaobean.User;
 import com.lanou3g.mydazahui.greendaobean.UserDao;

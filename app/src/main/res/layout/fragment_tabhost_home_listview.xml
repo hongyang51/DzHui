@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.lanou3g.mydazahui.listview.SwipeRefreshLoadingLayout
+    <com.lanou3g.mydazahui.utils.refresh.SwipeRefreshLoadingLayout
         android:id="@+id/swipeRefreshLoadingLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -18,5 +18,5 @@
 
         </ListView>
 
-    </com.lanou3g.mydazahui.listview.SwipeRefreshLoadingLayout>
+    </com.lanou3g.mydazahui.utils.refresh.SwipeRefreshLoadingLayout>
 </LinearLayout>

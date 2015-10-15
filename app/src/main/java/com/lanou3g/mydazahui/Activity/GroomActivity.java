@@ -15,7 +15,7 @@ import com.lanou3g.mydazahui.adapter.GroomAdapter;
 import com.lanou3g.mydazahui.base.MainActivity;
 import com.lanou3g.mydazahui.bean.Groom;
 import com.lanou3g.mydazahui.R;
-import com.lanou3g.mydazahui.utils.VolleySingleton;
+import com.lanou3g.mydazahui.utils.volley.VolleySingleton;
 
 import java.util.ArrayList;
 
