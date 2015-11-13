@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:gravity="center"
-            android:text="提示信息"
+            android:text="@string/title_name"
             android:textColor="#ffffff"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -46,14 +46,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="敬请期待"
+            android:text="@string/waite"
             android:textColor="#04AEDA"
             android:textSize="29sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="作者:forget"
+            android:text="@string/forget"
             android:textColor="#04AEDA"
             android:textSize="18sp" />
     </LinearLayout>
@@ -72,7 +72,7 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:background="@drawable/btn_selctor_choose"
-            android:text="访问作者博客"
+            android:text="@string/face_me"
             android:textColor="#ffffff"
             android:textSize="20sp" />
 
@@ -83,7 +83,7 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:background="@drawable/btn_selctor_choose"
-            android:text="关闭"
+            android:text="@string/close"
             android:textColor="#ffffff"
             android:textSize="20sp" />
 

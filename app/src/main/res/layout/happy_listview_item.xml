@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/load"
-            android:text="听笑话"
+            android:text="@string/linstenr"
             android:textColor="@android:color/white"
             android:visibility="gone" />
 
@@ -100,7 +100,7 @@
                     android:id="@+id/happy_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="正在加载....."
+                    android:text="@string/loading_happy"
                     android:textColor="@android:color/secondary_text_light" />
 
                 <ImageView

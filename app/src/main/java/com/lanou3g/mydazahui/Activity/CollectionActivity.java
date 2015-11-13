@@ -44,7 +44,6 @@ public class CollectionActivity extends MainActivity {
     private Collection collection;
     private ArrayList<Collection> collections;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

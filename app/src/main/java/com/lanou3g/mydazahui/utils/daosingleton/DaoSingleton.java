@@ -19,9 +19,7 @@ import com.lanou3g.mydazahui.greendaobean.imagesDao;
  */
 public class DaoSingleton {
     private static final String DATABASE_NAME = "daodemo.db";
-
     private volatile static DaoSingleton instance;
-
     private SQLiteDatabase db;
     private DaoMaster daoMaster;
     private DaoSession daoSession;

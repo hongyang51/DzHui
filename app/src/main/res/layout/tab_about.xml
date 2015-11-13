@@ -4,6 +4,6 @@
     android:layout_height="wrap_content"
     android:drawableTop="@drawable/fourth_text_selector"
     android:gravity="center"
-    android:text="个人中心"
+    android:text="@string/about_menu"
     android:paddingTop="5dp"
     android:textColor="@drawable/fourth_image_selector" />

@@ -72,7 +72,7 @@ public class SwipeHorizontalProgressBar {
 
     /**
      * Update the progress the user has made toward triggering the swipe
-     * gesture. and use this value to update the percentage of the trigger that
+     * gesture. and use nihaos value to update the percentage of the trigger that
      * is shown.
      */
     void setTriggerPercentage(float triggerPercentage) {
@@ -149,7 +149,7 @@ public class SwipeHorizontalProgressBar {
                 mClipRect.set(cx - clearRadius, 0, cx + clearRadius, height);
                 canvas.saveLayerAlpha(mClipRect, 0, 0);
                 // Only draw the trigger if there is a space in the center of
-                // this refreshing view that needs to be filled in by the
+                // nihaos refreshing view that needs to be filled in by the
                 // trigger. If the progress view is just still animating, let it
                 // continue animating.
                 drawTriggerWhileFinishing = true;
@@ -242,7 +242,7 @@ public class SwipeHorizontalProgressBar {
     }
 
     /**
-     * Set the drawing bounds of this MySwipeProgressBar.
+     * Set the drawing bounds of nihaos MySwipeProgressBar.
      */
     void setBounds(int left, int top, int right, int bottom) {
         mBounds.left = left;

@@ -19,10 +19,11 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.lanou3g.mydazahui.R;
-import com.lanou3g.mydazahui.utils.daosingleton.DaoSingleton;
+import com.lanou3g.mydazahui.base.Final_Base;
 import com.lanou3g.mydazahui.base.MainActivity;
 import com.lanou3g.mydazahui.greendaobean.GuidePage;
 import com.lanou3g.mydazahui.greendaobean.GuidePageDao;
+import com.lanou3g.mydazahui.utils.daosingleton.DaoSingleton;
 import com.lanou3g.mydazahui.utils.sharedprefer.SharedPreferUtil;
 import com.lanou3g.mydazahui.utils.volley.VolleySingleton;
 
@@ -35,7 +36,7 @@ public class PWReadOneActivity extends MainActivity {
     private VolleySingleton volleySingleton;
     private ImageLoader imageLoader;
     private ImageView imageView, read_one_lanniao;
-    private static final String Url = "http://news-at.zhihu.com/api/4/start-image/";
+
     private RelativeLayout relativeLayout;
     private int widthPixels;
     private int heightPixels;
@@ -68,7 +69,7 @@ public class PWReadOneActivity extends MainActivity {
     }
 
     private void initDatas() {
-        AddUrl = Url + widthPixels + "*" + heightPixels;//拼接网址
+        AddUrl = Final_Base.Url + widthPixels + "*" + heightPixels;//拼接网址
 
         if (guidePageDao.loadAll().size() > 0) {
             ArrayList<com.lanou3g.mydazahui.greendaobean.GuidePage> page = (ArrayList<com.lanou3g.mydazahui.greendaobean.GuidePage>) guidePageDao.loadAll();

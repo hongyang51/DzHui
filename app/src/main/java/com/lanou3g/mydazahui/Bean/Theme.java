@@ -51,23 +51,23 @@ public class Theme {
 //        private String name;
 //
 //        public void setColor(int color) {
-//            this.color = color;
+//            nihaos.color = color;
 //        }
 //
 //        public void setThumbnail(String thumbnail) {
-//            this.thumbnail = thumbnail;
+//            nihaos.thumbnail = thumbnail;
 //        }
 //
 //        public void setDescription(String description) {
-//            this.description = description;
+//            nihaos.description = description;
 //        }
 //
 //        public void setId(int id) {
-//            this.id = id;
+//            nihaos.id = id;
 //        }
 //
 //        public void setName(String name) {
-//            this.name = name;
+//            nihaos.name = name;
 //        }
 //
 //        public int getColor() {

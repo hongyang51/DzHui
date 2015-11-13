@@ -139,7 +139,7 @@ public class WebViewActivity extends MainActivity implements View.OnClickListene
                             case R.id.bpig:
                                 //select username from 表名 where condition;
                                 //取缓存
-//                                String userName = MyConfig.getSharePreStr(WebViewActivity.this, "users", "userName");
+//                                String userName = MyConfig.getSharePreStr(WebViewActivity.nihaos, "users", "userName");
                                 //判断缓存里面是否有值
 
                                 ArrayList<User> users = (ArrayList<User>) userDao.loadAll();

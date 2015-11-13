@@ -4,6 +4,6 @@
     android:layout_height="wrap_content"
     android:drawableTop="@drawable/third_text_selector"
     android:gravity="center"
-    android:text="开心"
+    android:text="@string/happy"
     android:paddingTop="5dp"
     android:textColor="@drawable/third_image_selector" />

@@ -4,6 +4,6 @@
     android:layout_height="wrap_content"
     android:drawableTop="@drawable/second_text_selector"
     android:gravity="center"
-    android:text="新闻"
+    android:text="@string/news"
     android:paddingTop="5dp"
     android:textColor="@drawable/second_image_selector" />

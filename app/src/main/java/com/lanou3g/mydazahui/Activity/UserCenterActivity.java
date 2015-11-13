@@ -28,7 +28,7 @@ import java.util.Map;
  * Created by dllo on 15/10/6.
  */
 public class UserCenterActivity extends MainActivity implements View.OnClickListener {
-    private ImageView QQ, QZONE, SINA;
+    private ImageView qqload, qzone, sina;
     private UMSocialService mController;
     private UserDao userDao;
     private Button button;
@@ -43,17 +43,17 @@ public class UserCenterActivity extends MainActivity implements View.OnClickList
     }
 
     private void initData() {
-        QQ.setOnClickListener(this);
-        QZONE.setOnClickListener(this);
-        SINA.setOnClickListener(this);
+        qqload.setOnClickListener(this);
+        qzone.setOnClickListener(this);
+        sina.setOnClickListener(this);
         button.setOnClickListener(this);
         back.setOnClickListener(this);
     }
 
     private void initView() {
-        QQ = (ImageView) findViewById(R.id.QQ);
-        QZONE = (ImageView) findViewById(R.id.QZONE);
-        SINA = (ImageView) findViewById(R.id.SINA);
+        qqload = (ImageView) findViewById(R.id.QQ);
+        qzone = (ImageView) findViewById(R.id.QZONE);
+        sina = (ImageView) findViewById(R.id.SINA);
         button = (Button) findViewById(R.id.load_button);
         back = (ImageView) findViewById(R.id.back);
         userDao = DaoSingleton.getInstance().getUserDao();
@@ -150,10 +150,10 @@ public class UserCenterActivity extends MainActivity implements View.OnClickList
 //                    String userName = info.get("screen_name").toString();
 //                    String userPicture = info.get("profile_image_url").toString();
 //                    String platForm = platform.toString();
-//                    MyConfig.putSharePre(UserCenterActivity.this, "users", "userName", userName);
-//                    MyConfig.putSharePre(UserCenterActivity.this, "users", "userPicture", userPicture);
-//                    MyConfig.putSharePre(UserCenterActivity.this, "users", "platForm", platForm);
-//                    String name = MyConfig.getSharePreStr(UserCenterActivity.this, "users", "userName");
+//                    MyConfig.putSharePre(UserCenterActivity.nihaos, "users", "userName", userName);
+//                    MyConfig.putSharePre(UserCenterActivity.nihaos, "users", "userPicture", userPicture);
+//                    MyConfig.putSharePre(UserCenterActivity.nihaos, "users", "platForm", platForm);
+//                    String name = MyConfig.getSharePreStr(UserCenterActivity.nihaos, "users", "userName");
 //                    if (name != null && name != "0") {
 //                        try {
 //                            Thread.sleep(3000);

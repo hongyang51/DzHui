@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/dimen_10dp"
         android:layout_toLeftOf="@+id/news_list_item_img"
         android:text="@string/loding"
         android:textColor="@android:color/black"
@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/dimen_10dp"
         android:scaleType="centerCrop"
         android:layout_centerVertical="true"
         />

@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/view_1"
         android:background="@android:color/white"
-        android:hint="手机/邮箱/用户名"
+        android:hint="@string/name_tel"
         android:inputType="phone"
         android:padding="@dimen/dimen_10dp"
         android:selectAllOnFocus="true"
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/view_2"
         android:background="@android:color/white"
-        android:hint="密码"
+        android:hint="@string/press"
         android:inputType="textPassword"
         android:padding="@dimen/dimen_10dp"
         android:selectAllOnFocus="true"
@@ -71,7 +71,7 @@
         android:layout_below="@+id/view_3"
         android:layout_margin="@dimen/dimen_17dp"
         android:background="@drawable/load"
-        android:text="登录"
+        android:text="@string/load_up"
         android:textColor="@android:color/white"
         android:textSize="@dimen/dimen_19sp" />
 
@@ -86,7 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="使用第三方账号登陆" />
+            android:text="@string/load" />
 
         <TextView
             android:layout_width="match_parent"

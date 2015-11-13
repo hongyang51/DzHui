@@ -24,7 +24,7 @@
             android:layout_margin="10dp"
             android:layout_toLeftOf="@+id/news_list_item_img"
             android:gravity="center_vertical"
-            android:text="正在加载,请稍后(*^__^*) "
+            android:text="@string/loading_news"
             android:textColor="@android:color/black"
             android:textSize="17sp" />
 

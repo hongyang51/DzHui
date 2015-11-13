@@ -4,6 +4,6 @@
     android:layout_height="wrap_content"
     android:drawableTop="@drawable/first_text_selector"
     android:gravity="center"
-    android:text="首页"
+    android:text="@string/home"
     android:paddingTop="5dp"
     android:textColor="@drawable/first_image_selector" />

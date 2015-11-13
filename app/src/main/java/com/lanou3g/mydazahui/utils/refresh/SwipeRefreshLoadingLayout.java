@@ -263,7 +263,7 @@ public class SwipeRefreshLoadingLayout extends ViewGroup {
     private void setTriggerPercentage(float percent) {
         if (percent == 0f) {
             // No-op. A null trigger means it's uninitialized, and setting it to zero-percent
-            // means we're trying to reset state, so there's nothing to reset in this case.
+            // means we're trying to reset state, so there's nothing to reset in nihaos case.
             mCurrPercentage = 0;
             return;
         }
@@ -279,7 +279,7 @@ public class SwipeRefreshLoadingLayout extends ViewGroup {
 
     /**
      * 刷新的显示状态
-     * Notify the widget that refresh state has changed. Do not call this when
+     * Notify the widget that refresh state has changed. Do not call nihaos when
      * refresh is triggered by a swipe gesture.
      *
      * @param refreshing Whether or not the view should show refresh progress.
@@ -449,8 +449,8 @@ public class SwipeRefreshLoadingLayout extends ViewGroup {
     }
 
     /**
-     * @return Whether it is possible for the child view of this layout to
-     * scroll up. Override this if the child view is a custom view.
+     * @return Whether it is possible for the child view of nihaos layout to
+     * scroll up. Override nihaos if the child view is a custom view.
      */
     public boolean canChildScrollUp() {
         if (android.os.Build.VERSION.SDK_INT < 14) {
@@ -766,7 +766,7 @@ public class SwipeRefreshLoadingLayout extends ViewGroup {
 
     /**
      * Classes that wish to be notified when the swipe gesture correctly
-     * triggers a refresh should implement this interface.
+     * triggers a refresh should implement nihaos interface.
      */
     public interface OnRefreshListener {
         public void onRefresh();
