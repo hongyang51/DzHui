@@ -300,7 +300,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLoadingLay
      * 加载伪瀑布流
      */
     private void initTheme() {
-        for (int i = 0; i < img_id.length; i++) {
+        for (int i = 0; i < 6; i++) {
             initThemeView(i);
         }
     }
