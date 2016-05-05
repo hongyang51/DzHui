@@ -4,7 +4,7 @@
 
     <!-- Required 自定义用来收发消息的相关权限 -->
     <permission
-        android:name="com.lanou3g.mydazahui.permission.JPUSH_MESSAGE"
+        android:name="com.xyb513951.mydazahui.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
     <!-- Required  一些系统要求的权限，如访问网络等-->
     <uses-permission android:name="com.lanou3g.mydazahui.permission.JPUSH_MESSAGE" />
@@ -35,32 +35,32 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".base.BaseApplication"
+        android:name="com.xyb513951.mydazahui.base.BaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/dzhtubiao"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.PWReadOneActivity" />
-        <activity android:name=".base.MainActivity" />
-        <activity android:name=".activity.PatchWork_FirstActivity" />
-        <activity android:name=".activity.PWRead_Home_Tanhost_Activity" />
-        <activity android:name=".activity.WebViewActivity" />
-        <activity android:name=".activity.UserCenterActivity" />
+        <activity android:name="com.xyb513951.mydazahui.activity.PWReadOneActivity" />
+        <activity android:name="com.xyb513951.mydazahui.base.MainActivity" />
+        <activity android:name="com.xyb513951.mydazahui.activity.PatchWork_FirstActivity" />
+        <activity android:name="com.xyb513951.mydazahui.activity.PWRead_Home_Tanhost_Activity" />
+        <activity android:name="com.xyb513951.mydazahui.activity.WebViewActivity" />
+        <activity android:name="com.xyb513951.mydazahui.activity.UserCenterActivity" />
         <activity
-            android:name=".activity.GroomActivity"
+            android:name="com.xyb513951.mydazahui.activity.GroomActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name=".activity.CollectionActivity"
+            android:name="com.xyb513951.mydazahui.activity.CollectionActivity"
             android:launchMode="singleTask" />
 
-        <activity android:name=".activity.PatchWorkOneActivity">
+        <activity android:name="com.xyb513951.mydazahui.activity.PatchWorkOneActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.HappyComment_Activity">
+        <activity android:name="com.xyb513951.mydazahui.activity.HappyComment_Activity">
 
         </activity>
 
@@ -125,7 +125,7 @@
 
         <!-- User defined.  For test only  用户自定义的广播接收器-->
         <receiver
-            android:name=".receive.MyNetWorkBroadcastReceive"
+            android:name="com.xyb513951.mydazahui.receive.MyNetWorkBroadcastReceive"
             android:enabled="true"
             android:exported="false">
             <intent-filter>

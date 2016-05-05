@@ -196,7 +196,7 @@
             android:layout_marginTop="10dp"
             android:visibility="gone">
 
-            <com.lanou3g.mydazahui.utils.listview_for_scrollview.ListViewForScrollView
+            <com.xyb513951.mydazahui.utils.listview_for_scrollview.ListViewForScrollView
                 android:id="@+id/Comment_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -204,7 +204,7 @@
                 android:dividerHeight="1dp"
                 android:visibility="gone">
 
-            </com.lanou3g.mydazahui.utils.listview_for_scrollview.ListViewForScrollView>
+            </com.xyb513951.mydazahui.utils.listview_for_scrollview.ListViewForScrollView>
         </android.support.v7.widget.CardView>
 
     </LinearLayout>
